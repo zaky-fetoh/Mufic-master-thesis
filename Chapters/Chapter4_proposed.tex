@@ -1,6 +1,6 @@
 % Chapter Template
 
-\chapter{Proposed Work} % Main chapter title
+\chapter{Proposed Methodology I} % Main chapter title
 
 \label{chp:proposed} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 In this chapter two methodologies for COVID19 detection is presented. Methodology I present light CNN architecture for COVID19 detection which does not require large computational power to run. Methodology I does not care about the scale of the pneumonia. While methodology II does.
@@ -87,15 +87,15 @@ Fig. \ref{fig4} represents the building block layer of the feature extraction ph
 \end{center}
 \end{figure*}
 
+\begin{figure*}
+    \begin{center}
+    \includegraphics[height=37mm,width=14.0cm]{Figures/fig5.jpg}
+    \caption{The complete proposed tailored CNN architecture.}
+    \label{fig5}
+    \end{center}
+    \end{figure*}
+    
 Unlike the traditional neural network, which is fully connected to the previous layer, convolutional neural network is connected locally to a local region of the previous feature map. This introduces the concept of the network receptive field \cite{luo2016understanding}. Receptive field should be large enough to capture large patterns in the input chest X-Ray image. Therefore, any consecutive convolutional layers in the proposed method without a pooling layer in between a larger kernel size is used in one of them. Residual Separated block, RSB, in Fig. \ref{fig4} may have kernel sizes of 3, 5, 7, and 9, respectively.\\
 Fig. \ref{fig5} Represent a complete CNN architecture.
-
-\begin{figure*}
-\begin{center}
-\includegraphics[height=37mm,width=14.0cm]{Figures/fig5.jpg}
-\caption{The complete proposed tailored CNN architecture.}
-\label{fig5}
-\end{center}
-\end{figure*}
 
 
