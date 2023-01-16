@@ -7,20 +7,17 @@
 
 
 
+\begin{figure}[th]
+    \centering
+
+    \includegraphics[height=40mm,width=8.0cm]{Figures/fig1.jpg}
+    % \decoRule
+    \caption{The phases of the proposed method.}
+    \label{fig1}
+    \end{figure}
 
 \section{The Proposed Method}
-In this section,  a  proposed  method to detect COVID-19 disease from chest X-Ray images is presented. The proposed method exploits CNN model to classify the  input chest X-Ray image to one of two categories; normal case or Covid-19 case. The proposed method consists of three phases: preprocessing, feature extraction, and classification. The proposed method phases are shown in Fig.\ref{fig1}. 
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[height=40mm,width=8.0cm]{Figures/fig1.jpg}
-\caption{The phases of the proposed method.}
-\end{center}
-\label{fig1}
-\end{figure}
-
-
+In this section,  a  proposed  method to detect COVID-19 disease from chest X-Ray images is presented. The proposed method exploits CNN model to classify the input chest X-Ray image to one of two categories; normal case or Covid-19 case. The proposed method consists of three phases: preprocessing, feature extraction, and classification. The proposed method phases are shown in Fig.\Ref{fig1}. 
 
 \subsection{The Preprocessing Phase}
 
@@ -48,26 +45,28 @@ Unlike the  normalization method presented in \cite{ioffe2015batch}, the batch n
 CNN models achieved an outstanding success in image recognition \cite{lecun2015deep}. This phase  is responsible for extracting spatial features from the normalized chest X-Ray image using a tailored CNN model.  This phase is based on learning the CNN model by the input preprocessed chest X-Ray images. The design of the tailored CNN model is described as follows: 
 
 \textit{1) Separable CNN kernels}
-
-Kernel separability\cite{rigamonti2013learning} \cite{szegedy2017inception} is based on decomposing a 2D convolution kernel to  linear combinations of two 1D vectors which leads to a large reduction in  the total number of resulting parameters. For example, a 2D kernel of size $9 \times 9$ has a total number of $9^2 = 81$  trained parameters. Whereas in the case of separating this 2D kernel to  linear combinations of two 1D vectors of sizes $9 \times 1$ and $1 \times 9$, this results in a total number of  $9 + 9 = 18$ trained parameters. As a consequence, kernel separability reduces the number of  CNN model operations (such as the multiplication and the addition). A  2D kernel of $k \times k$ applied for 2D signal with spatial dimensions of $ M \times N$ has a total number of  $(N-4)(M-4)\times k^2$ operations but in case of  applying kernel separability  yields $2(N-4)(M-4)k$ operations. The flow of separated convolution operations is summarized in Fig. \ref{fig2}. Fig. \ref{fig3} represents the structure, denoted by Separated Convolutional Layer, used in the proposed method with kernel size of $(M\times N)$ and satisfying the convolutional kernel separability. Separated Convolutional Layer is composed of three consecutive layers. The first convolutional layer has a kernel size of $(M\times1)$ and the number of convolutional neuron and  filters are equal to the number of channels as the input feature map and the convolution operations are performed in a channel wise. The second layer  operates in the same way as the first layer but it has a kernel of size $(1\times M)$. The third layer is the convolutional layer with kernel of size $(1\times1)$ and number of convolutional neuron is $N$. The collaboration of the three layers are  connected to preform similarly to the convolutional layer with kernel size of $(M\times M)$ and number of neuron and filter are the same as $N$ but with large difference in the performance.
-
-
 \begin{figure*}
 \begin{center}
 \includegraphics[height=33mm,width=14.0cm]{Figures/fig2.jpg}
 \caption{Separable convolution  $Gy$ and $Gx$ have kernel size of $M\times1$ and $1 \times M$. The combination of these kernels is approximately a $M\times M$ kernel  and depth wise convolution are applied by a $1\times1$ convolution. The output depth  is padded with zeros to have the same spatial size of  $Gy, Gx$. $Gy, Gx$ are performed channel wise. }
-\end{center}
 \label{fig2}
+\end{center}
+
 \end{figure*}
 
 
 \begin{figure}
 \begin{center}
 \includegraphics[height=34mm,width=7.0cm]{Figures/fig3.jpg}
-\caption{Separated Convolutional Layer: composed of three consecutive layers. The first Convolutional layer has a kernel size of $(M\times1)$ and $D$  convolutional neuron. The second layer  operates in the same way as the first layer but it has a kernel of size $(1\times M)$ and $D$ convolutional neuron. The third layer is the convolutional layer with kernel of size $(1\times1)$ and number of convolutional neuron is $N$.}
-\end{center}
+\caption{Separated Convolutional Layer}{ composed of three consecutive layers. The first Convolutional layer has a kernel size of $(M\times1)$ and $D$  convolutional neuron. The second layer  operates in the same way as the first layer but it has a kernel of size $(1\times M)$ and $D$ convolutional neuron. The third layer is the convolutional layer with kernel of size $(1\times1)$ and number of convolutional neuron is $N$.}
 \label{fig3}
+\end{center}
+
 \end{figure}
+    
+Kernel separability\cite{rigamonti2013learning} \cite{szegedy2017inception} is based on decomposing a 2D convolution kernel to  linear combinations of two 1D vectors which leads to a large reduction in  the total number of resulting parameters. For example, a 2D kernel of size $9 \times 9$ has a total number of $9^2 = 81$  trained parameters. Whereas in the case of separating this 2D kernel to  linear combinations of two 1D vectors of sizes $9 \times 1$ and $1 \times 9$, this results in a total number of  $9 + 9 = 18$ trained parameters. As a consequence, kernel separability reduces the number of  CNN model operations (such as the multiplication and the addition). A  2D kernel of $k \times k$ applied for 2D signal with spatial dimensions of $ M \times N$ has a total number of  $(N-4)(M-4)\times k^2$ operations but in case of  applying kernel separability  yields $2(N-4)(M-4)k$ operations. The flow of separated convolution operations are summarized in Fig. \ref{fig2}. Fig. \ref{fig3} represents the structure, denoted by Separated Convolutional Layer, used in the proposed method with kernel size of $(M\times N)$ and satisfying the convolutional kernel separability. Separated Convolutional Layer is composed of three consecutive layers. The first convolutional layer has a kernel size of $(M\times1)$ and the number of convolutional neuron and  filters are equal to the number of channels as the input feature map and the convolution operations are performed in a channel wise. The second layer  operates in the same way as the first layer but it has a kernel of size $(1\times M)$. The third layer is the convolutional layer with kernel of size $(1\times1)$ and number of convolutional neuron is $N$. The collaboration of the three layers are  connected to preform similarly to the convolutional layer with kernel size of $(M\times M)$ and number of neuron and filter are the same as $N$ but with large difference in the performance.
+
+
 
 \textit{2)  Batch Normalization and  Activation function}
 
@@ -137,8 +136,8 @@ Fig. \ref{fig4} represents the building block layer of the feature extraction ph
 \begin{center}
 \includegraphics[height=38mm,width=14.0cm]{Figures/fig4.jpg}
 \caption{The stack of residual separated block  (RSB) consists of four layer of separated convolutional layer each of which is followed by batch normalization and activation function.}
-\end{center}
 \label{fig4}
+\end{center}
 \end{figure*}
 
 Unlike the traditional neural network, which is fully connected to the previous layer, convolutional neural network is connected locally to a local region of the previous feature map. This introduces the concept of the network receptive field \cite{receptivefield}. Receptive field should be large enough to capture large patterns in the input chest X-Ray image. Therefore, any consecutive convolutional layers in the proposed method without a pooling layer in between a larger kernel size is used in one of them. Residual Separated block, RSB, in Fig. \ref{fig4} may have kernel sizes of 3, 5, 7, and 9, respectively.\\
@@ -150,6 +149,6 @@ Fig. \ref{fig5} Represent a complete CNN architecture.
 \begin{center}
 \includegraphics[height=37mm,width=14.0cm]{Figures/fig5.jpg}
 \caption{The complete proposed tailored CNN architecture.}
-\end{center}
 \label{fig5}
+\end{center}
 \end{figure*}
