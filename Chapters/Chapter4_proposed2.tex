@@ -2,19 +2,18 @@
 
 \chapter{Proposed Methodology II} % Main chapter title
 
-\label{chp:proposed} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+\label{chp:proposed2} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
+
+CNN, like many computer vision models, is a scale-variant \cite{van2017learning} model such that it cannot recognize objects at various scales unless it explicitly trained to recognize such objects.  This chapter presents a CNN architecture that learn multiscale features using scale pyramid. Scale pyramid is constructed using atrous convolution. The correct scale from scale pyramid is selected using the spatial attention mechanism.
 \section{Methodology II} 
 
 \begin{center}
     \begin{figure*}[htbp]
     \centerline{\includegraphics[height=40mm,width=15cm]{Figures/ProposedPipe.png}}
-    \caption{Proposed method for COVID-19 classification from CXR images.}
-    \label{ProposedPipe}
-    \end{figure*}
-    \end{center}
+    \caption{Proposed method for COVID-19 classification from CXR images.}\label{ProposedPipe}\end{figure*}\end{center}
     
-The proposed system presented in this paper proposes a novel  CNN micro-architecture model for learning  scale-invariant features of   CXR  images and then classifies these features into normal or COVID-19 cases. Fig. \ref{ProposedPipe} illustrates the proposed end-to-end pipeline  of the proposed system. The proposed system depends on a novel Spatially weighted Atrous Spatial Pyramid Pooling (SWASPP) to extract multi-scale features of input CXR images. A novel attention model is then used to fuse the extracted multi-scale  features and select the relevant scale features that the next CNN network should consider.
+The proposed system presented in this chapter proposes a novel CNN micro-architecture model for learning  scale-invariant features of   CXR images and then classifies these features into normal or COVID-19 cases. Fig. \ref{ProposedPipe} illustrates the proposed end-to-end pipeline  of the proposed system. The proposed system depends on a novel Spatially weighted Atrous Spatial Pyramid Pooling (SWASPP) to extract multi-scale features of input CXR images. A novel attention model is then used to fuse the extracted multi-scale  features and select the relevant scale features that the next CNN network should consider.
 \subsection{Data augmentation}
 
 
@@ -30,7 +29,7 @@ The first phase of the proposed CXR classification system is data augmentation. 
 \begin{center}
     \begin{figure}[htbp]
     \centerline{\includegraphics[height=40mm,width=9cm]{Figures/freqJitt.png}}
-    \caption{The resulting CXR image from Texture augmentation \textbf{left}: is the original image. \textbf{Right} is the augmented  CXR Image}
+    \caption{Texture Augmentation}{The resulting CXR image from Texture augmentation \textbf{left}: is the original image. \textbf{Right} is the augmented  CXR Image}
     \label{resltaug}
     \end{figure}
     \end{center} 
@@ -59,14 +58,14 @@ Atrous convolution is a powerful technique for adjusting the resolution of  conv
 To fuse the produced feature maps representing different scales of the input image, an attention module is added. Attention module can be thought as a pixel level classification of which scale does this spatial position belong. Fig. \ref{attain} illustrates the proposed attention module structure. Proposed attention module generates four heatmaps. The first three heatmaps correspond to the three scale feature maps while the remaining heatmap corresponds to the input feature map itself. These heatmaps are summed  up to one (\textit{i.e.,} for a  spatial position 
 $(x, y)$, $\sum_{i =1}^{4} H(i,x,y) = 1$ where $H(i,x,y)$ is the $i$ heatmap produced by the attention module). To make sure this property holds, softmax function is used. 
 
-The proposed mirco-architecture uses a pixel level weights produced by corresponding attention module rather than a single weight value for each scale. A single input CXR image may have multiple COVID-19 pneumonia scales which effectively lead to simply averaging the scale space when using single waight for each scale on scale space. In SWASPP, every convolution operation is followed by a BN and leakyReLU \cite{krizhevsky2012imagenet} non-linearity except the re-projection layers that used to project back to the input space. 
-BN allows the use of larger learning rate\cite{ioffe2015batch} and makes network stable during training\cite{ioffe2015batch}. BN makes the loss landscape of the optimization proplem significantly smoother\cite{santurkar2018does}.
-leakyRelu is used to reduce the vanishing gradient problem \cite{krizhevsky2012imagenet}.
+The proposed mirco-architecture uses a pixel level weights produced by corresponding attention module rather than a single weight value for each scale. A single input CXR image may have multiple COVID-19 pneumonia scales which effectively lead to simply averaging the scale space when using single weight for each scale on scale space. In SWASPP, every convolution operation is followed by a BN and leakyReLU \cite{krizhevsky2012imagenet} non-linearity except the re-projection layers that used to project back to the input space. 
+BN allows the use of larger learning rate\cite{ioffe2015batch} and makes network stable during training\cite{ioffe2015batch}. BN makes the loss landscape of the optimization problem significantly smoother\cite{santurkar2018does}.
+leakyReLU is used to reduce the vanishing gradient problem \cite{krizhevsky2012imagenet}.
 A bottleneck is introduced within both the attention module and multi-scale feature extractor layer. A bottleneck in SWASPP is used to project the input feature map of dimension $C_{in}\times H\times W$ to $32\times H\times W$ then re-project back to $C_{in}\times H\times W$. Multi-scale feature extraction is preformed on the projected dimension. Same logic is applied to the attention module where the input feature map is projected to a dimension of $16\times H\times W$.
 This bottleneck allows the efficient use of model capacity and reduce the network computational complexity \cite{huang2017densely}. 
 
 \subsection{Proposed CNN Architecture}
-SWASPP is densely stacked \cite{huang2017densely} together as Fig. \ref{denseB} illustrates. this kind of connectivity allows implicit deep supervisions as each layer is effectively connected to the last layer using shorter path also facilitate feature reuse \cite{huang2017densely}. Residual layers are easier to optimize if the required mapping is the identity mapping or simply near to it \cite{he2016deep}. Densely stacked SWASPP is denoted by (DSWASPP). Convolutional part of proposed model consists of stacking six DSWASPP layers such that the first four layers are interconnected using maxpooling to reduce the spatial size and enlarge the Network receptive field. A single level Spatial Pyramid Pooling (SPP) \cite{he2015spatial} is added after to produce a fixed size feature vector for a variable size input. SPP layer divides the input feature map into $10\times 10 = 100$ bins then performs a $max$ for each bin as an aggregation function. 
+SWASPP is densely stacked \cite{huang2017densely} together as Fig. \ref{denseB} illustrates. This kind of connectivity allows implicit deep supervisions as each layer is effectively connected to the last layer using shorter path also facilitate feature reuse \cite{huang2017densely}. Residual layers are easier to optimize if the required mapping is the identity mapping or simply near to it \cite{he2016deep}. Densely stacked SWASPP is denoted by (DSWASPP). Convolutional part of proposed model consists of stacking six DSWASPP layers such that the first four layers are interconnected using maxpooling to reduce the spatial size and enlarge the Network receptive field. A single level Spatial Pyramid Pooling (SPP) \cite{he2015spatial} is added after to produce a fixed size feature vector for a variable size input. SPP layer divides the input feature map into $10\times 10 = 100$ bins then performs a $max$ for each bin as an aggregation function. 
 \begin{center}
 \begin{figure}[htbp]
 \centerline{\includegraphics[height=30mm,width=6cm]{Figures/DensResd.PNG}}
@@ -131,3 +130,8 @@ The fixed length feature vector produced by SPP is used as an input to dropout \
     \label{PCNN}
     \end{center}
     \end{table}
+
+\section{Summary}
+
+CNN is a scale variant model. Atrous convolution is used to construct the scale space of the input feature. To select the correct scale of the input a spatial attention module is used.  A novel CNN architecture is proposed that internally produces multiscale feature maps. To learn a compact representation a bottleneck dimension is introduced in both the multiscale feature extractor module and the attention module.
+
