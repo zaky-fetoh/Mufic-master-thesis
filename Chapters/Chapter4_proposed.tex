@@ -3,7 +3,7 @@
 \chapter{Proposed Methodology I} % Main chapter title
 
 \label{chp:proposed1} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
-This chapter presents a lightweight architecture for COVID19 detection. 
+This chapter presents a lightweight architecture for COVID-19 detection which is based on spatial kernel separability and residual connection. 
 
 \begin{figure}[th]
     \centering
@@ -18,7 +18,7 @@ In this section, a  proposed  method I to detect COVID-19 disease from chest X-R
 
 \subsection{Preprocessing Phase}
 
-The preprocessing phase is responsible for resizing and normalizing the  input  chest X-Ray images. The pre-processing phase is employed to maintain the numerical stability of the model and reduce the co-variance shift \cite{lecun1989handwritten}. In addition, this phase leads the learning model of CNN model to reduce  the required overhead to adapt to the different scales of different features of the input data. Reshaping size is determined empirically. The input  chest X-Ray image is re-sized and then  adapted and normalized to a normal distribution as follows:
+The preprocessing phase is responsible for resizing and normalizing the  input  chest X-Ray images. The pre-processing phase is employed to maintain the numerical stability of the model and reduce the co-variance shift \cite{lecun1989handwritten}. In addition, this phase leads the learning model of CNN model to reduce  the required overhead to adapt to the different scales of different features of the input data. Reshaping size is determined empirically. The input  chest X-Ray image is re-sized and then adapted and normalized to a normal distribution as follows:
 
 \begin{equation}
 Y := \frac{x_i - \mu_{\mathcal B}}{\sqrt{\sigma_{\mathcal B}^2 + \epsilon}}

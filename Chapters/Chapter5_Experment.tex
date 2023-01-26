@@ -8,12 +8,12 @@ In this chapter proposed methodologies are evaluated and compared with the relat
 All models are Trained using QaTa-Cov-19 \cite{ahishali2021advance} dataset using NVIDIA Tesla P-100 GPU and programmed using PyTorch.
 \section{QaTa-COV19 Dataset}
 \begin{center}
-    \begin{figure}[htbp]
-    \centerline{\includegraphics[height=60mm,width=9cm]{ScaleDist.png}}
-    \caption{Pneumonia Scales of QaTa-COV19-v1, Y-axis represents the frequency, number of occurrence, of a pneumonia with a particular area}
-    \label{pdist}
-    \end{figure}
-    \end{center}
+\begin{figure}[htbp]
+\centerline{\includegraphics[height=60mm,width=9cm]{ScaleDist.png}}
+\caption{Pneumonia Scales of QaTa-COV19-v1, Y-axis represents the frequency, number of occurrence, of a pneumonia with a particular area}
+\label{pdist}
+\end{figure}
+\end{center}
 QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation form CXR images. All models that used for comparison are trained using QaTa-COV19-v1. Qata-COV19-v1 consist of 4603 COVID-19 CXR and $120,013$ control group CXRs. A balanced number of samples for the two classes is used, namely 4603 CXR image for each class to train the models. Pneumonia Scales of QaTa-COV19-v1 does not exhibit a uniform distribution. Scale of the Pneumonia can be defined as number, area, of 8-neighbor connected pixels labeled as COVID-19 pneumonia. QaTa-COV19-v1 provides a binary masks of 2951 COVID-19 CXR image which can be used for approximating the distribution of scales across the data set. Fig. \ref{pdist} illustrates the statistical distribution of QaTa-COV19 scales. The non-uniform distribution of the scales allows the CNN models to only recognize the small scales and not large scales.
 
 \section{Evaluation of the Methodology I}
@@ -226,7 +226,7 @@ Proposed Network & $0.987$\\
 \label{blaccom}
 \end{center}
 \end{table}
-\subsubsection{comparing with SASPP}
+\subsubsection{Comparing with SASPP}
 Fig. \ref{saspp} illustrates the training and validation loss of training a SASPP baseline architecture. As shown in Fig. \ref{saspp} SASPP unable to generalize and start overfitting the training set. This comparison empirically shows the importance of the bottleneck introduced in the proposed architecture.
 
 \begin{center}
@@ -309,7 +309,6 @@ DenseNet-121\cite{dag}  & \textbf{0.9988} & 0.97429 & 0.9932 & \textbf{0.99974} 
 \label{prt}
 \end{figure}
 \end{center}
-
 
 Table \ref{rwcom} summarizes the comparison between the recent related works and the proposed architecture. Proposed architecture outperform these works in many metrics. As their training and testing does not depend on a balanced number of samples, accuracy and specificity are not good metrics for  evaluation. 
 
