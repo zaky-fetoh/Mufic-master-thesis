@@ -49,17 +49,17 @@ CNN models achieved an outstanding success in image recognition \cite{lecun2015d
 \label{fig2}\end{center}\end{figure*}
 
 
-\begin{figure}
-\begin{center}
-\includegraphics[height=34mm,width=7.0cm]{Figures/fig3.jpg}
-\caption{Separated Convolutional Layer}{ composed of three consecutive layers. The first Convolutional layer has a kernel size of $(M\times1)$ and $D$  convolutional neuron. The second layer  operates in the same way as the first layer but it has a kernel of size $(1\times M)$ and $D$ convolutional neuron. The third layer is the convolutional layer with kernel of size $(1\times1)$ and number of convolutional neuron is $N$.}
-\label{fig3}
-\end{center}
-\end{figure}
     
 Kernel separability\cite{rigamonti2013learning} \cite{szegedy2017inception} is based on decomposing a 2D convolution kernel to linear combinations of two 1D vectors which leads to a large reduction in  the total number of resulting parameters. For example, a 2D kernel of size $9 \times 9$ has a total number of $9^2 = 81$  trained parameters. Whereas in the case of separating this 2D kernel to  linear combinations of two 1D vectors of sizes $9 \times 1$ and $1 \times 9$, this results in a total number of  $9 + 9 = 18$ trained parameters. As a consequence, kernel separability reduces the number of CNN model operations (such as the multiplication and the addition). A  2D kernel of $k \times k$ applied for 2D signal with spatial dimensions of $ M \times N$ has a total number of  $(N-4)(M-4)\times k^2$ operations but in case of  applying kernel separability  yields $2(N-4)(M-4)k$ operations. The flow of separated convolution operations are summarized in Fig. \ref{fig2}. Fig. \ref{fig3} represents the structure, denoted by Separated Convolutional Layer, used in the proposed method with kernel size of $(M\times N)$ and satisfying the convolutional kernel separability. Separated Convolutional Layer is composed of three consecutive layers. The first convolutional layer has a kernel size of $(M\times1)$ and the number of convolutional neuron and  filters are equal to the number of channels as the input feature map and the convolution operations are performed in a channel wise. The second layer  operates in the same way as the first layer but it has a kernel of size $(1\times M)$. The third layer is the convolutional layer with kernel of size $(1\times1)$ and number of convolutional neuron is $N$. The collaboration of the three layers are  connected to preform similarly to the convolutional layer with kernel size of $(M\times M)$ and number of neuron and filter are the same as $N$ but with large difference in the performance.
 
 
+\begin{figure}
+    \begin{center}
+    \includegraphics[height=34mm,width=7.0cm]{Figures/fig3.jpg}
+    \caption{Separated Convolutional Layer}{ composed of three consecutive layers. The first Convolutional layer has a kernel size of $(M\times1)$ and $D$  convolutional neuron. The second layer  operates in the same way as the first layer but it has a kernel of size $(1\times M)$ and $D$ convolutional neuron. The third layer is the convolutional layer with kernel of size $(1\times1)$ and number of convolutional neuron is $N$.}
+    \label{fig3}
+    \end{center}
+    \end{figure}
 
 \subsubsection{ Batch Normalization and  Activation function}
 
