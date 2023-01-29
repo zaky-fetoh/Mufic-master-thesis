@@ -23,13 +23,8 @@ To fully determine the behavior of a convolutional layer, we still need to speci
 \begin{itemize}
     \item \textbf{Padding.} Padding is used to preserve the spatial dimension of the input feature map after the convolution operation is performed. Typically, it is performed by inserting $\lfloor K/2 \rfloor$ columns for both sides and $\lfloor K/2 \rfloor$ rows to the top and bottom.
     \item \textbf{Stride.} Stride is the step taken between two centers when performing the convolution operation. Typically, Stride is equal to $1$. Stride can act as down sampling operation that can be performed instead of the pooling operation.
-    \item Dilation.
-    \item Grouping.
+    \item \textbf{Dilation.} Dilation is a technique that enlarge the kernel by inserting zeros between its consecutive elements. As a result it covers a larger area of the input without increasing the total number of parameters. Which can be discribed as \[y[i]=\sum_{k}^{K} x[i+r\times k] w[k]\] where $x$ is the input signal, $w$ is the convolutional filter with size of $K$, $y$ is the resultant signal, and $r$ is the dilation rate.
 \end{itemize}
-
-
-
-
 
 \begin{figure}
     \begin{center}
@@ -40,21 +35,162 @@ To fully determine the behavior of a convolutional layer, we still need to speci
 \end{figure}
 
 
-Batch normalization algorithm is described as follows:
+Generally, each convolutional layer computes some activation based on its input and a nonlinear function. Activation function used in each layer have a great effect on the modeling of the problem and also the semantic assigned to the output of some units is affected by this choice. The most important activation functions will be introduced in the following section.
 
-\vspace*{1.3\baselineskip}
-\begin{algorithmic}[1]
+\section{Activation functions}\label{sec:activations}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figures/Actfuncs.png}
+\caption{Some of the most common activation functions: sigmoid, tanh, ReLU and Leaky ReLU. ReLU and Leaky ReLU are overlapping for $z \geq 0$. Best viewed in colors.}
+\label{fig:activations}
+\end{figure}
 
-\REQUIRE : Minibatch activation values $x$ : $\mathcal B = \{x_{1,\ldots,m}\}$ ; parameters to be learned $\gamma$ ,$\beta$.
+The activation function is one of the most important component of an CNN. To tackle non-linearly separable problems it is imperative to map the input into a space that is linearly separable. The activation function does this by performing an \emph{element-wise nonlinear transformation} of the pre-activation that comes from the linear combination of the convolutional layer.
 
-\ENSURE  : $\{y_i = \mathrm{BN}_{\gamma,\beta}(x_i)\}$
-\vspace*{.7\baselineskip}
-\STATE $\mu_{\mathcal B} \leftarrow \frac1m \sum_{i = 1}^m x_i$
-\vspace*{.7\baselineskip}
-\STATE $\sigma^2_{\mathcal B} \leftarrow \frac1m \sum_{i=1}^m (x_i - \mu_{\mathcal B})^2$
-\vspace*{.7\baselineskip}
-\STATE $\hat x_i \leftarrow \frac{x_i - \mu_{\mathcal B}}{\sqrt{\sigma_{\mathcal B}^2 + \epsilon}}$
-\vspace*{.7\baselineskip}
-\STATE $y_i \leftarrow \gamma \hat x_i + \beta \equiv \mathrm{BN}_{\gamma,\beta}(x_i)$
+The linear combination of the convolutional layer and the nonlinearity work together closely: the latter is usually fixed and does not evolve during training, but maps its input to a highly non-linear space; the former, is determined by the learned weights which is learned during the training process and uses the activation function to map the calculated activation into a new space where they are simpler and easier to separate. It is interesting to point out that $N$ consecutive linear combination is a single linear combination. Activation function breaks this property and low introducing deeper networks.
 
-\end{algorithmic}
+In the following subsection common activation function is presented.
+
+\subsection{Sigmoid}\label{sec:logistic}
+The sigmoid, often called \emph{logistic}, is a differentiable monotonically
+increasing function that takes any real-valued number and maps it to $[0, 1]$.
+As illustrates in its representation in~\ref{fig:activations}, for large
+negative numbers it approaches $0$. However, for large positive numbers it
+approaches to $1$. It is defined as
+
+\begin{equation}\label{eq:logistic}
+    logistic(\mathbf{z}) = \frac{1}{1+\exp(-\mathbf{z})}.
+\end{equation}
+
+\noindent The logistic function is the most used nonlinearity historically due to its possible interpretation as the firing probability of a neuron given its activation: when the activation is low the neuron fires less often whereas when the activation is high the frequency of the spikes increases.
+
+Another very important property of the logistic function is that it is a very
+simple and fast derivative computation such as follows:
+
+\begin{align}\label{eq:logistic_derivative}
+\begin{split}% to show one label only
+    \frac{\partial}{\partial \mathbf{z}}logistic(\mathbf{z}) &=
+        \frac{\exp(\mathbf{-z})}{\left(1+\exp(-\mathbf{z})\right)^2} ,\\
+    &= \frac{1}{1+\exp(-\mathbf{z})} \cdot
+        \frac{\exp(-\mathbf{z})}{1+\exp(-\mathbf{z})} ,\\
+    &= logistic(\mathbf{z}) \cdot
+        \frac{\exp(-\mathbf{z})}{1+\exp(-\mathbf{z})} ,\\
+    &= logistic(\mathbf{z}) \cdot
+        \frac{1+\exp(-\mathbf{z})-1}{1+\exp(-\mathbf{z})} ,\\
+    &= logistic(\mathbf{z}) \cdot
+        \left(1-\frac{1}{1+\exp(-\mathbf{z})}\right) ,\\
+    &= logistic(\mathbf{z}) \cdot (1-logistic(\mathbf{z})).
+\end{split}
+\end{align}
+
+It becomes out of favor due to the following major drawbacks :
+\begin{itemize}
+    \item \emph{Saturation region which weaken the gradient propagation:}
+        backpropagation algorithm exploits the gradient of the loss function to update the parameters of the network. 
+        However, sigmoid have a derivative of zero at both of ends which saturates the training. This problem -- often referred to as~\emph{vanishing gradient problem} -- makes training very slow or prevents it in some cases. As a result sigmoid requires a very careful initialization of the weights of the network.
+    \item \emph{The output is not zero-centered:} 
+    according to \cite{ioffe2015batch} normalized activation (i.e., activation with zeros mean and unit variance) can accelerate the training. However, sigmoid always has non-negative activation as result non zero-center mean which slow down the training.
+\end{itemize}
+
+\subsection{Hyperbolic tangent (tanh)}\label{sec:tanh}
+
+The hyperbolic tangent,~\emph{tanh}, is a differentiable monotonically increasing function that maps any real-valued number to $[-1, 1]$. This nonlinearity has the same problems as sigmoid except its activation is zeros-center.
+
+\begin{equation}\label{eq:tanh}
+    tanh(\mathbf{z}) = \frac{1-exp(-2\mathbf{z})}{1+exp(-2\mathbf{z})}.
+\end{equation}
+
+
+\subsection{Rectified Linear Unit (ReLU)}\label{sec:relu}
+Rectified Linear Unit (ReLU) is introduced in~\cite{krizhevsky2012imagenet}.It has become the nonlinearity of choice in many applications~\cite{krizhevsky2012imagenet}\cite{he2016deep}. It is defined as
+
+\begin{equation}\label{eq:relu}
+    relu(\mathbf{z}) = max(0, \mathbf{z}).
+\end{equation}
+
+Although very simple, it has some very interesting properties\cite{he2015delving} and only a few drawbacks:
+
+\begin{itemize}
+    \item \emph{No positive saturation:} the ReLU is zero for non-positive
+        inputs, but does not saturate otherwise. This ensures a flow of
+        gradient whenever the input is positive, that was found to
+        significantly speed up the convergence of training.
+    \item \emph{Cheap to compute:} as opposed to many other activation
+        functions that require expensive operations, such as for instance
+        exponentials, ReLU's implementation simply amounts to thresholding at
+        zero. Another important characteristic is that the gradient is trivial
+        to compute:
+
+        \begin{equation}\label{eq:relu_derivative}
+            \nabla (relu(\mathbf{z}^{(l)})) =
+                \begin{cases}
+                    \mathbf{a}^{(l-1)},  & \text{if } \mathbf{z}^{(l)} > 0 ,\\
+                    0,          & \text{if } \mathbf{z}^{(l)} < 0 ,\\
+                    undefined,  & \text{if } \mathbf{z}^{(l)} = 0.
+                \end{cases}
+        \end{equation}
+
+    \item \emph{Induce sparsity:} ReLU units induce sparsity, indeed whenever
+        the input preactivation is negative their activation is zero. Sparsity
+        is usually a desired property: as opposed to dense encoding, sparsity
+        will produce representations where only a few entries change upon small
+        variations of the input, i.e., it will produce a representation that is
+        more consistent and robust to perturbations. Furthermore, sparsity
+        allows for a more compact encoding, which is desirable in many contexts
+        such as, e.g., data compression and efficient data transfer.  Finally,
+        it is also usually easier to linearly separate sparse
+        representations~\citep{Glorot+al-AI-2011-small}.
+    \item \emph{ReLU units can die:} when a large gradient flows through a ReLU
+        unit it can change its weights in such a way that will prevent it from
+        ever being active again. In this case every input will put the ReLU
+        unit on the flat zero side. This will prevent any gradient flow and the
+        unit will never leave this state becoming \emph{de~facto} "dead". This
+        can be alleviated by using a lower learning rate or choosing some
+        modification of ReLU less sensitive to this problem.
+\end{itemize}
+
+\subsection{Leaky Rectified Linear Unit (Leaky ReLU)}\label{sec:lrelu}
+Leaky ReLUs are one of the most adopted alternatives to ReLUs. They have been
+proposed as a way to alleviate the dying units problem of ReLUs, by preventing
+the unit from saturating thus allowing a small gradient to always flow through
+the unit, potentially recovering extreme values of the weights. Leaky ReLUs are
+defined as
+
+\begin{equation}\label{eq:lrelu}
+    leaky\_relu(\mathbf{z}) = max(\beta*\mathbf{z}, \mathbf{z}),
+\end{equation}
+
+\noindent where $\beta$ is a small constant.
+
+\subsection{Softmax}\label{sec:softmax}
+One peculiar nonlinearity that deserves a particular mention is the softmax.
+This function differs from the previously described activations in that it
+does not only depend on the value of the preactivation in one dimension (i.e.,
+the value of one unit), but rather on the preactivation in all the dimensions
+altogether. The softmax is a \emph{squashing~function} that maps its input to a
+categorical distribution. It is defined as
+
+\begin{equation}\label{eq:softmax}
+    softmax(z_i) = \frac{\exp(z_i)}{\sum_{k=0}^K{\exp(z_k)}},
+\end{equation}
+
+\noindent where $K$ is the number of classes, i.e., of dimensions (or neurons).
+
+Note that it is possible to add a temperature parameter $T$ to the softmax that
+allows it to control its steepness (see~\ref{fig:softmax}), i.e., to
+control the randomness of predictions. When $T$ is high the distribution over
+the classes will be more uniform - with the extreme case of $T = \inf$, where
+all the classes have equal probability. When $T$ is low, the probability curve
+is more peacky on the class with higher probability and has a light tail on the
+other classes.
+
+\begin{equation}\label{eq:softmax_tmp}
+    softmax(z_i) = \frac{\exp(z_i / T)}
+                        {\sum_{k=0}^K{\exp(z_k / T)}}.
+\end{equation}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Softmaxbehaviour.png}
+    \caption{The behaviour of softmax as temperature $T$ grows. The plots have been obtained considering a bidimensional input setting where the preactivation associated to the second class $z_1$ is always $1$. As $T$ decreases, the function becomes steeper.}\label{fig:softmax}
+\end{figure}
