@@ -2,13 +2,13 @@
 
 \chapter{Background} % Main chapter title
 
-\label{chp:background} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+\label{chp:background} % Change X to a consecutive number; for referencing this chapter elsewhere, use~\ref{ChapterX}
 
 This chapter includes required background to understand the thesis proposal presented in the following chapters.
 
 \section{Convolutional Neural Networks (CNN)}
 CNN is initially introduced by LeCun \cite{lecun1989handwritten} which is based on learning adaptive convolutional kernels. CNN consist of two parts convbase and densebase parts. For the Convbase instead of connecting all of the units in a layer to all the units in a preceding layer, convolutional networks organize each layer into feature maps \cite{lecun1989handwritten}, which
-can be though of as parallel planes or channels. In a convolutional layer, the weighted sums are only performed within a small local window \textit{i.e)} receptive field, and weights are identical for all pixels, just as in regular shift-invariant image convolution and correlation. This parameter sharing reduce the required total number of parameter and allows learning shift invariant convolutional kernels. These convolutional kernels produce equivariant features maps. Fig. \ref{lenet} represents typical CNN architecture of LeNet.
+can be though of as parallel planes or channels. In a convolutional layer, the weighted sums are only performed within a small local window \textit{i.e)} receptive field, and weights are identical for all pixels, just as in regular shift-invariant image convolution and correlation. This parameter sharing reduce the required total number of parameter and allows learning shift invariant convolutional kernels. These convolutional kernels produce equivariant features maps. Fig.~\ref{lenet} represents typical CNN architecture of LeNet.
 \begin{figure}
     \begin{center}
         \includegraphics[width=\textwidth]{Figures/LeNetCNN.jpeg}
@@ -17,7 +17,7 @@ can be though of as parallel planes or channels. In a convolutional layer, the w
     \end{center}
 \end{figure}
 \subsection{Convolutional Layer}
-The building block of the convolutional layer is the 2D convolutional kernel. Fig. \ref{conv2Dlayer} illustrates the 2D convolutional layer. Each 2D convolution kernel takes as input all of the $C_{i-1}$ channels in the preceding layer, windowed to a small area, and produces the values in one of the $C_{i}$ channels in the next layer. For each of the output channels, we have $K^2\times C_{i-1}$ kernel weights, so the total number of learnable parameters in each convolutional layer is $K^2\times C_{i-1} \times C_{i}$. In Fig. \ref{conv2Dlayer}, we have $C_{i-1} = 6$ input channels and $C_{i} = 4$ output channels, with an $K = 3$ convolution window, for a total of $9 \times 6 \times 4$ learnable weights, shown in the middle column of the figure. Since the convolution is applied at each of the $W \times H$ pixels in a given layer, the amount of computation (multiply-adds) in each forward and backward pass
+The building block of the convolutional layer is the 2D convolutional kernel. Fig.~\ref{conv2Dlayer} illustrates the 2D convolutional layer. Each 2D convolution kernel takes as input all of the $C_{i-1}$ channels in the preceding layer, windowed to a small area, and produces the values in one of the $C_{i}$ channels in the next layer. For each of the output channels, we have $K^2\times C_{i-1}$ kernel weights, so the total number of learnable parameters in each convolutional layer is $K^2\times C_{i-1} \times C_{i}$. In Fig.~\ref{conv2Dlayer}, we have $C_{i-1} = 6$ input channels and $C_{i} = 4$ output channels, with an $K = 3$ convolution window, for a total of $9 \times 6 \times 4$ learnable weights, shown in the middle column of the figure. Since the convolution is applied at each of the $W \times H$ pixels in a given layer, the amount of computation (multiply-adds) in each forward and backward pass
 over one sample in a given layer is $W\times H \times K^{2} \times C_{i-1} \times C_{i}$.
 To fully determine the behavior of a convolutional layer, we still need to specify the following hyperparameter:
 \begin{itemize}
@@ -54,7 +54,7 @@ In the following subsection common activation function is presented.
 \subsection{Sigmoid}\label{sec:logistic}
 The sigmoid, often called \emph{logistic}, is a differentiable monotonically
 increasing function that takes any real-valued number and maps it to $[0, 1]$.
-As illustrates in its representation in~\ref{fig:activations}, for large
+As illustrates in its representation in Fig.~\ref{fig:activations}, for large
 negative numbers it approaches $0$. However, for large positive numbers it
 approaches to $1$. It is defined as
 
@@ -108,19 +108,11 @@ Rectified Linear Unit (ReLU) is introduced in~\cite{krizhevsky2012imagenet}.It h
     relu(\mathbf{z}) = max(0, \mathbf{z}).
 \end{equation}
 
-Although very simple, it has some very interesting properties\cite{he2015delving} and only a few drawbacks:
+Although very simple, it has some very interesting properties\cite{he2015delving} as follows:
 
 \begin{itemize}
-    \item \emph{No positive saturation:} the ReLU is zero for non-positive
-        inputs, but does not saturate otherwise. This ensures a flow of
-        gradient whenever the input is positive, that was found to
-        significantly speed up the convergence of training.
-    \item \emph{Cheap to compute:} as opposed to many other activation
-        functions that require expensive operations, such as for instance
-        exponentials, ReLU's implementation simply amounts to thresholding at
-        zero. Another important characteristic is that the gradient is trivial
-        to compute:
-
+    \item \emph{No positive saturation:} the ReLU does not response, or saturate, for non-positive inputs, but does not otherwise. This ensures a flow of gradient, update signal, whenever the input is non-negative, that was found to significantly speed up the convergence of training.
+    \item \emph{Cheap to compute:} unlike many other activation functions which requires expensive computation, such as exponential function, ReLU's implementation simply a threshold at zero. Another important characteristic is that the gradient is trivial to compute:
         \begin{equation}\label{eq:relu_derivative}
             \nabla (relu(\mathbf{z}^{(l)})) =
                 \begin{cases}
@@ -130,31 +122,13 @@ Although very simple, it has some very interesting properties\cite{he2015delving
                 \end{cases}
         \end{equation}
 
-    \item \emph{Induce sparsity:} ReLU units induce sparsity, indeed whenever
-        the input preactivation is negative their activation is zero. Sparsity
-        is usually a desired property: as opposed to dense encoding, sparsity
-        will produce representations where only a few entries change upon small
-        variations of the input, i.e., it will produce a representation that is
-        more consistent and robust to perturbations. Furthermore, sparsity
-        allows for a more compact encoding, which is desirable in many contexts
-        such as, e.g., data compression and efficient data transfer.  Finally,
-        it is also usually easier to linearly separate sparse
-        representations~\citep{Glorot+al-AI-2011-small}.
-    \item \emph{ReLU units can die:} when a large gradient flows through a ReLU
-        unit it can change its weights in such a way that will prevent it from
-        ever being active again. In this case every input will put the ReLU
-        unit on the flat zero side. This will prevent any gradient flow and the
-        unit will never leave this state becoming \emph{de~facto} "dead". This
-        can be alleviated by using a lower learning rate or choosing some
-        modification of ReLU less sensitive to this problem.
+    \item \emph{Induce sparsity:} ReLU units induce sparsity, whenever the input is negative their activation is zero. Sparsity is a desired property: as opposed to dense encoding, sparsity will produce representations where only a few entries change upon small variations of the input, i.e., it will produce a representation that is more consistent and robust to perturbations. Furthermore, sparsity allows compact encoding, which is desirable in many contexts such as, e.g., data compression and efficient data transfer.  Finally, it is also usually easier to linearly separate sparse representations~\cite{GlorotDeep2011}.
+    \item \emph{ReLU units can die:} 
+    ReLU does not restrict the gradient flow from the positive part. Large gradient can update the weight in a such way it can not activate again, i.e, it always produces a negative value. This problem can be partially solved with some ReLU variant such as leaky ReLU or a parametric ReLU.  
 \end{itemize}
 
 \subsection{Leaky Rectified Linear Unit (Leaky ReLU)}\label{sec:lrelu}
-Leaky ReLUs are one of the most adopted alternatives to ReLUs. They have been
-proposed as a way to alleviate the dying units problem of ReLUs, by preventing
-the unit from saturating thus allowing a small gradient to always flow through
-the unit, potentially recovering extreme values of the weights. Leaky ReLUs are
-defined as
+Leaky ReLUs have been proposed as a way to mitigate the saturated units of ReLUs caused by extreme update, by preventing the unit from have zero gradient thus allowing a  gradient to flow through the unit, potentially recovering extreme values of the weights. Leaky ReLUs are widely adapted and defined as follows:
 
 \begin{equation}\label{eq:lrelu}
     leaky\_relu(\mathbf{z}) = max(\beta*\mathbf{z}, \mathbf{z}),
@@ -163,12 +137,7 @@ defined as
 \noindent where $\beta$ is a small constant.
 
 \subsection{Softmax}\label{sec:softmax}
-One peculiar nonlinearity that deserves a particular mention is the softmax.
-This function differs from the previously described activations in that it
-does not only depend on the value of the preactivation in one dimension (i.e.,
-the value of one unit), but rather on the preactivation in all the dimensions
-altogether. The softmax is a \emph{squashing~function} that maps its input to a
-categorical distribution. It is defined as
+ Unlike previously mentioned functions softmax differs in that it does depend in all the values of the  dimensions altogether to produce the categorical distribution of the over $N$ classes. It defined as follows:
 
 \begin{equation}\label{eq:softmax}
     softmax(z_i) = \frac{\exp(z_i)}{\sum_{k=0}^K{\exp(z_k)}},
@@ -176,21 +145,16 @@ categorical distribution. It is defined as
 
 \noindent where $K$ is the number of classes, i.e., of dimensions (or neurons).
 
-Note that it is possible to add a temperature parameter $T$ to the softmax that
-allows it to control its steepness (see~\ref{fig:softmax}), i.e., to
-control the randomness of predictions. When $T$ is high the distribution over
-the classes will be more uniform - with the extreme case of $T = \inf$, where
-all the classes have equal probability. When $T$ is low, the probability curve
-is more peacky on the class with higher probability and has a light tail on the
-other classes.
+Temperature parameter $T$ can be used with the softmax which controls its steepness (see Fig.~\ref{fig:softmax}), i.e., to manage the randomness of predictions. High temperature, case of $T = \inf$, produces a uniform categorical distribution. While small temperature produces peaked probability distribution for the larger value.
+
 
 \begin{equation}\label{eq:softmax_tmp}
     softmax(z_i) = \frac{\exp(z_i / T)}
-                        {\sum_{k=0}^K{\exp(z_k / T)}}.
+    {\sum_{k=0}^K{\exp(z_k / T)}}.
 \end{equation}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\textwidth]{Figures/Softmaxbehaviour.png}
-    \caption{The behaviour of softmax as temperature $T$ grows. The plots have been obtained considering a bidimensional input setting where the preactivation associated to the second class $z_1$ is always $1$. As $T$ decreases, the function becomes steeper.}\label{fig:softmax}
+    \caption{The steepness of softmax function as temperature $T$ grows.}\label{fig:softmax}
 \end{figure}
