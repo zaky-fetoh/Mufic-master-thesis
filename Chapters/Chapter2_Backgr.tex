@@ -158,3 +158,59 @@ Temperature parameter $T$ can be used with the softmax which controls its steepn
     \includegraphics[width=\textwidth]{Figures/Softmaxbehaviour.png}
     \caption{The steepness of softmax function as temperature $T$ grows.}\label{fig:softmax}
 \end{figure}
+
+\section{Pooling}\label{sec:pooling}
+
+In addition to discrete convolutions themselves, {\em pooling\/} operations
+constitute another important building block in CNNs. Pooling operations reduce
+the size of feature maps by using some function to summarize subregions, such
+as taking the average or the maximum value.
+
+Pooling works by sliding a window across the input and feeding the content of
+the window to a {\em pooling function}. In some sense, pooling works very much
+like a discrete convolution, but replaces the linear combination described by
+the kernel with some other function. Fig. \ref{fig:numerical_average_pooling}
+provides an example for average pooling, and Fig. \ref{fig:numerical_max_pooling}
+does the same for max pooling.
+
+The following properties affect the output size $o_j$ of a pooling layer
+along axis $j$:
+
+\begin{itemize}
+    \item $i_j$: input size along axis $j$,
+    \item $k_j$: pooling window size along axis $j$,
+    \item $s_j$: stride (distance between two consecutive positions of the
+        pooling window) along axis $j$.
+\end{itemize}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_00.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_01.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_02.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_03.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_04.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_05.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_06.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_07.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_average_pooling_08.pdf}
+    \caption{\label{fig:numerical_average_pooling} Computing the output values
+        of a $3 \times 3$ average pooling operation on a $5 \times 5$ input
+        using $1 \times 1$ strides.}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_00.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_01.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_02.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_03.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_04.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_05.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_06.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_07.pdf}
+    \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_08.pdf}
+    \caption{\label{fig:numerical_max_pooling} Computing the output values of a
+        $3 \times 3$ max pooling operation on a $5 \times 5$ input using $1
+        \times 1$ strides.}
+\end{figure}
