@@ -266,12 +266,72 @@ where $\sigma$ denotes the sigmoid function,  $CONV_{7\times7}$ represents a con
     \end{center}
 \end{figure}
 
-\section{Initialization}
-
 \section{Normalization}
+Normalization is crucial for training a deep network. Normalization allows the use of larger learning rate and results in smoother loss landscape of the objective function. Different types are summarized as follows:
+\subsection{Batch Normalization}
+As proposed in~\cite{ioffe2015batch} batch normalization is reduces {\em  Internal Covariate Shift} (ICS). ICS is defined as the change in the distribution of network activations due to the change in network parameters during training. Batch Normalization (BN) mitigate the ICS by normalizing the internal feature maps, minibatch, to have zero mean and unit variance. BN also allows the CNN to undo the normalization by scaling and shifting the normalized features using $\gamma$, $\beta$. 
+
+BN is applied to each layer for a minibatch $\mathcal{B}$ as follows:
+\begin{equation}
+\begin{split}
+    & \mu_{\mathcal{B}} = \frac{1}{m}\sum^{m}_{i=1}x_{i}\\
+    &  \sigma^{2}_{\mathcal{B}} = \frac{1}{m}\sum^{m}_{i=1}\left(x_{i}-\mu_{\mathcal{B}}\right)^{2}\\
+    &  \hat{x}_{i} = \frac{x_{i} - \mu_{\mathcal{B}}}{\sqrt{\sigma^{2}_{\mathcal{B}}+\epsilon}} \\
+    &  y_{i} = \gamma\hat{x}_{i} + \beta = \text{BN}_{\gamma, \beta}\left(x_{i}\right) \\
+\end{split}
+\end{equation}
+BN has many benefits which is summarized as follows:
+\begin{itemize}
+    \item \textbf{Accelerate network training.} BN allows larger learning rate.
+    \item \textbf{Regularization effect.} BN has regularization effect due to batch construction is done stochastically.
+    \item \textbf{Mitigate the effect of saturating activation function.} Normalization performed by BN relocate the layer activation to linear regime of saturating activation function such as sigmoid.
+\end{itemize}
+
+\subsection{Layer Normalization}
+
+Unlike batch normalization, Layer Normalization~\cite{ba2016layer} directly estimates the normalization statistics from the summed inputs to the neurons within a hidden layer so the normalization does not introduce any new dependencies between training samples.
+
+We compute the layer normalization statistics over all the hidden units in the same layer as follows:
+
+\begin{equation}
+\begin{split}
+    & \mu^{l} = \frac{1}{H}\sum^{H}_{i=1}a_{i}^{l}\\
+    &  \sigma^{l} = \sqrt{\frac{1}{H}\sum^{H}_{i=1}\left(a_{i}^{l}-\mu^{l}\right)^{2}} \\
+\end{split}
+\end{equation}
+where $H$ denotes the number of hidden units in a layer. Under layer normalization, all the hidden units in a layer share the same normalization terms $\mu$ and $\sigma$, but different training samples have different normalization terms. Unlike batch normalization, layer normalization does not impose any constraint on the size of the mini-batch and it can be used in the pure online regime with batch size of 1 sample.
 
 \section{Augmentation}
+Data augmentation~\cite{balestriero2022effects} is a technique that is  used for enlarging the training set, based on different modifications, using label preserving transformation. Data augmentation not only helps to grow the dataset but it also increases the diversity of the dataset and introduce  robustness to these transformations. When training machine learning models, data augmentation acts as a regularizer and helps to avoid overfitting.
+
+Data augmentation techniques have been found useful in domains like NLP and computer vision. In computer vision, transformations like cropping, flipping, and rotation are used. Fig. \ref{fig:DADeg} represents pre-class performance to the degree of augmentation.
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{Figures/labelpreserveAug.png}
+        \caption{\label{fig:DADeg}Data augmentation using crop augmentation with different preserving degrees and the corresponding accuracy of recognizing certain classes using ResNet}
+    \end{center}
+\end{figure}
+
 
 \section{Dropout}
+
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{Figures/oriDropout.png}
+        \caption{\label{fig:Dropout} Dropout Neural network Model. \textbf{Left}: A standard network with two hidden layers. \textbf{Right}: An example of a thinned net produced by applying dropout to the network on the left. Crossed units have been dropped.}
+    \end{center}
+\end{figure}
+Dropout~\cite{srivastava2014dropout} is a regularization technique for neural networks that drops a unit (along with connections) at training time with a specified probability $p$ (a common value is $p=0.5$). At test time, all units are present, but with weights scaled by $p$ (i.e. $w$ becomes $pw$).
+Dropout has the following benefits. 
+\begin{itemize}
+    \item \textbf{Reduces co-adaptation between the neurons.} Complex co-adaptation between neuron occurs when the neurons of the one layer depend on the neurons on next layers to correct their errors. Dropout fixes this issue by making neuron existance stochastic.
+    \item \textbf{Implicit ensemble.} Dropout  approximately combining exponential number different thinned neural network architectures efficiently
+\end{itemize}
+Fig.~\ref{fig:Dropout} illustrates the operation of the Dropout.
+
+\section{Initialization}
+
+\section{Optimization}
 
 \section{Summary}
