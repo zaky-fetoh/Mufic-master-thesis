@@ -330,8 +330,24 @@ Dropout has the following benefits.
 \end{itemize}
 Fig.~\ref{fig:Dropout} illustrates the operation of the Dropout.
 
-\section{Initialization}
+\section{Multiscale Recognition}
+CNN,  like many computer vision models, is a scale-variant \cite{van2017learning} model such that it cannot recognize objects at various scales unless it explicitly trained to recognize such objects. Many approaches have been developed to overcome this problem. The first approach is referred to as \textit{shared-net}. Shared-net approach creates a scale-pyramid of the input image  to train a single shared network using  multiple scales. This shared network produces a feature vector for each scale which in turn is fused with an aggregation function to produce the final prediction \cite{farabet2012learning}\cite{lin2016efficient}\cite{felzenszwalb2009object}\cite{ciregan2012multi}. Shared-network needs to evaluate each scale independently which is a time-consuming.
 
-\section{Optimization}
+The second approach is to reuse low level features produced by the intermediate CNN layers using a skip connection \cite{chen2014semantic}\cite{hariharan2015hypercolumns}. These features are considered multi-scale due to the different receptive field of the corresponding layers. The training of these networks is performed through two phases. Backbone network is trained in the first phase.  Then, it is fine-tuned during multi-scale feature extraction \cite{long2015fully}\cite{lin2017feature}. The drawback of this approach is the separation between the classifier training and the feature extraction.\\
+\begin{center}
+    \begin{figure}
+    \centerline{\includegraphics[width=\textwidth]{Figures/AtrousConv.PNG}}
+    \caption{A grid represents a feature map and the circle inside the cell represents the corresponding value of $2\times 2$ convolutional kernel. \textbf{left}: A $2\times 2$ convolutional kernel with an atrous rate $r=1$. \textbf{middle}: A $2\times 2$ convolutional kernel with an atrous rate $r=2$. \textbf{right}: A $2\times 2$ convolutional kernel with an atrous rate $r=3$.}
+    \label{AtrousConv}
+    \end{figure}
+    \end{center}
+The third and the  recent approach is to deploy atrous convolution \cite{holschneider1990real} in CNN context \cite{chen2017deeplab}\cite{giusti2013fast}. Atrous convolution is defined as follows: \[y[i]=\sum_{k}^{K} x[i+r\times k] w[k]\] where $x$ is the input signal, $w$ is the convolutional filter with size of $K$, $y$ is the resultant signal, and $r$ is the atrous rate. Atrous convolution can be seen as a convolution  operation between the input signal and the upsampled version of the filter. This upsampling is performed by introducing $r-1$ zeros between the kernel values. Also, Atrous convolution can be seen as a  convolution between the downsampled version of the input signal and the kernel. Atrous convolution allows the change in the receptive field and controls the input signal resolution without increasing the parameter number \cite{chen2017rethinking} (\textit{i.e,} a $3\times 3$ convolutional kernel and a dilation rate of $r=2$ has the same receptive field of $5\times 5$ convolutional kernel and dilation rate of $r=1$). Atrous convolution can be used to build the resultant scale-space through  performing Atrous convolution with multiple Atrous rates, $r$, which is known as Atrous Spatial pyramid Pooling (ASPP) \cite{chen2017deeplab}. ASPP has a regularization effect as it ensures that the convolutional kernels will learn  useful features   across the scale space of the input. Fig. \ref{AtrousConv} shows an example of  Atrous convolution with different rates. 
+
+
+% \section{Initialization}
+
+% \section{Optimization}
 
 \section{Summary}
+CNN is currently a state-of-the-art of many computer vision problems. CNN 
+In this chapter a required background to understand the proposed work is presented. Basic building blocks of CNN is illustrated and recent technique required to efficiently train the CNN is illustrated.
