@@ -1,0 +1,23 @@
+\begin{tabular}{llllll}
+
+Input &   Operator & t &   c & n & s \\
+
+224 × 224 × 3 &     Con 2d & 1 &  32 & 1 & 2 \\
+
+224 × 224 × 3  +  Average pool (3, 3) & bottleneck & 3 &  16 & 1 & 1 \\
+
+128 × 128 × 3\textbackslash nAverage pool (3, 3) & bottleneck & 3 &  24 & 1 & 2 \\
+
+128 × 128 × 3\textbackslash nMaxpool (2, 2) & bottleneck & 3 &  32 & 2 & 2 \\
+
+128 × 128 × 3\textbackslash nMaxpool (1, 1) & bottleneck & 3 &  64 & 2 & 1 \\
+
+64 × 64 × 3\textbackslash nMaxpool (1, 1) & bottleneck & 3 &  96 & 1 & 2 \\
+
+64 × 64 × 3 & bottleneck & 3 & 160 & 1 & 1 \\
+
+64 × 64 × 3 & bottleneck & 3 & 320 & 1 & 2 \\
+
+56 × 56 × 3 &     Con 2d & - &   k & - & - \\
+
+\end{tabular}

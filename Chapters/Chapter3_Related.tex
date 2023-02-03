@@ -59,14 +59,11 @@ Fig.~\ref{fig:RC} represent representation classification pipeline presented in~
 \end{figure}
 Authors of~\cite{ar} also evaluated SVM for classifying features produces by DenseNet121 and recorded $.98$ of accuarcy.
 
-
-
 %  \begin{algorithm}[H]
 %     \DontPrintSemicolon
 %     \caption{Sparse Representation-based Classification (SRC)}
 %     \KwIn{a matrix of training samples $A = [A_{1}, A_{2}, \dots ,A_{k}] \in \mathbb{R}^{m \times n}$ 
 %       for $k$ classes, a test sample $\mathbf{y} \in \mathbb{R}^{m}$, (and an optional error tolerance $\varepsilon > 0$).}
-  
 %     Normalize the columns of $A$ to have unit $\ell^{2}$-norm.\;
 %     Solve the $\ell^{1}$-minimization problem:
 %     $\hat{\bm{x}}_{1} = \arg \min_{x}\norm{\bm{x}}_{1}\quad \text{subject to}\quad A\bm{x} = \bm{y}$ \;
@@ -76,11 +73,39 @@ Authors of~\cite{ar} also evaluated SVM for classifying features produces by Den
 %     \For{$i = 1,\dots,k$}{something}
 %   \end{algorithm}
   
-\section{COVID-19 Detection Using DL Algorithm on CXR Images}
+\subsection{COVID-19 Detection Using DL Algorithm on CXR Images}
 
-In \cite{akt}, authors proposed a modified MobileNetV2 CNN model where the stander convolution is replaced by a depth-wise convolution. Their model is trained with $3616$ COVID-19 CXR images and 10,192 normal CXR images. Dataset is initially preprocessed by reshaping input images to $299\times299$ and image enhancement technique is applied. The model achieved a accuracy of 98\% for binary classification task.
+In~\cite{akt}, authors proposed a modified MobileNetV2 CNN model where the stander convolution is replaced by a depth-wise convolution. Their model is trained with $3616$ COVID-19 CXR images and 10,192 normal CXR images. Dataset is initially preprocessed by reshaping input images to $299\times299$ and image enhancement technique is applied. The model achieved an accuracy of 98\% for binary classification task. Fig.~\ref{fig:akterPipeline} illustrates general pipeline proposed by~\cite{akt} which is detailed as follows:
 
-In \cite{acos}, authors proposed a two phase COVID-19 multi-label classification system. The system phase I classifies the input CXR images as normal or COVID-19. In case the image  is classified as COVID-19, phase II further classifies this image as pneumonia or COVID-19. Phase I and Phase II have the same structure with a total of $8196$  local features are extracted then classified using ensemble module. Base classifier of the ensemble module consist of NB, ANN, DT and SVM. A majority voting is used to combine the predictions of these classifiers. Their system achieved accuracy of $98.062$\%  and $91.329$\% for Phase I and Phase II, respectively.\\
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{Figures/AkterPipeline.png}
+        \caption{\label{fig:akterPipeline} Pipeline proposed in~\cite{akt} for COVID-19 classification}
+    \end{center}
+\end{figure}
+
+Preprocessing phase of~\cite{akt} initially performs image augmentations which includes horizontal flip, rotation, width shift and height shift on all the extracted data from the original dataset. Also, image enhancement applied Histogram equalization, Spectrum, Grays and Cyan. The N-CLAHE algorithm was then used to normalize pictures and highlight smaller features for machine learning classifiers to notice. Thereafter, the images were resized to the classifier’s standard resolution. After resizing the picture, the machine learning classifier used the enhanced (52,000) images in a ratio of 80\% data for training, whereas 20\% was used for testing. They proposed modified MobileNetV2 network and achieved 98\% of accuracy
+
+\section{Traditional Computer Vision Models}
+\subsection{ COVID-19 detection in CXR images using
+majority voting based classifier ensemble}
+
+In~\cite{acos}, authors proposed a two phases COVID-19 multi-label classification system as illustrated in Fig.~\ref{fig:Acos}. The system phase I classifies the input CXR images as normal or COVID-19. In case the image  is classified as COVID-19, phase II further classifies this image as pneumonia or COVID-19. Phase I and Phase II have the same structure with a total of $8196$  local features are extracted then classified using ensemble module. Base classifier of the ensemble module consist of NB, ANN, DT and SVM. A majority voting is used to combine the predictions of these classifiers. Their system achieved accuracy of $98.062$\%  and $91.329$\% for Phase I and Phase II, respectively. Both Phases have same anatomy of preprocessing and feature Description.
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{Figures/ACoS.png}
+        \caption{\label{fig:Acos} Proposed machine learning pipeline of~\cite{acos}}
+    \end{center}
+\end{figure}
+Feature extraction is performed by extracting a total of 8196 features as follows:
+\begin{itemize}
+    \item 8 features using FOSF~\cite{srinivasan2008statistical}.
+    \item 88 feature using GLCM~\cite{gomez2012analysis}.
+    \item 8100 feature using HOG~\cite{dalal2005histograms}.
+\end{itemize}
+binary grey wolf optimization (BGWO)~\cite{mirjalili2014grey} is to select the most relavant features from the previously extacted features. The final prediction of the set is the majority vote of seven benchmark classifiers (ANN, KNN, NB, DT, SVM (linear kernel, radial basis function (RBF) kernel, and polynomial kernel).
+
+
 In \cite{hyp} authors have proposed a hybrid model for multilabel classification where VGG16 is used as a feature extractor. Their system is trained by a combined dataset of QaTaCov19 and Chest X-Ray achieving accuracy of $91.09$\%.
 
 Despite the high accuracy of current CNN based CXR classification methods, but these methods don't address the problem that CNN is scale variant model. This problem hinders the recognition of large scale COVID-19 pneumonia. In this paper, a novel scale-invariant CNN architecture is proposed for classification of COVID-19 pneumonia. The proposed architecture deploys Atrous convolution method for learning the scale-invariant features. Then, an attention model is utilized to automatically and internally select at which scale  CNN should consider and ignore other scales. The proposed architecture exploits texture augmentation to reduce the overfitting and artificially enlarge the training dataset. The experimental results show that proposed system outperforms  the previous  CNN based CXR classification methods  with lower trainable parameter number.
