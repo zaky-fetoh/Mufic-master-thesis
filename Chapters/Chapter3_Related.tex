@@ -86,6 +86,7 @@ In~\cite{akt}, authors proposed a modified MobileNetV2 CNN model where the stand
 
 Preprocessing phase of~\cite{akt} initially performs image augmentations which includes horizontal flip, rotation, width shift and height shift on all the extracted data from the original dataset. Also, image enhancement applied Histogram equalization, Spectrum, Grays and Cyan. The N-CLAHE algorithm was then used to normalize pictures and highlight smaller features for machine learning classifiers to notice. Thereafter, the images were resized to the classifier’s standard resolution. After resizing the picture, the machine learning classifier used the enhanced (52,000) images in a ratio of 80\% data for training, whereas 20\% was used for testing. They proposed modified MobileNetV2 network and achieved 98\% of accuracy
 
+In \cite{hyp} authors have proposed a hybrid model for multilabel classification where VGG16 is used as a feature extractor. Their system is trained by a combined dataset of QaTaCov19 and Chest X-Ray achieving accuracy of $91.09$\%.
 \section{Traditional Computer Vision Models}
 \subsection{ COVID-19 detection in CXR images using
 majority voting based classifier ensemble}
@@ -106,8 +107,9 @@ Feature extraction is performed by extracting a total of 8196 features as follow
 binary grey wolf optimization (BGWO)~\cite{mirjalili2014grey} is to select the most relavant features from the previously extacted features. The final prediction of the set is the majority vote of seven benchmark classifiers (ANN, KNN, NB, DT, SVM (linear kernel, radial basis function (RBF) kernel, and polynomial kernel).
 
 
-In \cite{hyp} authors have proposed a hybrid model for multilabel classification where VGG16 is used as a feature extractor. Their system is trained by a combined dataset of QaTaCov19 and Chest X-Ray achieving accuracy of $91.09$\%.
-
-Despite the high accuracy of current CNN based CXR classification methods, but these methods don't address the problem that CNN is scale variant model. This problem hinders the recognition of large scale COVID-19 pneumonia. In this paper, a novel scale-invariant CNN architecture is proposed for classification of COVID-19 pneumonia. The proposed architecture deploys Atrous convolution method for learning the scale-invariant features. Then, an attention model is utilized to automatically and internally select at which scale  CNN should consider and ignore other scales. The proposed architecture exploits texture augmentation to reduce the overfitting and artificially enlarge the training dataset. The experimental results show that proposed system outperforms  the previous  CNN based CXR classification methods  with lower trainable parameter number.
 
 \input{Tables/relatedlatex.tex}
+
+\section{Summary}
+CNN is a powerful computer vision model. It used intensively for COVID-19 detection. Table~\ref{tbl:related} summarizes recent related work for COVID-19 detection. Despite the high accuracy of current CNN based CXR classification methods, but these methods don't address the problem that CNN is scale variant model. This problem hinders the recognition of large scale COVID-19 pneumonia. In this thesis, a novel scale-invariant CNN architecture is proposed for classification of COVID-19 pneumonia. The proposed architecture deploys Atrous convolution method for learning the scale-invariant features. Then, an attention model is utilized to automatically and internally select at which scale  CNN should consider and ignore other scales. The proposed architecture exploits texture augmentation to reduce the overfitting and artificially enlarge the training dataset. The experimental results show that proposed system outperforms  the previous  CNN based CXR classification methods  with lower trainable parameter number.
+
