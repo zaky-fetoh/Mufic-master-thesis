@@ -1,27 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Masters/Doctoral Thesis 
-% LaTeX Template
-% Version 2.5 (27/8/17)
 %
-% This template was downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Version 2.x major modifications by:
-% Vel (vel@latextemplates.com)
-%
-% This template is based on a template by:
-% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
-% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
-%
-% Template license:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%-----------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%-----------------
-
 \documentclass[
 12pt, % The default document font size, options: 10pt, 11pt, 12pt
 %oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
@@ -45,7 +22,9 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage[backend=bibtex,style=numeric,natbib=true, sorting=none]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
 
-\addbibresource{example.bib} % The filename of the bibliography
+\addbibresource[label=refs]{example.bib} % The filename of the bibliography
+\addbibresource[label=ownpubs]{ownpubs.bib} % The filename of the bibliography
+
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 
@@ -112,15 +91,15 @@ headsepline, % Uncomment to get a line under the header
 %-----------------
 
 \begin{titlepage}
-	\begin{center}
+\begin{center}
 
-		\includegraphics[width=2cm,height=2cm]{Figures/Unilogo.png}\\ % University/department logo - uncomment to place it
+\includegraphics[width=2cm,height=2cm]{Figures/Unilogo.png}\\ % University/department logo - uncomment to place it
 
-		\vspace*{.02\textheight}
-		{\scshape\LARGE \univname\par}\vspace{0.2cm} % University name
-		\textsc{\Large Faculty of Computers and Information}\\[0.5cm] % Thesis type
-		
-		\HRule \\[0.4cm] % Horizontal line
+\vspace*{.02\textheight}
+{\scshape\LARGE \univname\par}\vspace{0.2cm} % University name
+\textsc{\Large Faculty of Computers and Information}\\[0.5cm] % Thesis type
+
+\HRule \\[0.4cm] % Horizontal line
 {\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
 \HRule \\[1.5cm] % Horizontal line
  
@@ -344,8 +323,13 @@ Adam  & Adaptive Moment Estimation \\
 %---------------
 %	BIBLIOGRAPHY
 %---------------
+% \include{Chapters/publication.tex}
+\nocite{zaki2021covid} 
+\nocite{zaki2022covid} 
+\printbibheading[heading=bibintoc]
+\printbibliography[keyword={publ}, heading=subbibliography, title={Publications}]
+\printbibliography[title={References}]
 
-\printbibliography[heading=bibintoc]
 \appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 
 \include{Chapters/ArabCV.tex}
