@@ -80,19 +80,19 @@ headsepline, % Uncomment to get a line under the header
 %	THESIS INFORMATION
 %-----------------
 
-\thesistitle{Thesis Title} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
-\supervisor{Dr. James \textsc{Smith}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\thesistitle{Automated detection of COVID-19 cases in digital medical images using deep learning approaches} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
 \examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
-\degree{Doctor of Philosophy} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
-\author{John \textsc{Smith}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\degree{Master of Science} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\author{Mahmoud Z. Fetoh} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
 \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
-\subject{Biological Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
-\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
-\university{University Name} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
-\department{Department or School Name} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
-\group{Research Group Name} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
-\faculty{Faculty Name} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+\subject{Information Technology} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{ } % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{Menofia University} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\department{Information Technology} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+\group{  } % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{Faculty of computers and information} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
 
 % \AtBeginDocument{
 % \hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
@@ -114,9 +114,9 @@ headsepline, % Uncomment to get a line under the header
 \begin{titlepage}
 \begin{center}
 
-\vspace*{.06\textheight}
+\vspace*{.02\textheight}
 {\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
-\textsc{\Large Doctoral Thesis}\\[0.5cm] % Thesis type
+\textsc{\Large Master Thesis}\\[0.5cm] % Thesis type
 
 \HRule \\[0.4cm] % Horizontal line
 {\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
@@ -130,20 +130,22 @@ headsepline, % Uncomment to get a line under the header
 \end{minipage}
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushright} \large
-\emph{Supervisor:} \\
-\supname % Supervisor name - remove the \href bracket to remove the link  
+\emph{Supervisors:} \\
+Prof. Khalid M. Amin
+Dr. Ahmed M. Hamad
+% \supname % Supervisor name - remove the \href bracket to remove the link  
 \end{flushright}
-\end{minipage}\\[3cm]
+\end{minipage}\\[2cm]
  
-\vfill
+% \vfill
 
 \large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
 \textit{in the}\\[0.4cm]
-\groupname\\\deptname\\[2cm] % Research group name and department name
- 
-\vfill
+% \groupname\\\deptname\\[2cm] % Research group name and department name
+\deptname\\[2cm] %
+% \vfill
 
-{\large \today}\\[4cm] % Date
+{\large \today}\\[2cm] % Date
 %\includegraphics{Logo} % University/department logo - uncomment to place it
  
 \vfill
@@ -192,7 +194,7 @@ headsepline, % Uncomment to get a line under the header
 
 \begin{abstract}
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+COVID-19 is a severe respiratory tract infections. COVID-19 caused by SARS-CoV-2 can readily spread through a contact with an infected person. Monotonically increasing SARS-CoV-2 infections have not only wasted lives but also severely damaged the financial systems of both developing and developed countries. This high spread rate pressure on the health care systems which rise the need to fast methods for diagnosing this disease. Convolutional Neural Networks (CNN) show a great success for various computer vision tasks. However, CNN is a scale-variant model and computationally expensive. In this Thesis, a novel architectures are proposed for multiscale feature extraction and classification and lightweight architecture for COVID-19 diagnosing. The proposed I which is a lightweight CNN model exploits spatial kernel separability to reduce the number of the training parameters to a large extent and regularize the model to only learns linear kernel. Furthermore, This model uses residual connection and batch normalization extensively to maintain the network stability during the training process and provide the model with the regularization effect to reduce the overfitting. Proposed CNN II learns multiscale features using a pyramid of shared convolution kernels with different atrous rates. This scale invariant CNN uses attention based mechanism that is used to guide and select correct scale for each input. Proposed CNN II is an end-to-end trainable network and exploit a novel augmentation technique, Texture Augmentation, to reduce the overfitting. The lightweight architecture is trained using QaTa-Cov19 benchmark dataset achieving  100\% for accuracy, sensitivity, precision and F1-score with a very low parameter count (150K) compared with the other methods in the literature.  Proposed method II achieved a 0.9929 for $F1-score$ tested on QaTa-Cov19 benchmark dataset with a total of $5,040,571$ trainable parameters.
 \end{abstract}
 
 %-----------------
@@ -201,7 +203,10 @@ The Thesis Abstract is written here (and usually kept to just this page). The pa
 
 \begin{acknowledgements}
 \addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
-The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
+
+\indent \textbf{Praise be to ALLAH first and last. Prayers and peace be upon MOHAMMED the Messenger of ALLAH}.\\
+
+I would like to thank my supervisors and my teachers \textit{Dr. Ahmed M. Hamad} and \textit{Prof. Khalid M. Amin} for their help and guide during my Study. They have been helpful with background information and have continually encouraged me and helped me with comments on my work. They always had time to discuss new ideas and give feedback on early ideas and research problems.
 \end{acknowledgements}
 
 %-----------------
@@ -220,13 +225,49 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
 
+COVID-19 & COronaVIrus Disease 2019\\
+SARS-CoV-2 & severe acute respiratory syndrome coronavirus 2\\
+WHO &  World Health Organization\\
+rRT-PCR & real-time reverse transcription polymerase chain reaction \\
+TMA &  transcription-mediated amplification\\
+RT-LAMP & reverse transcription loop-mediated isothermal amplification\\
+CXR  & Chest X-rays \\
+CNN  & convolutional Neural Network\\
+tanh & Hyperbolic tangent \\
+ReLU & Rectified Linear Unit \\
+BoW & Bag-of-Words \\
+SVM  & Support Vector Machine \\
+ICS & Internal Covariate Shift\\
+BN & Batch Normalization \\
+ASPP & Atrous Spatial pyramid \\
+RC &Representation-based classification \\
+BGWO  & binary grey wolf optimization \\
+ANN  & Artificial neural network \\
+PCA & principal component analysis \\
+DT  & Decision Tree \\
+NB  &  Naive Bayes \\
+FOSF &  first order statistical features  \\
+GLCM & Gray Level Co-occurrence Matrix \\
+HOG &  Histogram of Oriented Gradients\\
+KNN  & k-nearest neighbors \\
+RBF  & radial basis function \\
+RSB & Residual Separated Block\\
+SWASPP & Spatially weighted Atrous Spatial Pyramid\\
+DSWASPP & Densely stacked SWASPP\\
+SPP &  Spatial Pyramid Pooling\\
+SASPP-net & Switchable Atrous Spatial Pyramid Pooling\\
+FX & feature extraction modules\\
+Adam  & Adaptive Moment Estimation \\
+
 % \textbf{LAH} & \textbf{L}ist \textbf{A}bbreviations \textbf{H}ere\\
 % \textbf{WSF} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or\\
 
+
+
 \end{abbreviations}
-\begin{acronym}
-	\acro{USA}{Uited States of America}
-\end{acronym} 
+% \begin{acronym}
+% 	\acro{USA}{Uited States of America}
+% \end{acronym} 
 
 %-----------------
 %	PHYSICAL CONSTANTS/OTHER DEFINITIONS
@@ -261,7 +302,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %	DEDICATION
 %-----------------
 
-\dedicatory{For/Dedicated to/To my\ldots} 
+\dedicatory{To my Family} 
 
 
 
@@ -291,10 +332,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %	THESIS CONTENT - APPENDICES
 %---------------
 
-\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 
-\include{Chapters/ArabCV.tex}
-\include{Chapters/ArabSummery.tex}
 % Include the appendices of the thesis as separate files from the Appendices folder
 % Uncomment the lines as you write the Appendices
 
@@ -307,7 +345,10 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %---------------
 
 \printbibliography[heading=bibintoc]
+\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 
+\include{Chapters/ArabCV.tex}
+\include{Chapters/ArabSummery.tex}
 %------------
 
 \end{document}  

@@ -2,10 +2,10 @@
 
 \chapter{Experimental Results} % Main chapter title
 
-\label{chp:results} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+\label{chp:results} % Change X to a consecutive number; for referencing this chapter elsewhere, use~\ref{ChapterX}
 In this chapter proposed methodologies are evaluated and compared with the related work.
 
-All models are Trained using QaTa-Cov-19 \cite{ahishali2021advance} dataset using NVIDIA Tesla P-100 GPU and programmed using PyTorch.
+All models are Trained using QaTa-Cov-19~\cite{ahishali2021advance} dataset using NVIDIA Tesla P-100 GPU and programmed using PyTorch.
 \section{QaTa-COV19 Dataset}
 \begin{center}
 \begin{figure}[htbp]
@@ -14,18 +14,18 @@ All models are Trained using QaTa-Cov-19 \cite{ahishali2021advance} dataset usin
 \label{pdist}
 \end{figure}
 \end{center}
-QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation form CXR images. All models that used for comparison are trained using QaTa-COV19-v1. Qata-COV19-v1 consist of 4603 COVID-19 CXR and $120,013$ control group CXRs. A balanced number of samples for the two classes is used, namely 4603 CXR image for each class to train the models. Pneumonia Scales of QaTa-COV19-v1 does not exhibit a uniform distribution. Scale of the Pneumonia can be defined as number, area, of 8-neighbor connected pixels labeled as COVID-19 pneumonia. QaTa-COV19-v1 provides a binary masks of 2951 COVID-19 CXR image which can be used for approximating the distribution of scales across the data set. Fig. \ref{pdist} illustrates the statistical distribution of QaTa-COV19 scales. The non-uniform distribution of the scales allows the CNN models to only recognize the small scales and not large scales.
+QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation form CXR images. All models that used for comparison are trained using QaTa-COV19-v1. Qata-COV19-v1 consists of 4603 COVID-19 CXR and $120,013$ control group CXRs. A balanced number of samples for the two classes is used, namely 4603 CXR image for each class to train the models. Pneumonia Scales of QaTa-COV19-v1 does not exhibit a uniform distribution. Scale of the Pneumonia can be defined as number, area, of 8-neighbor connected pixels labeled as COVID-19 pneumonia. QaTa-COV19-v1 provides a binary masks of 2951 COVID-19 CXR image which can be used for approximating the distribution of scales across the dataset. Fig.~\ref{pdist} illustrates the statistical distribution of QaTa-COV19 scales. The non-uniform distribution of the scales allows the CNN models to only recognize the small scales and not large scales.
 
 \section{Evaluation of the Methodology I}
 
 Experiments are conducted on a Lenovo Z50-70 with Intel CORE i7-4510U CPU 2.00 GHz, 8GB RAM, NVIDIA GeForce 840M GPU; and with python and PyTorch library.
 
 \subsection{Details of the Proposed Architecture}
-The Proposed architecture composed Convbase and Densebase. Convbase is composed of a $6$ feature extraction modules \textit{(FX)} preceded by batch normalization layer as shown in Fig.5. Each FX module can be considered sub-sequential model consists of RSB layer followed by Batch Normalization, Max-pooling and LeakyReLU activation function. The Densebase is a two fully connected layers that classify the Convbase output.
+The Proposed architecture composed Convbase and Densebase. Convbase is composed of a $6$ feature extraction modules \textit{(FX)} preceded by batch normalization layer. Each FX module can be considered sub-sequential model consists of RSB layer followed by Batch Normalization, Max-pooling and LeakyReLU activation function. The Densebase is a two fully connected layers that classify the Convbase output.
 
 
 \subsection{Hyperparameter Specification}
-All input chest X-Ray images are resized to be $200\times 200$ . After resizing the input images, these images are fed the Convbase model part which consists of 6 layers of residual separated block. Each residual separated block is followed with batch normalization and LeakyReLU \cite{he2015delving} as activation function  as shown in. The output depth of each residual separated block is 4$\times$16, 4$\times$32, 4$\times$64, 4$\times$64, 4$\times$64 and 4$\times$16, respectively. The output of Convbase model part is 1D feature vector of 576 length. Densebase model part consists of two hidden layers. Each layer has the  size of 64 and the output layer of size 2. Each layer of Densebase layers is fully connected to its previous layer. The activation function used in the densebase model part is LeakyReLU. Table \ref{lyrSpec} summarizes the architecture hyperparameters.
+All input chest X-Ray images are resized to be $200\times 200$ . After resizing the input images, these images are fed the Convbase model part which consists of 6 layers of residual separated block. Each residual separated block is followed with batch normalization and LeakyReLU~\cite{he2015delving} as activation function. The output depth of each residual separated block is 4$\times$16, 4$\times$32, 4$\times$64, 4$\times$64, 4$\times$64 and 4$\times$16, respectively. The output of Convbase model part is 1D feature vector of 576 length. Densebase model part consists of two hidden layers. Each layer has the  size of 64 and the output layer of size 2. Each layer of Densebase layers is fully connected to its previous layer. The activation function used in the densebase model part is LeakyReLU. Table~\ref{lyrSpec} summarizes the architecture hyperparameters.
 
 \begin{table}[htbp]
 \caption{The proposed architecture hyperparameters}
@@ -62,7 +62,7 @@ LinearLayer3 & 2 & Softmax\\
 \end{table}
 
 \subsection{Network Training}
-The proposed CNN model  is trained for 22 epoch. Adaptive Moment Estimation (Adam) optimizer \cite{kingma2014adam} is a popular optimization  technique for training deep networks. Adam optimizer is used  during the training  phase of the proposed CNN model. Both batch size and Adam optimizer learning rate is changed during the training phase if the training loss stopped decreasing. Table \ref{tabTrparam} summarizes the parameters values used in the training phase of the proposed CNN model.  Fig. \ref{fig5}(a) show the progress for training and validation loss across each epoch. The difference between the training loss and validation loss through epochs show that our did not memorize the dataset.
+The proposed CNN model  is trained for 22 epoch. Adaptive Moment Estimation (Adam) optimizer~\cite{kingma2014adam} is a popular optimization  technique for training deep networks. Adam optimizer is used  during the training  phase of the proposed CNN model. Both batch size and Adam optimizer learning rate is changed during the training phase if the training loss stopped decreasing. Table~\ref{tabTrparam} summarizes the parameters values used in the training phase of the proposed CNN model. Fig.~\ref{fig5}(a) show the progress for training and validation loss across each epoch. The difference between the training loss and validation loss through epochs show that our did not memorize the dataset.
 \begin{table}[htbp]
 \caption{The change of batch size and learning rate through the Training process}
 \begin{center}
@@ -88,7 +88,7 @@ From 13 to 21 & 256 & 1e-4\\
 
 \subsection{Model Evaluation}
 
-To assess the efficiency of the proposed method,  the proposed method is compared to recent state-of-the-art methods for detecting Covid-19 cases. Experiments are conducted with the same dataset and the corresponding hyperparameter of each work. All the methods depend on CNN. The comparison is performed using precision, sensitivity, F1-score, and accuracy \cite{hossin2015review}. In addition, the number of the parameters used in the training phase is very important comparison factor. Table \ref{modelperf} depicts the comparison between state-of-the-art methods and the proposed method. As shown in the comparison, the proposed method  outperforms other methods achieving the maximum accuracy and the lowest  parameter count. 
+To assess the efficiency of the proposed method,  the proposed method is compared to recent state-of-the-art methods for detecting Covid-19 cases. Experiments are conducted with the same dataset and the corresponding hyperparameter of each work. All the methods depend on CNN. The comparison is performed using precision, sensitivity, F1-score, and accuracy~\cite{hossin2015review}. In addition, the number of the parameters used in the training phase is very important comparison factor. Table~\ref{modelperf} depicts the comparison between state-of-the-art methods and the proposed method. As shown in the comparison, the proposed method  outperforms other methods achieving the maximum accuracy and the lowest  parameter count. 
 
 
 
@@ -102,23 +102,23 @@ To assess the efficiency of the proposed method,  the proposed method is compare
 \hline
 Proposed Method & 0.15M & 100.00 & 100.00 & 100.00 &100.00\\
 \hline
-ResNet-34 \cite{nayak2021application} & 21.8M & 96.77& 100.00 & 98.36 &98.33  \\
+ResNet-34~\cite{nayak2021application} & 21.8M & 96.77& 100.00 & 98.36 &98.33  \\
 \hline
-ACoS Phase I \cite{chandra2021coronavirus}& - & 98.266 & 96.512 & 98.551 & 98.062 \\
+ACoS Phase I~\cite{chandra2021coronavirus}& - & 98.266 & 96.512 & 98.551 & 98.062 \\
 \hline
-ResNet-50 \cite{nayak2021application}& 25.6M& 95.24& 100.00& 97.56& 97.50 \\
+ResNet-50~\cite{nayak2021application}& 25.6M& 95.24& 100.00& 97.56& 97.50 \\
 \hline
-GoogleNet \cite{nayak2021application}& 5M &96.67& 96.67& 96.67& 96.67 \\
+GoogleNet~\cite{nayak2021application}& 5M &96.67& 96.67& 96.67& 96.67 \\
 \hline
-VGG-16 \cite{nayak2021application}& 138M& 95.08 & 96.67 & 95.87 &95.83\\
+VGG-16~\cite{nayak2021application}& 138M& 95.08 & 96.67 & 95.87 &95.83\\
 \hline
-AlexNet \cite{nayak2021application}& 60M& 96.72 &98.33 & 97.52& 97.50 \\
+AlexNet~\cite{nayak2021application}& 60M& 96.72 &98.33 & 97.52& 97.50 \\
 \hline
-MobileNet-V2 \cite{nayak2021application} & 3.4M &98.24& 93.33& 95.73 & 95.83 \\
+MobileNet-V2~\cite{nayak2021application} & 3.4M &98.24& 93.33& 95.73 & 95.83 \\
 \hline
-Inception-V3 \cite{nayak2021application}& 24M &96.36& 88.33 & 92.17& 92.50\\
+Inception-V3~\cite{nayak2021application}& 24M &96.36& 88.33 & 92.17& 92.50\\
 \hline
-SqueezeNet \cite{nayak2021application}& 1.25M &98.27 &95.00& 96.61& 96.67 \\
+SqueezeNet~\cite{nayak2021application}& 1.25M &98.27 &95.00& 96.61& 96.67 \\
 \hline
 \multicolumn{6}{l}{\textit{ PC is Parameter count, P is precision, S is sensitivity }}\\
 \multicolumn{6}{l}{\textit{  F1 is F1-score, and A is accuracy }}\\
@@ -185,25 +185,25 @@ SPP & ML max pooling & $14,916,420$   \\
 \label{Basarch}
 \end{center}
 \end{table}
-Table \ref{Basarch} summarizes the base-line models and the Corresponding parameter count.
+Table~\ref{Basarch} summarizes the base-line models and the Corresponding parameter count.
 \subsection{Models Training}
-Proposed architecture and baseline architecture are trained with the same hyperparameters. Dataset is split to $0.6$, $0.2$ and $0.2$ for training, validation and testing, respectively. For training a Cross Entropy Loss is used. All models trained with ADAM \cite{kingma2014adam} optimizer with learning rate start by $10^{-3}$ and reduced every time validation loss plateau by multiplying by $10^{-1}$. A Max Norm Constraint is used to clip the gradient value to norm of $1$ \cite{krizhevsky2012imagenet}. A batch size of $128$ is used to calculate the gradient.
+Proposed architecture and baseline architecture are trained with the same hyperparameters. Dataset is split to $0.6$, $0.2$ and $0.2$ for training, validation and testing, respectively. For training a Cross Entropy Loss is used. All models trained with ADAM~\cite{kingma2014adam} optimizer with learning rate start by $10^{-3}$ and reduced every time validation loss plateau by multiplying by $10^{-1}$. A Max Norm Constraint is used to clip the gradient value to norm of $1$~\cite{krizhevsky2012imagenet}. A batch size of $128$ is used to calculate the gradient.
 \subsection{Reducing the overfitting}
-Overfitting is a critical problem for training large networks \cite{krizhevsky2012imagenet}. Proposed work has reduced the overfitting by using:
+Overfitting is a critical problem for training large networks~\cite{krizhevsky2012imagenet}. Proposed work has reduced the overfitting by using:
 \begin{itemize}
-\item Using Dropout with retrain probability of $0.5$ \cite{srivastava2014dropout}.
-\item Using BatchNorm adds noise due to randomization introduced when constructing the minibatch \cite{ioffe2015batch}.
-\item Using max norm constraint \cite{krizhevsky2012imagenet}.
-\item Deep and thin architectures by design has an implicit regularization effect \cite{he2016deep}. 
-\item Augmentation process i.e.) Texture augmentation \cite{krizhevsky2012imagenet}. 
-\item The use of small kernel size \cite{simonyan2014very}.
+\item Using Dropout with retrain probability of $0.5$~\cite{srivastava2014dropout}.
+\item Using BatchNorm adds noise due to randomization introduced when constructing the minibatch~\cite{ioffe2015batch}.
+\item Using max norm constraint~\cite{krizhevsky2012imagenet}.
+\item Deep and thin architectures by design has an implicit regularization effect~\cite{he2016deep}. 
+\item Augmentation process i.e.) Texture augmentation~\cite{krizhevsky2012imagenet}. 
+\item The use of small kernel size~\cite{simonyan2014very}.
 \item Bottleneck in SWASPP module and the attention module.
 \end{itemize}
 During training no overfitting effects is observed.
 \subsection{Comparison with baselines}
 Proposed network is compared with the vanilla SPP-based Architectures and ASPP architecture.
 \subsubsection{Comparing with SPP-nets}
-Fig. \ref{SPP-train} illustrates both training loss and training and validation accuracies and losses. Table \ref{blaccom} illustrates the testing accuracy for comparison between the SPP-nets baseline and the proposed architecture.
+Fig.~\ref{SPP-train} illustrates both training loss and training and validation accuracies and losses. Table~\ref{blaccom} illustrates the testing accuracy for comparison between the SPP-nets baseline and the proposed architecture.
 \begin{table}[htbp]
 \caption{Comparison between Proposed network and baseline SPP architectures }
 \begin{center}
@@ -227,7 +227,7 @@ Proposed Network & $0.987$\\
 \end{center}
 \end{table}
 \subsubsection{Comparing with SASPP}
-Fig. \ref{saspp} illustrates the training and validation loss of training a SASPP baseline architecture. As shown in Fig. \ref{saspp} SASPP unable to generalize and start overfitting the training set. This comparison empirically shows the importance of the bottleneck introduced in the proposed architecture.
+Fig.~\ref{saspp} illustrates the training and validation loss of training a SASPP baseline architecture. As shown in Fig.~\ref{saspp} SASPP unable to generalize and start overfitting the training set. This comparison empirically shows the importance of the bottleneck introduced in the proposed architecture.
 
 \begin{center}
 \begin{figure}[htbp]
@@ -238,7 +238,7 @@ Fig. \ref{saspp} illustrates the training and validation loss of training a SASP
 \end{center}
 
 \subsection{Comparing with the related works}
-To fairly compare with the related works proposed work is further trained. Fig. \ref{ploss} shows the training and validation loss of the proposed network. Fig. \ref{pacc} shows the of the training and validation accuracy. 
+To fairly compare with the related works proposed work is further trained. Fig.~\ref{ploss} shows the training and validation loss of the proposed network. Fig.~\ref{pacc} shows the of the training and validation accuracy. 
 \begin{center}
 \begin{figure}[htbp]
 \centerline{\includegraphics[height=55mm,width=8cm]{PLOSS.PNG}}
@@ -253,7 +253,7 @@ To fairly compare with the related works proposed work is further trained. Fig. 
 \label{pacc}
 \end{figure}
 \end{center}
-Proposed Network has a sensitivity, recall, and precision of $0.994$ and $0.991$ respectively on the validation set. Precision can be improved by investigating the precision-recall trade-off. Fig. \ref{prt} shows the trade-off between precision and recall for different thresholds. A threshold of $0.618$ is used to improve the precision resulting in a sensitivity, recall, of $0.9903$ and precision of $0.9956$.
+Proposed Network has a sensitivity, recall, and precision of $0.994$ and $0.991$ respectively on the validation set. Precision can be improved by investigating the precision-recall trade-off. Fig.~\ref{prt} shows the trade-off between precision and recall for different thresholds. A threshold of $0.618$ is used to improve the precision resulting in a sensitivity, recall, of $0.9903$ and precision of $0.9956$.
 Comparison metrics are defined as follows:
 \begin{itemize}
 \item \textit{Accuracy}: is ratio of correctly classified samples to the total number of samples
@@ -288,7 +288,7 @@ DenseNet121*\cite{ar} & 0.992 & 0.9714 & - & 0.9949 & - & 6,955,906  \\
 \hline
 Inception-v3\cite{ar} & 0.993 & 0.954 & - & 0.998 & - & 21,772,450  \\
 \hline
-Modified MobileNetV2 \cite{akt}  & 0.98 & 0.98 & 0.97 & - & 0.97 & -\\
+Modified MobileNetV2~\cite{akt}  & 0.98 & 0.98 & 0.97 & - & 0.97 & -\\
 \hline
 ReCovNet-v2\cite{dag} & 0.99726 & 0.98571 & 0.94262 & 0.9977 & 0.96369 &- \\
 \hline
@@ -310,7 +310,7 @@ DenseNet-121\cite{dag}  & \textbf{0.9988} & 0.97429 & 0.9932 & \textbf{0.99974} 
 \end{figure}
 \end{center}
 
-Table \ref{rwcom} summarizes the comparison between the recent related works and the proposed architecture. Proposed architecture outperform these works in many metrics. As their training and testing does not depend on a balanced number of samples, accuracy and specificity are not good metrics for  evaluation. 
+Table~\ref{rwcom} summarizes the comparison between the recent related works and the proposed architecture. Proposed architecture outperform these works in many metrics. As their training and testing does not depend on a balanced number of samples, accuracy and specificity are not good metrics for evaluation. 
 
 
 \section{Summary}

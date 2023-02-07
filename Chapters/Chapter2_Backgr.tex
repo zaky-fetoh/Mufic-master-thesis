@@ -84,7 +84,7 @@ simple and fast derivative computation such as follows:
 \end{split}
 \end{align}
 
-It becomes out of favor due to the following major drawbacks :
+It becomes out of favor due to the following major drawbacks:
 \begin{itemize}
     \item \emph{Saturation region which weaken the gradient propagation:}
         backpropagation algorithm exploits the gradient of the loss function to update the parameters of the network. 
@@ -174,7 +174,7 @@ along axis $j$:
         pooling window) along axis $j$.
 \end{itemize}
 \subsection{Average Pooling}
-Average pooling is performed by sliding a window over the input feature map and performing and averaging the content of the window. Fig. \ref{fig:numerical_average_pooling}
+Average pooling is performed by sliding a window over the input feature map and performing and averaging the content of the window. Fig.~\ref{fig:numerical_average_pooling}
 provides an example for average pooling.
 \begin{figure}
     \centering
@@ -195,7 +195,7 @@ provides an example for average pooling.
 
 
 \subsection{Max pooling}
-Max pooling is performed same way as the average pooling performed, but instead of performing the averaging as an aggregation function it performs max function. Fig. \ref{fig:numerical_max_pooling} provides an example for average pooling.
+Max pooling is performed same way as the average pooling performed, but instead of performing the averaging as an aggregation function it performs max function. Fig.~\ref{fig:numerical_max_pooling} provides an example for average pooling.
 \begin{figure}
     \centering
     \includegraphics[width=0.32\textwidth]{pdf/numerical_max_pooling_00.pdf}
@@ -212,9 +212,7 @@ Max pooling is performed same way as the average pooling performed, but instead 
         \times 1$ strides.}
 \end{figure}
 
-
-
-CNN’s are used for feature extraction from images followed by fully connected layers for classification. As convolution operation is applied in a sliding window fashion it can accept input of varied size, resulting in a varied size output. As CNN is followed by fully connected layers which can accept input of fixed size. This makes CNN incapable of accepting varied size inputs. Thus images are first reshaped into some specific dimension before feeding into CNN. This creates another issue of image warping and reduced resolution. Spatial Pyramid pooling comes as a counter to this problem.
+CNN are used for feature extraction from images followed by fully connected layers for classification. As convolution operation is applied in a sliding window fashion it can accept input of varied size, resulting in a varied size output. As CNN is followed by fully connected layers which can accept input of fixed size. This makes CNN incapable of accepting varied size inputs. Thus images are first reshaped into some specific dimension before feeding into CNN. This creates another issue of image warping and reduced resolution. Spatial Pyramid pooling comes as a counter to this problem.
 
 \section{Spatial Pyramid Pooling}
 
@@ -249,10 +247,10 @@ Fig.~\ref{fig:SE_block} illustrates the channel attention mechanism of~\cite{hu2
 \subsection{Spatial Attention}
 Spatial attention can be considered as an adaptive spatial region selection mechanism: where to pay attention.
 
-In~\cite{woo2018cbam} generates a spatial attention map by utilizing the spatial relationship of features. Unlike channel attention, the spatial attention focuses on where is an informative part, which is complementary to the channel attention. they compute the spatial attention by first applying average-pooling and max-pooling operations over each channel and concatenate them to generate the  feature descriptor. After pooled-feature concatenation convolution layer is applied to generate a spatial attention map $\textbf{M}_{s}\left(F\right) \in \mathcal{R}^{H×W}$ which encodes the spatial importance.
+In~\cite{woo2018cbam} generates a spatial attention map by utilizing the spatial relationship of features. Unlike channel attention, the spatial attention focuses on where is an informative part, which is complementary to the channel attention. They compute the spatial attention by first applying average-pooling and max-pooling operations over each channel and concatenate them to generate the  feature descriptor. After pooled-feature concatenation convolution layer is applied to generate a spatial attention map $\textbf{M}_{s}\left(F\right) \in \mathcal{R}^{H×W}$ which encodes the spatial importance.
 We aggregate channel information of a feature map by using two pooling operations, generating two 2D maps:
 $\mathbf{F}^{s}_{avg} \in \mathbb{R}^{1\times{H}\times{W}}$
-and $\mathbf{F}^{s}_{max} \in \mathbb{R}^{1\times{H}\times{W}}$ . Each denotes average-pooled features and max-pooled features across the channel. Those are then concatenated and convolved by a standard convolution layer, producing the 2D spatial attention map. In short, the spatial attention is computed as:
+and $\mathbf{F}^{s}_{max} \in \mathbb{R}^{1\times{H}\times{W}}$. Each denotes average-pooled features and max-pooled features across the channel. Those are then concatenated and convolved by a standard convolution layer, producing the 2D spatial attention map. In short, the spatial attention is computed as:
 \begin{equation}\begin{split}
     &\textbf{M}_{s}\left(F\right) = \sigma\left(CONV_{7\times7}\left(\left[\text{AvgPool}\left(F\right);\text{MaxPool}\left(F\right)\right]\right)\right) \\
     &OR\\
