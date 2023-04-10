@@ -90,47 +90,47 @@ headsepline, % Uncomment to get a line under the header
 %	TITLE PAGE
 %-----------------
 
-\begin{titlepage}
-\begin{center}
+% \begin{titlepage}
+% \begin{center}
 
-\includegraphics[width=2cm,height=2cm]{Figures/Unilogo.png}\\ % University/department logo - uncomment to place it
+% \includegraphics[width=2cm,height=2cm]{Figures/Unilogo.png}\\ % University/department logo - uncomment to place it
 
-\vspace*{.02\textheight}
-{\scshape\LARGE \univname\par}\vspace{0.2cm} % University name
-\textsc{\Large Faculty of Computers and Information}\\[0.5cm] % Thesis type
+% \vspace*{.02\textheight}
+% {\scshape\LARGE \univname\par}\vspace{0.2cm} % University name
+% \textsc{\Large Faculty of Computers and Information}\\[0.5cm] % Thesis type
 
-\HRule \\[0.4cm] % Horizontal line
-{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
-\HRule \\[1.5cm] % Horizontal line
+% \HRule \\[0.4cm] % Horizontal line
+% {\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+% \HRule \\[1.5cm] % Horizontal line
  
-\begin{minipage}[t]{0.4\textwidth}
-\begin{flushleft} \large
-\emph{Author:}\\
-\authorname % Author name - remove the \href bracket to remove the link
-\end{flushleft}
-\end{minipage}
-\begin{minipage}[t]{0.4\textwidth}
-\begin{flushright} \large
-\emph{Supervisors:} \\
-Prof. Khalid M. Amin
-Dr. Ahmed M. Hamad
-% \supname % Supervisor name - remove the \href bracket to remove the link  
-\end{flushright}
-\end{minipage}\\[2cm]
+% \begin{minipage}[t]{0.4\textwidth}
+% \begin{flushleft} \large
+% \emph{Author:}\\
+% \authorname % Author name - remove the \href bracket to remove the link
+% \end{flushleft}
+% \end{minipage}
+% \begin{minipage}[t]{0.4\textwidth}
+% \begin{flushright} \large
+% \emph{Supervisors:} \\
+% Prof. Khalid M. Amin
+% Dr. Ahmed M. Hamad
+% % \supname % Supervisor name - remove the \href bracket to remove the link  
+% \end{flushright}
+% \end{minipage}\\[2cm]
+ 
+% % \vfill
+
+% \large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+% \textit{in the}\\[0.4cm]
+% % \groupname\\\deptname\\[2cm] % Research group name and department name
+% \deptname\\[2cm] %
+% % \vfill
+
+% {\large \today}\\[2cm] % Date
  
 % \vfill
-
-\large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
-\textit{in the}\\[0.4cm]
-% \groupname\\\deptname\\[2cm] % Research group name and department name
-\deptname\\[2cm] %
-% \vfill
-
-{\large \today}\\[2cm] % Date
- 
-\vfill
-\end{center}
-\end{titlepage}
+% \end{center}
+% \end{titlepage}
 
 %------------------
 %	DECLARATION PAGE
@@ -332,8 +332,10 @@ Adam  & Adaptive Moment Estimation \\
 
 \appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 
-\include{Chapters/ArabCV.tex}
 \include{Chapters/ArabSummery.tex}
+\include{Chapters/ArabAbst.tex}
+\include{Chapters/ArabCV.tex}
+
 %------------
 
 \end{document}  
