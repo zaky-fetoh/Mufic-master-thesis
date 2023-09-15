@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TeXtidote analysis</title>
+<style type="text/css">
+body {
+  font-family: sans-serif;
+}
+.highlight, .highlight-sh, .highlight-spelling {
+  padding: 2pt;
+  border-radius: 4pt;
+  cursor: help;
+  opacity: 0.7;
+  border: dashed 1px;
+}
+.highlight {
+  background-color: orange;
+  color: black;
+}
+.highlight-sh {
+  background-color: yellow;
+  color: black;
+}
+.highlight-spelling {
+  background-color: red;
+  color: white;
+}
+div.original-file {
+  font-family: monospace;
+  font-size: 11pt;
+  background-color: #f8f8ff;
+  padding: 20pt;
+  border-radius: 6pt;
+}
+.textidote {
+  	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiICAgd2lkdGg9IjEwMC4wOTEwNW1tIiAgIGhlaWdodD0iMTguMjA5MDk5bW0iICAgdmlld0JveD0iMCAwIDEwMC4wOTEwNSAxOC4yMDkwOTkiICAgdmVyc2lvbj0iMS4xIiAgIGlkPSJzdmc4IiAgIGlua3NjYXBlOnZlcnNpb249IjAuOTEgcjEzNzI1IiAgIHNvZGlwb2RpOmRvY25hbWU9InRleHRpZG90ZS5zdmciPiAgPGRlZnMgICAgIGlkPSJkZWZzMiIgLz4gIDxzb2RpcG9kaTpuYW1lZHZpZXcgICAgIGlkPSJiYXNlIiAgICAgcGFnZWNvbG9yPSIjZmZmZmZmIiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiICAgICBib3JkZXJvcGFjaXR5PSIxLjAiICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIgICAgIGlua3NjYXBlOnpvb209IjEiICAgICBpbmtzY2FwZTpjeD0iLTI1NC4yNTMwOSIgICAgIGlua3NjYXBlOmN5PSItMjc4LjM3NTkxIiAgICAgaW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9Im1tIiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ibGF5ZXIxIiAgICAgc2hvd2dyaWQ9ImZhbHNlIiAgICAgZml0LW1hcmdpbi10b3A9IjAiICAgICBmaXQtbWFyZ2luLWxlZnQ9IjAiICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIiAgICAgZml0LW1hcmdpbi1ib3R0b209IjAiICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE5MjAiICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDIxIiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjAiICAgICBpbmtzY2FwZTp3aW5kb3cteT0iMjY1IiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMSIgLz4gIDxtZXRhZGF0YSAgICAgaWQ9Im1ldGFkYXRhNSI+ICAgIDxyZGY6UkRGPiAgICAgIDxjYzpXb3JrICAgICAgICAgcmRmOmFib3V0PSIiPiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+ICAgICAgICA8ZGM6dHlwZSAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4gICAgICAgIDxkYzp0aXRsZSAvPiAgICAgIDwvY2M6V29yaz4gICAgPC9yZGY6UkRGPiAgPC9tZXRhZGF0YT4gIDxnICAgICBpbmtzY2FwZTpsYWJlbD0iTGF5ZXIgMSIgICAgIGlua3NjYXBlOmdyb3VwbW9kZT0ibGF5ZXIiICAgICBpZD0ibGF5ZXIxIiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI5LjczODA5NSwtNzAuNTc3NzUxKSI+ICAgIDxnICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zaXplOjIwLjkyODk0NTU0cHg7bGluZS1oZWlnaHQ6MS4yNTtmb250LWZhbWlseTpzYW5zLXNlcmlmO2xldHRlci1zcGFjaW5nOjBweDt3b3JkLXNwYWNpbmc6MHB4O2ZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgaWQ9InRleHQ4MzYiPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSAzMC43MjY4NjQsNzEuNTY2NTIgNS4yMzIyMzYsMCAwLDQuMjA5MDQ0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtNS44MTM1OTYsMCAwLDQuODEzNjU4IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTYuMjMxNTYgeiIgICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTpUdXRvcjstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOlR1dG9yO2ZpbGw6I2ZmZmZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgICBpZD0icGF0aDMzODYiIC8+ICAgICAgPHBhdGggICAgICAgICBkPSJtIDQyLjMzNTg4OCw3NS43NzU1NjQgMTEuMDQ1ODMyLDAgMCw3LjgxMzQ3MyAtNS44MTM1OTYsMCAwLDAuNjA0NjE0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTIuMDIyNTE2IHogbSA1LjIzMjIzNiw0LjIwOTA0MyAwLjU4MTM2LDAgMCwtMC42MDQ2MTQgLTAuNTgxMzYsMCAwLDAuNjA0NjE0IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzg4IiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA1My45NDQ5MTIsNzUuNzc1NTY0IDUuMjMyMjM2LDAgMCwzLjYwNDQyOSAtNS4yMzIyMzYsMCAwLC0zLjYwNDQyOSB6IG0gNS44MTM1OTYsMCA1LjIzMjIzNiwwIDAsMy42MDQ0MjkgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MjkgeiBtIC01LjgxMzU5Niw4LjQxODA4NyA1LjIzMjIzNiwwIDAsMy42MDQ0MjkgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MjkgeiBtIDUuODEzNTk2LDAgNS4yMzIyMzYsMCAwLDMuNjA0NDI5IC01LjIzMjIzNiwwIDAsLTMuNjA0NDI5IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzkwIiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA2NS41NTM5MzYsNzEuNTY2NTIgNS4yMzIyMzYsMCAwLDQuMjA5MDQ0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtNS44MTM1OTYsMCAwLDQuODEzNjU4IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTYuMjMxNTYgeiIgICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTpUdXRvcjstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOlR1dG9yO2ZpbGw6I2ZmZmZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgICBpZD0icGF0aDMzOTIiIC8+ICAgICAgPHBhdGggICAgICAgICBkPSJtIDc3LjE2Mjk2LDc1Ljc3NTU2NCA1LjIzMjIzNiwwIDAsMTIuMDIyNTE2IC01LjIzMjIzNiwwIDAsLTEyLjAyMjUxNiB6IG0gMCwtNC4yMDkwNDQgNS4yMzIyMzYsMCAwLDMuNjA0NDMgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MyB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzM5NCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gODIuOTY3NDcyLDc1Ljc3NTU2NCA1LjgxMzU5NiwwIDAsLTQuMjA5MDQ0IDUuMjMyMjM2LDAgMCwxNi4yMzE1NiAtMTEuMDQ1ODMyLDAgMCwtMTIuMDIyNTE2IHogbSA1LjIzMjIzNiw4LjQxODA4NyAwLjU4MTM2LDAgMCwtNC44MTM2NTggLTAuNTgxMzYsMCAwLDQuODEzNjU4IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzk2IiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA5NC41NzY0OTYsNzUuNzc1NTY0IDExLjA0NTgzNCwwIDAsMTIuMDIyNTE2IC0xMS4wNDU4MzQsMCAwLC0xMi4wMjI1MTYgeiBtIDUuMjMyMjM3LDguNDE4MDg3IDAuNTgxMzU3LDAgMCwtNC44MTM2NTggLTAuNTgxMzU3LDAgMCw0LjgxMzY1OCB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzM5OCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gMTA2LjE4NTUyLDcxLjU2NjUyIDUuMjMyMjQsMCAwLDQuMjA5MDQ0IDUuODEzNTksMCAwLDMuNjA0NDI5IC01LjgxMzU5LDAgMCw0LjgxMzY1OCA1LjgxMzU5LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMsMCAwLC0xNi4yMzE1NiB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzQwMCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gMTE3Ljc5NDU0LDc1Ljc3NTU2NCAxMS4wNDU4NCwwIDAsNy44MTM0NzMgLTUuODEzNiwwIDAsMC42MDQ2MTQgNS44MTM2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODQsMCAwLC0xMi4wMjI1MTYgeiBtIDUuMjMyMjQsNC4yMDkwNDMgMC41ODEzNiwwIDAsLTAuNjA0NjE0IC0wLjU4MTM2LDAgMCwwLjYwNDYxNCB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzQwMiIgLz4gICAgPC9nPiAgPC9nPjwvc3ZnPg==);
+}
+h2.filename {
+  font-family: monospace;
+}
+h1.textidote {
+  width: 378px;
+  height: 68px;
+  display: block;
+}
+.keyword1 {
+  font-weight: bold;
+  color: green;
+}
+.keyword2 {
+  font-weight: bold;
+  color: darkblue;
+}
+.comment, .comment * {
+  color: darkred;
+  font-weight: normal;
+}
+.linenb {
+  font-style: italic;
+  color: lightgrey;
+  width: 30pt;
+  float: left;
+  margin-top: 1pt;
+  margin-bottom: 1pt;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.codeline {
+  margin-left: -30pt;
+  padding-left: 60pt;
+  margin-top: 1pt;
+  margin-bottom: 1pt;
+}
+.no-text {
+  display: none;
+}
+.clear {
+  clear: both;
+}
+</style>
+</head>
+<body>
+<a href="https://sylvainhalle.github.io/textidote"><h1 class="textidote"><span class="no-text">Results of TeXtidote analysis</span></h1></a>
+<p>Here is the result of analyzing your file(s) with TeXtidote. Hover the mouse over highlighted portions of the document to read a tooltip that gives you some writing advice.</p>
+<p>Found 21 warning(s)</p>
+<div class="original-file">
+<div class="linenb">&nbsp;&nbsp;1</div><div class="codeline"><span class="comment"><span class="comment">% Chapter Template</span></span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;2</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;3</div><div class="codeline">\<span class="highlight-sh" title="This section is very short (about 21 words). You should consider merging it with another section or make it longer. [sh:seclen]">chapter</span>{Background} <span class="comment">% Main chapter title</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;4</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;5</div><div class="codeline"><span class="keyword1">\label</span>{chp:background} <span class="comment">% Change X to a consecutive number; for referencing this chapter elsewhere, use~\ref{ChapterX}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;6</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;7</div><div class="codeline">This chapter includes required background to understand the thesis proposal presented in the following chapters.</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;8</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;9</div><div class="codeline">\<span class="highlight-sh" title="If a section has sub-sections, it should have more than one such sub-section. [sh:nsubdiv]"><span class="highlight-sh" title="This section is very short (about 145 words). You should consider merging it with another section or make it longer. [sh:seclen]">section</span></span>{Convolutional Neural Networks (CNN)}</div><div class="clear"></div>
+<div class="linenb">&nbsp;10</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;11</div><div class="codeline">CNN is initially introduced by LeCun \cite{lecun1989handwritten} which is based on learning adaptive convolutional kernels. CNN consist of two parts convbase and densebase parts. For the Convbase instead of connecting all of the units in a layer to all the units in a preceding layer, convolutional networks organize each layer into feature maps \cite{lecun1989handwritten}, which</div><div class="clear"></div>
+<div class="linenb">&nbsp;12</div><div class="codeline">can be though of as parallel planes or channels. In a convolutional layer, the weighted sums are only performed within a small local window <span class="keyword1">\textit</span>{i.e)} receptive field, and weights are identical for all pixels, just as in regular shift-invariant image convolution and correlation. This parameter sharing reduce the required total number of parameter and allows learning shift invariant convolutional kernels. These convolutional kernels produce equivariant features maps. Fig.~\ref{lenet} represents typical CNN architecture of LeNet.</div><div class="clear"></div>
+<div class="linenb">&nbsp;13</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;14</div><div class="codeline">    <span class="keyword2">\begin{center}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;15</div><div class="codeline">        <span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/LeNetCNN.jpeg}</div><div class="clear"></div>
+<div class="linenb">&nbsp;16</div><div class="codeline">        <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{Typical CNN architecture</span>}</div><div class="clear"></div>
+<div class="linenb">&nbsp;17</div><div class="codeline">        <span class="keyword1">\label</span>{lenet}</div><div class="clear"></div>
+<div class="linenb">&nbsp;18</div><div class="codeline">    <span class="keyword2">\end{center}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;19</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;20</div><div class="codeline"><span class="keyword1">\subsection</span>{Convolutional Layer}</div><div class="clear"></div>
+<div class="linenb">&nbsp;21</div><div class="codeline">The building block of the convolutional layer is the 2D convolutional kernel. Fig.~\ref{conv2Dlayer} illustrates the 2D convolutional layer. Each 2D convolution kernel takes as input all of the $C_{i-1}$ channels in the preceding layer, windowed to a small area, and produces the values in one of the $C_{i}$ channels in the next layer. For each of the output channels, we have $K^2\times C_{i-1}$ kernel weights, so the total number of learnable parameters in each convolutional layer is $K^2\times C_{i-1} \times C_{i}$. In Fig.~\ref{conv2Dlayer}, we have $C_{i-1} = 6$ input channels and $C_{i} = 4$ output channels, with an $K = 3$ convolution window, for a total of $9 \times 6 \times 4$ learnable weights, shown in the middle column of the figure. Since the convolution is applied at each of the $W \times H$ pixels in a given layer, the amount of computation (multiply-adds) in each forward and backward pass</div><div class="clear"></div>
+<div class="linenb">&nbsp;22</div><div class="codeline">over one sample in a given layer is $W\times H \times K^{2} \times C_{i-1} \times C_{i}$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;23</div><div class="codeline">To fully determine the behavior of a convolutional layer, we still need to specify the following hyperparameter:</div><div class="clear"></div>
+<div class="linenb">&nbsp;24</div><div class="codeline"><span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;25</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\textbf</span>{Padding.} Padding is used to preserve the spatial dimension of the input feature map after the convolution operation is performed. Typically, it is performed by inserting $\lfloor K/2 \rfloor$ columns for both sides and $\lfloor K/2 \rfloor$ rows to the top and bottom.</div><div class="clear"></div>
+<div class="linenb">&nbsp;26</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\textbf</span>{Stride.} Stride is the step taken between two centers when performing the convolution operation. Typically, Stride is equal to $1$. Stride can act as down sampling operation that can be performed instead of the pooling operation.</div><div class="clear"></div>
+<div class="linenb">&nbsp;27</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\textbf</span>{Dilation.} Dilation is a technique that enlarge the kernel by inserting zeros between its consecutive elements. As a result it covers a larger area of the input without increasing the total number of parameters. Which can be discribed as \[y[i]=\sum_{k}^{K} x[i+r\times k] w[k]\] where $x$ is the input signal, $w$ is the convolutional filter with size of $K$, $y$ is the resultant signal, and $r$ is the dilation rate.</div><div class="clear"></div>
+<div class="linenb">&nbsp;28</div><div class="codeline"><span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;29</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;30</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;31</div><div class="codeline">    <span class="keyword2">\begin{center}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;32</div><div class="codeline">        <span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/2DConvKernels.png}</div><div class="clear"></div>
+<div class="linenb">&nbsp;33</div><div class="codeline">        <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{Convolutional layer with single input feature map and four convolutional kernels</span>}</div><div class="clear"></div>
+<div class="linenb">&nbsp;34</div><div class="codeline">        <span class="keyword1">\label</span>{conv2Dlayer}</div><div class="clear"></div>
+<div class="linenb">&nbsp;35</div><div class="codeline">    <span class="keyword2">\end{center}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;36</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;37</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;38</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;39</div><div class="codeline">Generally, each convolutional layer computes some activation based on its input and a nonlinear function. Activation function used in each layer have a great effect on the modeling of the problem and also the semantic assigned to the output of some units is affected by this choice. The most important activation functions will be introduced in the following section.</div><div class="clear"></div>
+<div class="linenb">&nbsp;40</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;41</div><div class="codeline"><span class="keyword1">\section</span>{Activation functions}<span class="keyword1">\label</span>{sec:activations}</div><div class="clear"></div>
+<div class="linenb">&nbsp;42</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;43</div><div class="codeline">\centering</div><div class="clear"></div>
+<div class="linenb">&nbsp;44</div><div class="codeline"><span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/Actfuncs.png}</div><div class="clear"></div>
+<div class="linenb">&nbsp;45</div><div class="codeline"><span class="keyword1">\caption</span>{Some of the most common activation functions: sigmoid, tanh, ReLU and Leaky ReLU. ReLU and Leaky ReLU are overlapping for $z \geq 0$.}</div><div class="clear"></div>
+<div class="linenb">&nbsp;46</div><div class="codeline"><span class="keyword1">\label</span>{fig:activations}</div><div class="clear"></div>
+<div class="linenb">&nbsp;47</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;48</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;49</div><div class="codeline">The activation function is one of the most important component of an CNN. To tackle non-linearly separable problems it is imperative to map the input into a space that is linearly separable. The activation function does this by performing an <span class="keyword1">\emph</span>{element-wise nonlinear transformation} of the pre-activation that comes from the linear combination of the convolutional layer.</div><div class="clear"></div>
+<div class="linenb">&nbsp;50</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;51</div><div class="codeline">The linear combination of the convolutional layer and the nonlinearity work together closely: the latter is usually fixed and does not evolve during training, but maps its input to a highly non-linear space; the former, is determined by the learned weights which is learned during the training process and uses the activation function to map the calculated activation into a new space where they are simpler and easier to separate. It is interesting to point out that $N$ consecutive linear combination is a single linear combination. Activation function breaks this property and low introducing deeper networks.</div><div class="clear"></div>
+<div class="linenb">&nbsp;52</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;53</div><div class="codeline">In the following subsection common activation function is presented.</div><div class="clear"></div>
+<div class="linenb">&nbsp;54</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;55</div><div class="codeline"><span class="keyword1">\subsection</span>{Sigmoid}<span class="keyword1">\label</span>{sec:logistic}</div><div class="clear"></div>
+<div class="linenb">&nbsp;56</div><div class="codeline">The sigmoid, often called <span class="keyword1">\emph</span>{logistic}, is a differentiable monotonically</div><div class="clear"></div>
+<div class="linenb">&nbsp;57</div><div class="codeline">increasing function that takes any real-valued number and maps it to $[0, 1]$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;58</div><div class="codeline">As illustrates in its representation in Fig.~\ref{fig:activations}, for large</div><div class="clear"></div>
+<div class="linenb">&nbsp;59</div><div class="codeline">negative numbers it approaches $0$. However, for large positive numbers it</div><div class="clear"></div>
+<div class="linenb">&nbsp;60</div><div class="codeline">approaches to $1$. It is defined as</div><div class="clear"></div>
+<div class="linenb">&nbsp;61</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;62</div><div class="codeline"><span class="keyword2">\begin{equation}</span><span class="keyword1">\label</span>{eq:logistic}</div><div class="clear"></div>
+<div class="linenb">&nbsp;63</div><div class="codeline">    logistic(\mathbf{z}) = \frac{1}{1+\exp(-\mathbf{z})}.</div><div class="clear"></div>
+<div class="linenb">&nbsp;64</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;65</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;66</div><div class="codeline">\noindent The logistic function is the most used nonlinearity historically due to its possible interpretation as the firing probability of a neuron given its activation: when the activation is low the neuron fires less often whereas when the activation is high the frequency of the spikes increases.</div><div class="clear"></div>
+<div class="linenb">&nbsp;67</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;68</div><div class="codeline">Another very important property of the logistic function is that it is a very</div><div class="clear"></div>
+<div class="linenb">&nbsp;69</div><div class="codeline">simple and fast derivative computation such as follows:</div><div class="clear"></div>
+<div class="linenb">&nbsp;70</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;71</div><div class="codeline"><span class="keyword2">\begin{align}</span><span class="keyword1">\label</span>{eq:logistic_derivative}</div><div class="clear"></div>
+<div class="linenb">&nbsp;72</div><div class="codeline"><span class="keyword2">\begin{split}</span><span class="comment">% to show one label only</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;73</div><div class="codeline">    \frac{\partial}{\partial \mathbf{z}}logistic(\mathbf{z}) &amp;=</div><div class="clear"></div>
+<div class="linenb">&nbsp;74</div><div class="codeline">        \frac{\exp(\mathbf{-z})}{\left(1+\exp(-\mathbf{z})\right)^2} ,\\</div><div class="clear"></div>
+<div class="linenb">&nbsp;75</div><div class="codeline">    &amp;= \frac{1}{1+\exp(-\mathbf{z})} \cdot</div><div class="clear"></div>
+<div class="linenb">&nbsp;76</div><div class="codeline">        \frac{\exp(-\mathbf{z})}{1+\exp(-\mathbf{z})} ,\\</div><div class="clear"></div>
+<div class="linenb">&nbsp;77</div><div class="codeline">    &amp;= logistic(\mathbf{z}) \cdot</div><div class="clear"></div>
+<div class="linenb">&nbsp;78</div><div class="codeline">        \frac{\exp(-\mathbf{z})}{1+\exp(-\mathbf{z})} ,\\</div><div class="clear"></div>
+<div class="linenb">&nbsp;79</div><div class="codeline">    &amp;= logistic(\mathbf{z}) \cdot</div><div class="clear"></div>
+<div class="linenb">&nbsp;80</div><div class="codeline">        \frac{1+\exp(-\mathbf{z})-1}{1+\exp(-\mathbf{z})} ,\\</div><div class="clear"></div>
+<div class="linenb">&nbsp;81</div><div class="codeline">    &amp;= logistic(\mathbf{z}) \cdot</div><div class="clear"></div>
+<div class="linenb">&nbsp;82</div><div class="codeline">        \left(1-\frac{1}{1+\exp(-\mathbf{z})}\right) ,\\</div><div class="clear"></div>
+<div class="linenb">&nbsp;83</div><div class="codeline">    &amp;= logistic(\mathbf{z}) \cdot (1-logistic(\mathbf{z})).</div><div class="clear"></div>
+<div class="linenb">&nbsp;84</div><div class="codeline"><span class="keyword2">\end{split}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;85</div><div class="codeline"><span class="keyword2">\end{align}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;86</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;87</div><div class="codeline">It becomes out of favor due to the following major drawbacks:</div><div class="clear"></div>
+<div class="linenb">&nbsp;88</div><div class="codeline"><span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;89</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\emph</span>{Saturation region which weaken the gradient propagation:}</div><div class="clear"></div>
+<div class="linenb">&nbsp;90</div><div class="codeline">        backpropagation algorithm exploits the gradient of the loss function to update the parameters of the network. </div><div class="clear"></div>
+<div class="linenb">&nbsp;91</div><div class="codeline">        However, sigmoid have a derivative of zero at both of ends which saturates the training. This problem -- often referred to as~<span class="keyword1">\emph</span>{vanishing gradient problem} -- makes training very slow or prevents it in some cases. As a result sigmoid requires a very careful initialization of the weights of the network.</div><div class="clear"></div>
+<div class="linenb">&nbsp;92</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\emph</span>{The output is not zero-centered:} </div><div class="clear"></div>
+<div class="linenb">&nbsp;93</div><div class="codeline">    according to \cite{ioffe2015batch} normalized activation (i.e., activation with zeros mean and unit variance) can accelerate the training. However, sigmoid always has non-negative activation as result non zero-center mean which slow down the training.</div><div class="clear"></div>
+<div class="linenb">&nbsp;94</div><div class="codeline"><span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;95</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;96</div><div class="codeline"><span class="keyword1">\subsection</span>{Hyperbolic tangent (tanh)}<span class="keyword1">\label</span>{sec:tanh}</div><div class="clear"></div>
+<div class="linenb">&nbsp;97</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;98</div><div class="codeline">The hyperbolic tangent,~<span class="keyword1">\emph</span>{tanh}, is a differentiable monotonically increasing function that maps any real-valued number to $[-1, 1]$. This nonlinearity has the same problems as sigmoid except its activation is zeros-center.</div><div class="clear"></div>
+<div class="linenb">&nbsp;99</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">100</div><div class="codeline"><span class="keyword2">\begin{equation}</span><span class="keyword1">\label</span>{eq:tanh}</div><div class="clear"></div>
+<div class="linenb">101</div><div class="codeline">    tanh(\mathbf{z}) = \frac{1-exp(-2\mathbf{z})}{1+exp(-2\mathbf{z})}.</div><div class="clear"></div>
+<div class="linenb">102</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">103</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">104</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">105</div><div class="codeline"><span class="keyword1">\subsection</span>{Rectified Linear Unit (ReLU)}<span class="keyword1">\label</span>{sec:relu}</div><div class="clear"></div>
+<div class="linenb">106</div><div class="codeline">Rectified Linear Unit (ReLU) is introduced in~<span class="highlight-sh" title="Put all references in a single \cite command [sh:c:mul]">\cite{krizhevsky2012imagenet}.It has become the nonlinearity of choice in many applications~\cite{krizhevsky2012imagenet}\cite</span>{he2016deep}. It is defined as</div><div class="clear"></div>
+<div class="linenb">107</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">108</div><div class="codeline"><span class="keyword2">\begin{equation}</span><span class="keyword1">\label</span>{eq:relu}</div><div class="clear"></div>
+<div class="linenb">109</div><div class="codeline">    relu(\mathbf{z}) = max(0, \mathbf{z}).</div><div class="clear"></div>
+<div class="linenb">110</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">111</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">112</div><div class="codeline">Although very simple, it has some very interesting propertie<span class="highlight-sh" title="Add a space before citation or reference. [sh:c:001]">s\cite</span>{he2015delving} as follows:</div><div class="clear"></div>
+<div class="linenb">113</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">114</div><div class="codeline"><span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">115</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\emph</span>{No positive saturation:} the ReLU does not response, or saturate, for non-positive inputs, but does not otherwise. This ensures a flow of gradient, update signal, whenever the input is non-negative, that was found to significantly speed up the convergence of training.</div><div class="clear"></div>
+<div class="linenb">116</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\emph</span>{Cheap to compute:} unlike many other activation functions which requires expensive computation, such as exponential function, ReLU's implementation simply a threshold at zero. Another important characteristic is that the gradient is trivial to compute:</div><div class="clear"></div>
+<div class="linenb">117</div><div class="codeline">        <span class="keyword2">\begin{equation}</span><span class="keyword1">\label</span>{eq:relu_derivative}</div><div class="clear"></div>
+<div class="linenb">118</div><div class="codeline">            \nabla (relu(\mathbf{z}^{(l)})) =</div><div class="clear"></div>
+<div class="linenb">119</div><div class="codeline">                <span class="keyword2">\begin{cases}</span></div><div class="clear"></div>
+<div class="linenb">120</div><div class="codeline">                    \mathbf{a}^{(l-1)},  &amp; \text{if } \mathbf{z}^{(l)} &gt; 0 ,\\</div><div class="clear"></div>
+<div class="linenb">121</div><div class="codeline">                    0,          &amp; \text{if } \mathbf{z}^{(l)} &lt; 0 ,\\</div><div class="clear"></div>
+<div class="linenb">122</div><div class="codeline">                    undefined,  &amp; \text{if } \mathbf{z}^{(l)} = 0.</div><div class="clear"></div>
+<div class="linenb">123</div><div class="codeline">                <span class="keyword2">\end{cases}</span></div><div class="clear"></div>
+<div class="linenb">124</div><div class="codeline">        <span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">125</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">126</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\emph</span>{Induce sparsity:} ReLU units induce sparsity, whenever the input is negative their activation is zero. Sparsity is a desired property: as opposed to dense encoding, sparsity will produce representations where only a few entries change upon small variations of the input, i.e., it will produce a representation that is more consistent and robust to perturbations. Furthermore, sparsity allows compact encoding, which is desirable in many contexts such as, e.g., data compression and efficient data transfer.  Finally, it is also usually easier to linearly separate sparse representations~\cite{GlorotDeep2011}.</div><div class="clear"></div>
+<div class="linenb">127</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\emph</span>{ReLU units can die:} </div><div class="clear"></div>
+<div class="linenb">128</div><div class="codeline">    ReLU does not restrict the gradient flow from the positive part. Large gradient can update the weight in a such way it can not activate again, i.e, it always produces a negative value. This problem can be partially solved with some ReLU variant such as leaky ReLU or a parametric ReLU.  </div><div class="clear"></div>
+<div class="linenb">129</div><div class="codeline"><span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">130</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">131</div><div class="codeline"><span class="keyword1">\subsection</span>{Leaky Rectified Linear Unit (Leaky ReLU)}<span class="keyword1">\label</span>{sec:lrelu}</div><div class="clear"></div>
+<div class="linenb">132</div><div class="codeline">Leaky ReLUs have been proposed as a way to mitigate the saturated units of ReLUs caused by extreme update, by preventing the unit from have zero gradient thus allowing a  gradient to flow through the unit, potentially recovering extreme values of the weights. Leaky ReLUs are widely adapted and defined as follows:</div><div class="clear"></div>
+<div class="linenb">133</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">134</div><div class="codeline"><span class="keyword2">\begin{equation}</span><span class="keyword1">\label</span>{eq:lrelu}</div><div class="clear"></div>
+<div class="linenb">135</div><div class="codeline">    leaky\_relu(\mathbf{z}) = max(\beta*\mathbf{z}, \mathbf{z}),</div><div class="clear"></div>
+<div class="linenb">136</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">137</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">138</div><div class="codeline">\noindent where $\beta$ is a small constant.</div><div class="clear"></div>
+<div class="linenb">139</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">140</div><div class="codeline">\<span class="highlight-sh" title="This subsection is very short (about 133 words). You should consider merging it with another section or make it longer. [sh:seclen]">subsection</span>{Softmax}<span class="keyword1">\label</span>{sec:softmax}</div><div class="clear"></div>
+<div class="linenb">141</div><div class="codeline"> Unlike previously mentioned functions softmax differs in that it does depend in all the values of the  dimensions altogether to produce the categorical distribution of the over $N$ classes. It defined as follows:</div><div class="clear"></div>
+<div class="linenb">142</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">143</div><div class="codeline"><span class="keyword2">\begin{equation}</span><span class="keyword1">\label</span>{eq:softmax}</div><div class="clear"></div>
+<div class="linenb">144</div><div class="codeline">    softmax(z_i) = \frac{\exp(z_i)}{\sum_{k=0}^K{\exp(z_k)}},</div><div class="clear"></div>
+<div class="linenb">145</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">146</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">147</div><div class="codeline">\noindent where $K$ is the number of classes, i.e., of dimensions (or neurons).</div><div class="clear"></div>
+<div class="linenb">148</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">149</div><div class="codeline">Temperature parameter $T$ can be used with the softmax which controls its steepness (see Fig.~\ref{fig:softmax}), i.e., to manage the randomness of predictions. High temperature, case of $T = \inf$, produces a uniform categorical distribution. While small temperature produces peaked probability distribution for the larger value.</div><div class="clear"></div>
+<div class="linenb">150</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">151</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">152</div><div class="codeline"><span class="keyword2">\begin{equation}</span><span class="keyword1">\label</span>{eq:softmax_tmp}</div><div class="clear"></div>
+<div class="linenb">153</div><div class="codeline">    softmax(z_i) = \frac{\exp(z_i / T)}</div><div class="clear"></div>
+<div class="linenb">154</div><div class="codeline">    {\sum_{k=0}^K{\exp(z_k / T)}}.</div><div class="clear"></div>
+<div class="linenb">155</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">156</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">157</div><div class="codeline"><span class="keyword2">\begin{figure}</span>[t]</div><div class="clear"></div>
+<div class="linenb">158</div><div class="codeline">    \centering</div><div class="clear"></div>
+<div class="linenb">159</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/Softmaxbehaviour.png}</div><div class="clear"></div>
+<div class="linenb">160</div><div class="codeline">    <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{The steepness of softmax function as temperature $T$ grows.}<span class="keyword1">\label</span>{fig:softmax</span>}</div><div class="clear"></div>
+<div class="linenb">161</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">162</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">163</div><div class="codeline"><span class="keyword1">\section</span>{Pooling}<span class="keyword1">\label</span>{sec:pooling}</div><div class="clear"></div>
+<div class="linenb">164</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">165</div><div class="codeline">In addition to convolutional , {\em pooling\/} operations</div><div class="clear"></div>
+<div class="linenb">166</div><div class="codeline">is an important building block in CNNs. Pooling operations reduce the spatial size of feature maps by using some aggregation, i.e) max or average, function to summarize a particular region.</div><div class="clear"></div>
+<div class="linenb">167</div><div class="codeline">The following properties affect the output size $o_j$ of a pooling layer</div><div class="clear"></div>
+<div class="linenb">168</div><div class="codeline">along axis $j$:</div><div class="clear"></div>
+<div class="linenb">169</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">170</div><div class="codeline"><span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">171</div><div class="codeline">    <span class="keyword1">\item</span> $i_j$: input size along axis $j$,</div><div class="clear"></div>
+<div class="linenb">172</div><div class="codeline">    <span class="keyword1">\item</span> $k_j$: pooling window size along axis $j$,</div><div class="clear"></div>
+<div class="linenb">173</div><div class="codeline">    <span class="keyword1">\item</span> $s_j$: stride (distance between two consecutive positions of the</div><div class="clear"></div>
+<div class="linenb">174</div><div class="codeline">        pooling window) along axis $j$.</div><div class="clear"></div>
+<div class="linenb">175</div><div class="codeline"><span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">176</div><div class="codeline"><span class="keyword1">\subsection</span>{Average Pooling}</div><div class="clear"></div>
+<div class="linenb">177</div><div class="codeline">Average pooling is performed by sliding a window over the input feature map and performing and averaging the content of the window. Fig.~\ref{fig:numerical_average_pooling}</div><div class="clear"></div>
+<div class="linenb">178</div><div class="codeline">provides an example for average pooling.</div><div class="clear"></div>
+<div class="linenb">179</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">180</div><div class="codeline">    \centering</div><div class="clear"></div>
+<div class="linenb">181</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_00.pdf}</div><div class="clear"></div>
+<div class="linenb">182</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_01.pdf}</div><div class="clear"></div>
+<div class="linenb">183</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_02.pdf}</div><div class="clear"></div>
+<div class="linenb">184</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_03.pdf}</div><div class="clear"></div>
+<div class="linenb">185</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_04.pdf}</div><div class="clear"></div>
+<div class="linenb">186</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_05.pdf}</div><div class="clear"></div>
+<div class="linenb">187</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_06.pdf}</div><div class="clear"></div>
+<div class="linenb">188</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_07.pdf}</div><div class="clear"></div>
+<div class="linenb">189</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_average_pooling_08.pdf}</div><div class="clear"></div>
+<div class="linenb">190</div><div class="codeline">    <span class="keyword1">\caption</span>{<span class="keyword1">\label</span>{fig:numerical_average_pooling} Computing the output values</div><div class="clear"></div>
+<div class="linenb">191</div><div class="codeline">        of a $3 \times 3$ average pooling operation on a $5 \times 5$ input</div><div class="clear"></div>
+<div class="linenb">192</div><div class="codeline">        using $1 \times 1$ strides.}</div><div class="clear"></div>
+<div class="linenb">193</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">194</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">195</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">196</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">197</div><div class="codeline"><span class="keyword1">\subsection</span>{Max pooling}</div><div class="clear"></div>
+<div class="linenb">198</div><div class="codeline">Max pooling is performed same way as the average pooling performed, but instead of performing the averaging as an aggregation function it performs max function. Fig.~\ref{fig:numerical_max_pooling} provides an example for average pooling.</div><div class="clear"></div>
+<div class="linenb">199</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">200</div><div class="codeline">    \centering</div><div class="clear"></div>
+<div class="linenb">201</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_00.pdf}</div><div class="clear"></div>
+<div class="linenb">202</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_01.pdf}</div><div class="clear"></div>
+<div class="linenb">203</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_02.pdf}</div><div class="clear"></div>
+<div class="linenb">204</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_03.pdf}</div><div class="clear"></div>
+<div class="linenb">205</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_04.pdf}</div><div class="clear"></div>
+<div class="linenb">206</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_05.pdf}</div><div class="clear"></div>
+<div class="linenb">207</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_06.pdf}</div><div class="clear"></div>
+<div class="linenb">208</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_07.pdf}</div><div class="clear"></div>
+<div class="linenb">209</div><div class="codeline">    <span class="keyword1">\includegraphics</span>[width=0.32\textwidth]{pdf/numerical_max_pooling_08.pdf}</div><div class="clear"></div>
+<div class="linenb">210</div><div class="codeline">    <span class="keyword1">\caption</span>{<span class="keyword1">\label</span>{fig:numerical_max_pooling} Computing the output values of a</div><div class="clear"></div>
+<div class="linenb">211</div><div class="codeline">        $3 \times 3$ max pooling operation on a $5 \times 5$ input using $1</div><div class="clear"></div>
+<div class="linenb">212</div><div class="codeline">        \times 1$ strides.}</div><div class="clear"></div>
+<div class="linenb">213</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">214</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">215</div><div class="codeline">CNN are used for feature extraction from images followed by fully connected layers for classification. As convolution operation is applied in a sliding window fashion it can accept input of varied size, resulting in a varied size output. As CNN is followed by fully connected layers which can accept input of fixed size. This makes CNN incapable of accepting varied size inputs. Thus images are first reshaped into some specific dimension before feeding into CNN. This creates another issue of image warping and reduced resolution. Spatial Pyramid pooling comes as a counter to this problem.</div><div class="clear"></div>
+<div class="linenb">216</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">217</div><div class="codeline"><span class="keyword1">\section</span>{Spatial Pyramid Pooling}</div><div class="clear"></div>
+<div class="linenb">218</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">219</div><div class="codeline">The convolutional layers process arbitrary variable length, and also they produce outputs of variable sizes. Classifiers like SVM, decision tree or fully-connected layers require fixed-length input feature vector. Such vectors can be generated by the Bag-of-Words (BoW) approach~\cite{sivic2003video} that pools the features together. Spatial pyramid pooling~\cite{grauman2005pyramid},~\cite{lazebnik2006beyond} improves BoW in where it can preserve the spatial information of the input by pooling local spatial bins. These spatial bins have sizes that are proportional to the input image, so the number of bins is fixed regardless of the input dimensions. While sliding window pooling of the previous deep networks~\cite{krizhevsky2012imagenet} the number of sliding windows depends on the input size. To adopt the deep network for images of arbitrary sizes, we replace the last pooling layer with a spatial pyramid pooling layer.</div><div class="clear"></div>
+<div class="linenb">220</div><div class="codeline">Fig.~\ref{originalSpp} illustrates our method. In each spatial bin, we pool the responses of each filter. The outputs of the spatial pyramid pooling are $kM$-dimensional vectors with the number of bins denoted as M (k is the number of filters in the last convolutional layer). The fixed-dimensional vectors are the input to the fully-connected layer. With spatial pyramid pooling, the input image can be of any sizes.</div><div class="clear"></div>
+<div class="linenb">221</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">222</div><div class="codeline">    <span class="keyword2">\begin{center}</span></div><div class="clear"></div>
+<div class="linenb">223</div><div class="codeline">        <span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/SPP.png}</div><div class="clear"></div>
+<div class="linenb">224</div><div class="codeline">        <span class="keyword1">\caption</span>{<span class="keyword1">\label</span>{originalSpp} spatial pyramid</div><div class="clear"></div>
+<div class="linenb">225</div><div class="codeline">        pooling layer. Input feature map is divided to pins for each pin an aggregation function is performed}</div><div class="clear"></div>
+<div class="linenb">226</div><div class="codeline">    <span class="keyword2">\end{center}</span></div><div class="clear"></div>
+<div class="linenb">227</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">228</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">229</div><div class="codeline"><span class="keyword1">\section</span>{Neural Network Attention}</div><div class="clear"></div>
+<div class="linenb">230</div><div class="codeline">In a vision system, an attention mechanism can be defined as a dynamic selection process that is realized by weighting features according to the importance of the input in an adaptive manner. Attention attempts to selectively concentrate on relevant information or features while ignoring other irrelevant ones.  Currently, attention based models have shown a great success in natural language processing \cite{vaswani2017attention} and computer vision tasks \cite{guo2022attention}. Attention modules guide the network to focus on the most relevant features only \cite{guo2022attention}. Attention has many categories such as channel attention and spatial attention. Stated as follows </div><div class="clear"></div>
+<div class="linenb">231</div><div class="codeline"><span class="keyword1">\subsection</span>{Channel Attention}</div><div class="clear"></div>
+<div class="linenb">232</div><div class="codeline">Internal CNN feature maps have different channels in different usually each channel represents different objects~\cite{chen2017sca}. Channel attention recalibrates the weight of each channel, and can be viewed as an object selection process, thus determining what to pay attention to.~\cite{hu2018squeeze} is a pioneering channel attention mechanism which is formulated as follows</div><div class="clear"></div>
+<div class="linenb">233</div><div class="codeline"> <span class="keyword2">\begin{equation}</span></div><div class="clear"></div>
+<div class="linenb">234</div><div class="codeline">    <span class="keyword2">\begin{split}</span></div><div class="clear"></div>
+<div class="linenb">235</div><div class="codeline">        &amp;Att(X) = \sigma(W_2ReLU(W_1GAP(X)))\\</div><div class="clear"></div>
+<div class="linenb">236</div><div class="codeline">        &amp;Y = Att(X)X </div><div class="clear"></div>
+<div class="linenb">237</div><div class="codeline">    <span class="keyword2">\end{split}</span></div><div class="clear"></div>
+<div class="linenb">238</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">239</div><div class="codeline">\noindent where $\sigma$ is sigmoid activation function, $GAP$ is global average pooling.</div><div class="clear"></div>
+<div class="linenb">240</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">241</div><div class="codeline">    <span class="keyword2">\begin{center}</span></div><div class="clear"></div>
+<div class="linenb">242</div><div class="codeline">        <span class="keyword1">\includegraphics</span>[width=.3\textwidth]{Figures/SE_attentBlock.png}</div><div class="clear"></div>
+<div class="linenb">243</div><div class="codeline">        <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{<span class="keyword1">\label</span>{fig:SE_block} Channel attention block of SE network</span>}</div><div class="clear"></div>
+<div class="linenb">244</div><div class="codeline">    <span class="keyword2">\end{center}</span></div><div class="clear"></div>
+<div class="linenb">245</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">246</div><div class="codeline">Fig.~\ref{fig:SE_block} illustrates the channel attention mechanism of~\cite{hu2018squeeze}</div><div class="clear"></div>
+<div class="linenb">247</div><div class="codeline"><span class="keyword1">\subsection</span>{Spatial Attention}</div><div class="clear"></div>
+<div class="linenb">248</div><div class="codeline">Spatial attention can be considered as an adaptive spatial region selection mechanism: where to pay attention.</div><div class="clear"></div>
+<div class="linenb">249</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">250</div><div class="codeline">In~\cite{woo2018cbam} generates a spatial attention map by utilizing the spatial relationship of features. Unlike channel attention, the spatial attention focuses on where is an informative part, which is complementary to the channel attention. They compute the spatial attention by first applying average-pooling and max-pooling operations over each channel and concatenate them to generate the  feature descriptor. After pooled-feature concatenation convolution layer is applied to generate a spatial attention map $<span class="keyword1">\textbf</span>{M}_{s}\left(F\right) \in \mathcal{R}^{H?W}$ which encodes the spatial importance.</div><div class="clear"></div>
+<div class="linenb">251</div><div class="codeline">We aggregate channel information of a feature map by using two pooling operations, generating two 2D maps:</div><div class="clear"></div>
+<div class="linenb">252</div><div class="codeline">$\mathbf{F}^{s}_{avg} \in \mathbb{R}^{1\times{H}\times{W}}$</div><div class="clear"></div>
+<div class="linenb">253</div><div class="codeline">and $\mathbf{F}^{s}_{max} \in \mathbb{R}^{1\times{H}\times{W}}$. Each denotes average-pooled features and max-pooled features across the channel. Those are then concatenated and convolved by a standard convolution layer, producing the 2D spatial attention map. In short, the spatial attention is computed as:</div><div class="clear"></div>
+<div class="linenb">254</div><div class="codeline"><span class="keyword2">\begin{equation}</span><span class="keyword2">\begin{split}</span></div><div class="clear"></div>
+<div class="linenb">255</div><div class="codeline">    &amp;<span class="keyword1">\textbf</span>{M}_{s}\left(F\right) = \sigma\left(CONV_{7\times7}\left(\left[\text{AvgPool}\left(F\right);\text{MaxPool}\left(F\right)\right]\right)\right) \\</div><div class="clear"></div>
+<div class="linenb">256</div><div class="codeline">    &amp;OR\\</div><div class="clear"></div>
+<div class="linenb">257</div><div class="codeline">    &amp; <span class="keyword1">\textbf</span>{M}_{s}\left(F\right) = \sigma\left(CONV_{7\times7}\left(\left[\mathbf{F}^{s}_{avg};\mathbf{F}^{s}_{max} \right]\right)\right) </div><div class="clear"></div>
+<div class="linenb">258</div><div class="codeline"><span class="keyword2">\end{split}</span><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">259</div><div class="codeline">where $\sigma$ denotes the sigmoid function,  $CONV_{7\times7}$ represents a convolution operation with the filter size of $7\times7$, and $[\cdot]$ is a concatenation operator.</div><div class="clear"></div>
+<div class="linenb">260</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">261</div><div class="codeline">    <span class="keyword2">\begin{center}</span></div><div class="clear"></div>
+<div class="linenb">262</div><div class="codeline">        <span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/SpatialAttentionExample.png}</div><div class="clear"></div>
+<div class="linenb">263</div><div class="codeline">        <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{<span class="keyword1">\label</span>{<span class="highlight-sh" title="Figure fig:spattex is never referenced in the text [sh:figref]">f</span>ig:spattex} Spatial attention mechanism </span>}</div><div class="clear"></div>
+<div class="linenb">264</div><div class="codeline">    <span class="keyword2">\end{center}</span></div><div class="clear"></div>
+<div class="linenb">265</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">266</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">267</div><div class="codeline"><span class="keyword1">\section</span>{Normalization}</div><div class="clear"></div>
+<div class="linenb">268</div><div class="codeline">Normalization is crucial for training a deep network. Normalization allows the use of larger learning rate and results in smoother loss landscape of the objective function. Different types are summarized as follows:</div><div class="clear"></div>
+<div class="linenb">269</div><div class="codeline"><span class="keyword1">\subsection</span>{Batch Normalization}</div><div class="clear"></div>
+<div class="linenb">270</div><div class="codeline">As proposed in~\cite{ioffe2015batch} batch normalization is reduces {\em  Internal Covariate Shift} (ICS). ICS is defined as the change in the distribution of network activations due to the change in network parameters during training. Batch Normalization (BN) mitigate the ICS by normalizing the internal feature maps, minibatch, to have zero mean and unit variance. BN also allows the CNN to undo the normalization by scaling and shifting the normalized features using $\gamma$, $\beta$. </div><div class="clear"></div>
+<div class="linenb">271</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">272</div><div class="codeline">BN is applied to each layer for a minibatch $\mathcal{B}$ as follows:</div><div class="clear"></div>
+<div class="linenb">273</div><div class="codeline"><span class="keyword2">\begin{equation}</span></div><div class="clear"></div>
+<div class="linenb">274</div><div class="codeline"><span class="keyword2">\begin{split}</span></div><div class="clear"></div>
+<div class="linenb">275</div><div class="codeline">    &amp; \mu_{\mathcal{B}} = \frac{1}{m}\sum^{m}_{i=1}x_{i}\\</div><div class="clear"></div>
+<div class="linenb">276</div><div class="codeline">    &amp;  \sigma^{2}_{\mathcal{B}} = \frac{1}{m}\sum^{m}_{i=1}\left(x_{i}-\mu_{\mathcal{B}}\right)^{2}\\</div><div class="clear"></div>
+<div class="linenb">277</div><div class="codeline">    &amp;  \hat{x}_{i} = \frac{x_{i} - \mu_{\mathcal{B}}}{\sqrt{\sigma^{2}_{\mathcal{B}}+\epsilon}} \\</div><div class="clear"></div>
+<div class="linenb">278</div><div class="codeline">    &amp;  y_{i} = \gamma\hat{x}_{i} + \beta = \text{BN}_{\gamma, \beta}\left(x_{i}\right) \\</div><div class="clear"></div>
+<div class="linenb">279</div><div class="codeline"><span class="keyword2">\end{split}</span></div><div class="clear"></div>
+<div class="linenb">280</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">281</div><div class="codeline">BN has many benefits which is summarized as follows:</div><div class="clear"></div>
+<div class="linenb">282</div><div class="codeline"><span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">283</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\textbf</span>{Accelerate network training.} BN allows larger learning rate.</div><div class="clear"></div>
+<div class="linenb">284</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\textbf</span>{Regularization effect.} BN has regularization effect due to batch construction is done stochastically.</div><div class="clear"></div>
+<div class="linenb">285</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\textbf</span>{Mitigate the effect of saturating activation function.} Normalization performed by BN relocate the layer activation to linear regime of saturating activation function such as sigmoid.</div><div class="clear"></div>
+<div class="linenb">286</div><div class="codeline"><span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">287</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">288</div><div class="codeline">\<span class="highlight-sh" title="This subsection is very short (about 138 words). You should consider merging it with another section or make it longer. [sh:seclen]">subsection</span>{Layer Normalization}</div><div class="clear"></div>
+<div class="linenb">289</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">290</div><div class="codeline">Unlike batch normalization, Layer Normalization~\cite{ba2016layer} directly estimates the normalization statistics from the summed inputs to the neurons within a hidden layer so the normalization does not introduce any new dependencies between training samples.</div><div class="clear"></div>
+<div class="linenb">291</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">292</div><div class="codeline">We compute the layer normalization statistics over all the hidden units in the same layer as follows:</div><div class="clear"></div>
+<div class="linenb">293</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">294</div><div class="codeline"><span class="keyword2">\begin{equation}</span></div><div class="clear"></div>
+<div class="linenb">295</div><div class="codeline"><span class="keyword2">\begin{split}</span></div><div class="clear"></div>
+<div class="linenb">296</div><div class="codeline">    &amp; \mu^{l} = \frac{1}{H}\sum^{H}_{i=1}a_{i}^{l}\\</div><div class="clear"></div>
+<div class="linenb">297</div><div class="codeline">    &amp;  \sigma^{l} = \sqrt{\frac{1}{H}\sum^{H}_{i=1}\left(a_{i}^{l}-\mu^{l}\right)^{2}} \\</div><div class="clear"></div>
+<div class="linenb">298</div><div class="codeline"><span class="keyword2">\end{split}</span></div><div class="clear"></div>
+<div class="linenb">299</div><div class="codeline"><span class="keyword2">\end{equation}</span></div><div class="clear"></div>
+<div class="linenb">300</div><div class="codeline">where $H$ denotes the number of hidden units in a layer. Under layer normalization, all the hidden units in a layer share the same normalization terms $\mu$ and $\sigma$, but different training samples have different normalization terms. Unlike batch normalization, layer normalization does not impose any constraint on the size of the mini-batch and it can be used in the pure online regime with batch size of 1 sample.</div><div class="clear"></div>
+<div class="linenb">301</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">302</div><div class="codeline"><span class="keyword1">\section</span>{Augmentation}</div><div class="clear"></div>
+<div class="linenb">303</div><div class="codeline">Data augmentation~\cite{balestriero2022effects} is a technique that is  used for enlarging the training set, based on different modifications, using label preserving transformation. Data augmentation not only helps to grow the dataset but it also increases the diversity of the dataset and introduce  robustness to these transformations. When training machine learning models, data augmentation acts as a regularizer and helps to avoid overfitting.</div><div class="clear"></div>
+<div class="linenb">304</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">305</div><div class="codeline">Data augmentation techniques have been found useful in domains like NLP and computer vision. In computer vision, transformations like cropping, flipping, and rotation are used. Fig. \ref{fig:DADeg} represents pre-class performance to the degree of augmentation.</div><div class="clear"></div>
+<div class="linenb">306</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">307</div><div class="codeline">    <span class="keyword2">\begin{center}</span></div><div class="clear"></div>
+<div class="linenb">308</div><div class="codeline">        <span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/labelpreserveAug.png}</div><div class="clear"></div>
+<div class="linenb">309</div><div class="codeline">        <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{<span class="keyword1">\label</span>{fig:DADeg}Data augmentation using crop augmentation with different preserving degrees and the corresponding accuracy of recognizing certain classes using ResNet</span>}</div><div class="clear"></div>
+<div class="linenb">310</div><div class="codeline">    <span class="keyword2">\end{center}</span></div><div class="clear"></div>
+<div class="linenb">311</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">312</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">313</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">314</div><div class="codeline"><span class="keyword1">\section</span>{Dropout}</div><div class="clear"></div>
+<div class="linenb">315</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">316</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">317</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">318</div><div class="codeline">    <span class="keyword2">\begin{center}</span></div><div class="clear"></div>
+<div class="linenb">319</div><div class="codeline">        <span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/oriDropout.png}</div><div class="clear"></div>
+<div class="linenb">320</div><div class="codeline">        <span class="keyword1">\caption</span>{<span class="keyword1">\label</span>{fig:Dropout} Dropout Neural network Model. <span class="keyword1">\textbf</span>{Left}: A standard network with two hidden layers. <span class="keyword1">\textbf</span>{Right}: An example of a thinned net produced by applying dropout to the network on the left. Crossed units have been dropped.}</div><div class="clear"></div>
+<div class="linenb">321</div><div class="codeline">    <span class="keyword2">\end{center}</span></div><div class="clear"></div>
+<div class="linenb">322</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">323</div><div class="codeline">Dropout~\cite{srivastava2014dropout} is a regularization technique for neural networks that drops a unit (along with connections) at training time with a specified probability $p$ (a common value is $p=0.5$). At test time, all units are present, but with weights scaled by $p$ (<span class="highlight-sh" title="Use a backslash or comma after the second period; otherwise LaTeX will think it is a full stop ending a sentence. [sh:011]">i.e. </span>$w$ becomes $pw$).</div><div class="clear"></div>
+<div class="linenb">324</div><div class="codeline">Dropout has the following benefits. </div><div class="clear"></div>
+<div class="linenb">325</div><div class="codeline"><span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">326</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\textbf</span>{Reduces co-adaptation between the neurons.} Complex co-adaptation between neuron occurs when the neurons of the one layer depend on the neurons on next layers to correct their errors. Dropout fixes this issue by making neuron existance stochastic.</div><div class="clear"></div>
+<div class="linenb">327</div><div class="codeline">    <span class="keyword1">\item</span> <span class="keyword1">\textbf</span>{Implicit ensemble.} Dropout  approximately combining exponential number different thinned neural network architectures efficiently</div><div class="clear"></div>
+<div class="linenb">328</div><div class="codeline"><span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">329</div><div class="codeline">Fig.~\ref{fig:Dropout} illustrates the operation of the Dropout.</div><div class="clear"></div>
+<div class="linenb">330</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">331</div><div class="codeline"><span class="keyword1">\section</span>{Multiscale Recognition}</div><div class="clear"></div>
+<div class="linenb">332</div><div class="codeline">CNN,  like many computer vision models, is a scale-variant <span class="highlight-sh" title="Put all references in a single \cite command [sh:c:mul]">\cite{van2017learning} model such that it cannot recognize objects at various scales unless it explicitly trained to recognize such objects. Many approaches have been developed to overcome this problem. The first approach is referred to as <span class="keyword1">\textit</span>{shared-net}. Shared-net approach creates a scale-pyramid of the input image  to train a single shared network using  multiple scales. This shared network produces a feature vector for each scale which in turn is fused with an aggregation function to produce the final prediction \cite{farabet2012learning}\cite</span>{lin2016efficient}<span class="highlight-sh" title="Put all references in a single \cite command [sh:c:mul]">\cite{felzenszwalb2009object}\cite</span>{ciregan2012multi}. Shared-network needs to evaluate each scale independently which is a time-consuming.</div><div class="clear"></div>
+<div class="linenb">333</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">334</div><div class="codeline">The second approach is to reuse low level features produced by the intermediate CNN layers using a skip connection <span class="highlight-sh" title="Put all references in a single \cite command [sh:c:mul]">\cite{chen2014semantic}\cite</span>{hariharan2015hypercolumns}. These features are considered multi-scale due to the different receptive field of the corresponding layers. The training of these networks is performed through two phases. Backbone network is trained in the first phase.  Then, it is fine-tuned during multi-scale feature extraction <span class="highlight-sh" title="Put all references in a single \cite command [sh:c:mul]">\cite{long2015fully}\cite</span>{lin2017feature}. The drawback of this approach is the separation between the classifier training and the feature extraction.<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">335</div><div class="codeline"><span class="keyword2">\begin{center}</span></div><div class="clear"></div>
+<div class="linenb">336</div><div class="codeline">    <span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">337</div><div class="codeline">    \centerline{<span class="keyword1">\includegraphics</span>[width=\textwidth]{Figures/AtrousConv.PNG}}</div><div class="clear"></div>
+<div class="linenb">338</div><div class="codeline">    <span class="keyword1">\caption</span>{A grid represents a feature map and the circle inside the cell represents the corresponding value of $2\times 2$ convolutional kernel. <span class="keyword1">\textbf</span>{left}: A $2\times 2$ convolutional kernel with an atrous rate $r=1$. <span class="keyword1">\textbf</span>{middle}: A $2\times 2$ convolutional kernel with an atrous rate $r=2$. <span class="keyword1">\textbf</span>{right}: A $2\times 2$ convolutional kernel with an atrous rate $r=3$.}</div><div class="clear"></div>
+<div class="linenb">339</div><div class="codeline">    <span class="keyword1">\label</span>{AtrousConv}</div><div class="clear"></div>
+<div class="linenb">340</div><div class="codeline">    <span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">341</div><div class="codeline">    <span class="keyword2">\end{center}</span></div><div class="clear"></div>
+<div class="linenb">342</div><div class="codeline">The third and the  recent approach is to deploy atrous convolution <span class="highlight-sh" title="Put all references in a single \cite command [sh:c:mul]">\cite{holschneider1990real} in CNN context \cite{chen2017deeplab}\cite</span>{giusti2013fast}. Atrous convolution is defined as follows: \[y[i]=\sum_{k}^{K} x[i+r\times k] w[k]\] where $x$ is the input signal, $w$ is the convolutional filter with size of $K$, $y$ is the resultant signal, and $r$ is the atrous rate. Atrous convolution can be seen as a convolution  operation between the input signal and the upsampled version of the filter. This upsampling is performed by introducing $r-1$ zeros between the kernel values. Also, Atrous convolution can be seen as a  convolution between the downsampled version of the input signal and the kernel. Atrous convolution allows the change in the receptive field and controls the input signal resolution without increasing the parameter number \cite{chen2017rethinking} (<span class="keyword1">\textit</span>{i.e,} a $3\times 3$ convolutional kernel and a dilation rate of $r=2$ has the same receptive field of $5\times 5$ convolutional kernel and dilation rate of $r=1$). Atrous convolution can be used to build the resultant scale-space through  performing Atrous convolution with multiple Atrous rates, $r$, which is known as Atrous Spatial pyramid Pooling (ASPP) \cite{chen2017deeplab}. ASPP has a regularization effect as it ensures that the convolutional kernels will learn  useful features   across the scale space of the input. Fig. \ref{AtrousConv} shows an example of  Atrous convolution with different rates. </div><div class="clear"></div>
+<div class="linenb">343</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">344</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">345</div><div class="codeline"><span class="comment"><span class="comment">% <span class="keyword1">\section</span>{Initialization}</span></span></div><div class="clear"></div>
+<div class="linenb">346</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">347</div><div class="codeline"><span class="comment"><span class="comment">% <span class="keyword1">\section</span>{Optimization}</span></span></div><div class="clear"></div>
+<div class="linenb">348</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">349</div><div class="codeline"><span class="keyword1">\section</span>{Summary}</div><div class="clear"></div>
+<div class="linenb">350</div><div class="codeline">This chapter of provides an introduction to several key concepts and techniques in the field of deep learning, with a focus on convolutional neural networks (CNNs) and their applications in computer vision.</div><div class="clear"></div>
+<div class="linenb">351</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">352</div><div class="codeline">The chapter begins by introducing the basic architecture of a CNN, including convolutional layers and pooling layers. It then discusses the role of activation functions in deep learning, such as sigmoid, tanh, and rectified linear unit (ReLU), and their impact on model performance.</div><div class="clear"></div>
+<div class="linenb">353</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">354</div><div class="codeline">The chapter goes on to explore more advanced techniques in CNNs, including spatial pyramid pooling, which enables the network to learn features at multiple scales. It also covers channel attention and spatial attention mechanisms, which allow the network to selectively focus on certain features during training and inference.</div><div class="clear"></div>
+<div class="linenb">355</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">356</div><div class="codeline">The chapter then discusses the importance of normalization techniques in deep learning, including batch normalization and layer normalization, which help to stabilize the network during training and improve its generalization performance.</div><div class="clear"></div>
+<div class="linenb">357</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">358</div><div class="codeline">The chapter concludes with a discussion of various data augmentation techniques, such as image rotation and flipping, as well as dropout, which can help to prevent overfitting in the network. Finally, the chapter introduces the concept of multiscale recognition, which involves training the network to recognize objects at different scales, and its importance in achieving high accuracy in computer vision tasks.</div><div class="clear"></div>
+<div class="linenb">359</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">360</div><div class="codeline">Overall, this chapter provides a comprehensive introduction to the key concepts and techniques in deep learning, with a focus on CNNs and their applications in computer vision to understand this thesis.</div><div class="clear"></div>
+</div>
+<hr/>
+Output produced by TeXtidote v0.8.2, &copy; 2018-2020 Sylvain Hall&eacute; - All rights reserved.<br/>
+See the <a href="https://sylvainhalle.github.io/textidote">TeXtidote website</a> for more information.
+</body>
+</html>
