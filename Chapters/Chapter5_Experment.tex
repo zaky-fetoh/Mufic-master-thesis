@@ -10,22 +10,22 @@ All models are Trained using QaTa-Cov-19~\cite{ahishali2021advance} dataset usin
 \begin{center}
 \begin{figure}[htbp]
 \centerline{\includegraphics[height=60mm,width=9cm]{ScaleDist.png}}
-\caption{Pneumonia Scales of QaTa-COV19-v1, Y-axis represents the frequency, number of occurrence, of a pneumonia with a particular area}
+\caption{Pneumonia Scales of QaTa-COV19-v1, Y-axis represents the frequency, number of occurrences, of pneumonia with a particular area}
 \label{pdist}
 \end{figure}
 \end{center}
-QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation form CXR images. All models that used for comparison are trained using QaTa-COV19-v1. Qata-COV19-v1 consists of 4603 COVID-19 CXR and $120,013$ control group CXRs. A balanced number of samples for the two classes is used, namely 4603 CXR image for each class to train the models. Pneumonia Scales of QaTa-COV19-v1 does not exhibit a uniform distribution. Scale of the Pneumonia can be defined as number, area, of 8-neighbor connected pixels labeled as COVID-19 pneumonia. QaTa-COV19-v1 provides a binary masks of 2951 COVID-19 CXR image which can be used for approximating the distribution of scales across the dataset. Fig.~\ref{pdist} illustrates the statistical distribution of QaTa-COV19 scales. The non-uniform distribution of the scales allows the CNN models to only recognize the small scales and not large scales.
+QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation from CXR images. All models used for comparison are trained using QaTa-COV19-v1. Qata-COV19-v1 consists of 4603 COVID-19 CXRs and $120,013$ control group CXRs. A balanced number of samples for the two classes is used, namely 4603 CXR images for each class to train the models. Pneumonia Scales of QaTa-COV19-v1 do not exhibit a uniform distribution. The scale of the Pneumonia can be defined as the number, area, of 8-neighbor-connected pixels labeled as COVID-19 pneumonia. QaTa-COV19-v1 provides a binary mask of 2951 COVID-19 CXR images which can be used for approximating the distribution of scales across the dataset. Fig.~\ref{pdist} illustrates the statistical distribution of QaTa-COV19 scales. The non-uniform distribution of the scales allows the CNN models to only recognize the small scales and not the large scales.
 
 \section{Evaluation of the Methodology I}
 
-Experiments are conducted on a Lenovo Z50-70 with Intel CORE i7-4510U CPU 2.00 GHz, 8GB RAM, NVIDIA GeForce 840M GPU; and with python and PyTorch library.
+Experiments are conducted on a Lenovo Z50-70 with Intel CORE i7-4510U CPU 2.00 GHz, 8GB RAM, NVIDIA GeForce 840M GPU; and with Python and PyTorch library.
 
 \subsection{Details of the Proposed Architecture}
-The Proposed architecture composed Convbase and Densebase. Convbase is composed of a $6$ feature extraction modules \textit{(FX)} preceded by batch normalization layer. Each FX module can be considered sub-sequential model consists of RSB layer followed by Batch Normalization, Max-pooling and LeakyReLU activation function. The Densebase is a two fully connected layers that classify the Convbase output.
+The Proposed architecture is composed of Convbase and Densebase. Convbase is composed of a $6$ feature extraction modules \textit{(FX)} preceded by batch normalization layer. Each FX module can be considered a sub-sequential model consisting of an RSB layer followed by Batch Normalization, Max-pooling, and LeakyReLU activation function. The Densebase is two fully connected layers that classify the Convbase output.
 
 
 \subsection{Hyperparameter Specification}
-All input chest X-Ray images are resized to be $200\times 200$ . After resizing the input images, these images are fed the Convbase model part which consists of 6 layers of residual separated block. Each residual separated block is followed with batch normalization and LeakyReLU~\cite{he2015delving} as activation function. The output depth of each residual separated block is 4$\times$16, 4$\times$32, 4$\times$64, 4$\times$64, 4$\times$64 and 4$\times$16, respectively. The output of Convbase model part is 1D feature vector of 576 length. Densebase model part consists of two hidden layers. Each layer has the  size of 64 and the output layer of size 2. Each layer of Densebase layers is fully connected to its previous layer. The activation function used in the densebase model part is LeakyReLU. Table~\ref{lyrSpec} summarizes the architecture hyperparameters.
+All input chest X-ray images are resized to be $200\times 200$ . After resizing the input images, these images are fed the Convbase model part which consists of 6 layers of residual separated block. Each residual separated block is followed with batch normalization and LeakyReLU~\cite{he2015delving} as an activation function. The output depth of each residual separated block is 4$\times$16, 4$\times$32, 4$\times$64, 4$\times$64, 4$\times$64, and 4$\times$16, respectively. The output of the Convbase model part is a 1D feature vector of 576 in length. The densebase model part consists of two hidden layers. Each layer has a size of 64 and the output layer of size 2. Each layer of Densebase layers is fully connected to its previous layer. The activation function used in the densebase model part is LeakyReLU. Table~\ref{lyrSpec} summarizes the architecture hyperparameters.
 
 \begin{table}[htbp]
 \caption{The proposed architecture hyperparameters}
@@ -62,7 +62,7 @@ LinearLayer3 & 2 & Softmax\\
 \end{table}
 
 \subsection{Network Training}
-The proposed CNN model  is trained for 22 epoch. Adaptive Moment Estimation (Adam) optimizer~\cite{kingma2014adam} is a popular optimization  technique for training deep networks. Adam optimizer is used  during the training  phase of the proposed CNN model. Both batch size and Adam optimizer learning rate is changed during the training phase if the training loss stopped decreasing. Table~\ref{tabTrparam} summarizes the parameters values used in the training phase of the proposed CNN model. Fig.~\ref{fig5}(a) show the progress for training and validation loss across each epoch. The difference between the training loss and validation loss through epochs show that our did not memorize the dataset.
+The proposed CNN model is trained for 22 epochs. Adaptive Moment Estimation (Adam) optimizer~\cite{kingma2014adam} is a popular optimization technique for training deep networks. Adam optimizer is used during the training phase of the proposed CNN model. Both batch size and Adam optimizer learning rate are changed during the training phase if the training loss stops decreasing. Table~\ref{tabTrparam} summarizes the parameter values used in the training phase of the proposed CNN model. Fig.~\ref{fig5}(a) shows the progress for training and validation loss across each epoch. The difference between the training loss and validation loss through epochs shows that we did not memorize the dataset.
 \begin{table}[htbp]
 \caption{The change of batch size and learning rate through the Training process}
 \begin{center}
@@ -88,7 +88,7 @@ From 13 to 21 & 256 & 1e-4\\
 
 \subsection{Model Evaluation}
 
-To assess the efficiency of the proposed method,  the proposed method is compared to recent state-of-the-art methods for detecting Covid-19 cases. Experiments are conducted with the same dataset and the corresponding hyperparameter of each work. All the methods depend on CNN. The comparison is performed using precision, sensitivity, F1-score, and accuracy~\cite{hossin2015review}. In addition, the number of the parameters used in the training phase is very important comparison factor. Table~\ref{modelperf} depicts the comparison between state-of-the-art methods and the proposed method. As shown in the comparison, the proposed method  outperforms other methods achieving the maximum accuracy and the lowest  parameter count. 
+To assess the efficiency of the proposed method,  the proposed method is compared to recent state-of-the-art methods for detecting Covid-19 cases. Experiments are conducted with the same dataset and the corresponding hyperparameter of each work. All the methods depend on CNN. The comparison is performed using precision, sensitivity, F1-score, and accuracy~\cite{hossin2015review}. In addition, the number of parameters used in the training phase is a very important comparison factor. Table~\ref{modelperf} depicts the comparison between state-of-the-art methods and the proposed method. As shown in the comparison, the proposed method outperforms other methods achieving the maximum accuracy and the lowest parameter count. 
 
 
 
@@ -144,22 +144,22 @@ Different architectures are trained to validate the effectiveness of the propose
 \subsubsection{Spatial Pyramid Pooling (SPP-net) Based model}
 Four variants of SPP-net\cite{he2015spatial} is trained. All $4$ variants have the same architecture but different SPP-layer. These variants of SPP-layer are as follows:
 \begin{itemize}
-  \item full pyramid SPP of 8-levels using average-pooling as aggregation function
-  \item full SPP pyramid of 8-levels using max-pooling as aggregation function
-  \item single level SPP with 10-bins using average-pooling as aggregation function
-  \item single level SPP with 10-bins using max-pooling as aggregation function
+  \item full pyramid SPP of 8-levels using average-pooling as an aggregation function
+  \item full SPP pyramid of 8-levels using max-pooling as an aggregation function
+  \item single level SPP with 10-bins using average-pooling as an aggregation function
+  \item single level SPP with 10-bins using max-pooling as an aggregation function
 \end{itemize}
-  A Fixed Architecture is used for all SPP variant models with the same design principles of the proposed architecture. These architectures are the same as the proposed architecture but DSWASPP is replaced by DC6 and SPP-1 layer is replaced with the corresponding SPP layer. DC6 is defined as six convolutional layers Densely connected together. For SPP-net variants training a multiscale augmentation is added to the proposed augmentation process. Multiscale augmentation is done by randomly sampling different $5$ scales typically $\{320, 320\pm25, 320\pm50 \}$.
+  A Fixed Architecture is used for all SPP variant models with the same design principles of the proposed architecture. These architectures are the same as the proposed architecture but DSWASPP is replaced by DC6 and SPP-1 layer is replaced with the corresponding SPP layer. DC6 is defined as six convolutional layers Densely connected. For SPP-net variants training a multiscale augmentation is added to the proposed augmentation process. Multiscale augmentation is done by randomly sampling different $5$ scales typically $\{320, 320\pm25, 320\pm50 \}$.
 \subsubsection{Switchable Atrous Spatial Pyramid Pooling (SASPP-net) Based models} 
 \begin{center}
 \begin{figure*}[htbp]
 \centerline{\includegraphics[height=63mm,width=15cm]{SPP-netsTraining.PNG}}
-\caption{Training profiles of both SPP-net variants and the proposed network. For the same color solid line represents training statistics while dashed line represents the validation statistics for the corresponding model. \textbf{left:} is the training accuracy. \textbf{Right:} is the training loss.}
+\caption{Training profiles of both SPP-net variants and the proposed network. For the same color solid line represents training statistics while the dashed line represents the validation statistics for the corresponding model. \textbf{left:} is the training accuracy. \textbf{Right:} is the training loss.}
 \label{SPP-train}
 \end{figure*}
 \end{center}
 
-Another Base-line is introduced for comparison which is exactly as same as the proposed network but with different Attention module structure and does not include a bottleneck within ASPP. This architecture is referred Switchable Atrous Spatial Pyramid Pooling (SASPP-net). Attention module structure is $Softmax(FC(GAP(X)))$ where: \textit{$X$: is the input feature map}, \textit{$GAP$: is a global average pooling}, \textit{$FC$: is fully Connected layer performs a non-linear projection to ${\rm I\!R}^{4}$ a 4 values for the three scales and the input feature map}.\\
+Another Baseline is introduced for comparison which is exactly as same as the proposed network but with a different Attention module structure and does not include a bottleneck within ASPP. This architecture is referred to as Switchable Atrous Spatial Pyramid Pooling (SASPP-net). The attention module structure is $Softmax(FC(GAP(X)))$ where: \textit{$X$: is the input feature map}, \textit{$GAP$: is a global average pooling}, \textit{$FC$: is fully Connected layer performs a non-linear projection to ${\rm I\!R}^{4}$ 4 values for the three scales and the input feature map}.\\
 
 \begin{table}[htbp]
 \caption{Baselines and their total number of parameters}
@@ -185,23 +185,23 @@ SPP & ML max pooling & $14,916,420$   \\
 \label{Basarch}
 \end{center}
 \end{table}
-Table~\ref{Basarch} summarizes the base-line models and the Corresponding parameter count.
+Table~\ref{Basarch} summarizes the baseline models and the Corresponding parameter count.
 \subsection{Models Training}
-Proposed architecture and baseline architecture are trained with the same hyperparameters. Dataset is split to $0.6$, $0.2$ and $0.2$ for training, validation and testing, respectively. For training a Cross Entropy Loss is used. All models trained with ADAM~\cite{kingma2014adam} optimizer with learning rate start by $10^{-3}$ and reduced every time validation loss plateau by multiplying by $10^{-1}$. A Max Norm Constraint is used to clip the gradient value to norm of $1$~\cite{krizhevsky2012imagenet}. A batch size of $128$ is used to calculate the gradient.
+The proposed architecture and baseline architecture are trained with the same hyperparameters. The dataset is split into $0.6$, $0.2$, and $0.2$ for training, validation, and testing, respectively. For training a Cross Entropy Loss is used. All models trained with ADAM~\cite{kingma2014adam} optimizer with learning rate start by $10^{-3}$ and reduced every time validation loss plateau by multiplying by $10^{-1}$. A Max Norm Constraint is used to clip the gradient value to the norm of $1$~\cite{krizhevsky2012imagenet}. A batch size of $128$ is used to calculate the gradient.
 \subsection{Reducing the overfitting}
-Overfitting is a critical problem for training large networks~\cite{krizhevsky2012imagenet}. Proposed work has reduced the overfitting by using:
+Overfitting is a critical problem for training large networks~\cite{krizhevsky2012imagenet}. The proposed work has reduced the overfitting by using:
 \begin{itemize}
 \item Using Dropout with retrain probability of $0.5$~\cite{srivastava2014dropout}.
 \item Using BatchNorm adds noise due to randomization introduced when constructing the minibatch~\cite{ioffe2015batch}.
 \item Using max norm constraint~\cite{krizhevsky2012imagenet}.
-\item Deep and thin architectures by design has an implicit regularization effect~\cite{he2016deep}. 
+\item Deep and thin architectures by design have an implicit regularization effect~\cite{he2016deep}. 
 \item Augmentation process i.e.) Texture augmentation~\cite{krizhevsky2012imagenet}. 
 \item The use of small kernel size~\cite{simonyan2014very}.
 \item Bottleneck in SWASPP module and the attention module.
 \end{itemize}
-During training no overfitting effects is observed.
+During training no overfitting effects are observed.
 \subsection{Comparison with baselines}
-Proposed network is compared with the vanilla SPP-based Architectures and ASPP architecture.
+The proposed network is compared with the vanilla SPP-based Architecture and ASPP architecture.
 \subsubsection{Comparing with SPP-nets}
 Fig.~\ref{SPP-train} illustrates both training loss and training and validation accuracies and losses. Table~\ref{blaccom} illustrates the testing accuracy for comparison between the SPP-nets baseline and the proposed architecture.
 \begin{table}[htbp]
@@ -209,7 +209,7 @@ Fig.~\ref{SPP-train} illustrates both training loss and training and validation 
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-\textbf{Model Name}& Accurracy \\
+\textbf{Model Name}& Accuracy \\
 \hline
  SPP ML Average pooling & $0.958$   \\
 \hline
@@ -227,7 +227,7 @@ Proposed Network & $0.987$\\
 \end{center}
 \end{table}
 \subsubsection{Comparing with SASPP}
-Fig.~\ref{saspp} illustrates the training and validation loss of training a SASPP baseline architecture. As shown in Fig.~\ref{saspp} SASPP unable to generalize and start overfitting the training set. This comparison empirically shows the importance of the bottleneck introduced in the proposed architecture.
+Fig.~\ref{saspp} illustrates the training and validation loss of training a SASPP baseline architecture. As shown in Fig.~\ref{saspp} SASPP is unable to generalize and start overfitting the training set. This comparison empirically shows the importance of the bottleneck introduced in the proposed architecture.
 
 \begin{center}
 \begin{figure}[htbp]
@@ -253,13 +253,13 @@ To fairly compare with the related works proposed work is further trained. Fig.~
 \label{pacc}
 \end{figure}
 \end{center}
-Proposed Network has a sensitivity, recall, and precision of $0.994$ and $0.991$ respectively on the validation set. Precision can be improved by investigating the precision-recall trade-off. Fig.~\ref{prt} shows the trade-off between precision and recall for different thresholds. A threshold of $0.618$ is used to improve the precision resulting in a sensitivity, recall, of $0.9903$ and precision of $0.9956$.
+The proposed Network has a sensitivity, recall, and precision of $0.994$ and $0.991$ respectively on the validation set. Precision can be improved by investigating the precision-recall trade-off. Fig.~\ref{prt} shows the trade-off between precision and recall for different thresholds. A threshold of $0.618$ is used to improve the precision resulting in a sensitivity, recall, of $0.9903$ and precision of $0.9956$.
 Comparison metrics are defined as follows:
 \begin{itemize}
-\item \textit{Accuracy}: is ratio of correctly classified samples to the total number of samples
-\item \textit{Sensitivity}: is ratio of correctly classified Covid-19 samples to the total number of actual Covid-19 samples 
+\item \textit{Accuracy}: is the ratio of correctly classified samples to the total number of samples
+\item \textit{Sensitivity}: is the ratio of correctly classified Covid-19 samples to the total number of actual Covid-19 samples 
 \item \textit{Precision}: is the ratio of correctly, according to the ground-truth labels, classified Covid-19 samples to the total number of samples classified as Covid-19.
-\item \textit{Specificity}: is the ratio of correctly, according to the ground-truth labels, classified non-COVID-19 to the total number of non-Covid-19.
+\item \textit{Specificity}: is the ratio of correctly, according to the ground-truth labels, classified non-COVID-19 to the total number of non-COVID-19.
 \item \textit{F1-score}: is the harmonic mean of both Sensitivity and Precision.
 \begin{center}  
  $F_{1}=\frac{2\times\text{Precision} \times \text{Sensitivity}}{\text{Precision} + \text{Sensitivity}}$
@@ -310,17 +310,17 @@ DenseNet-121\cite{dag}  & \textbf{0.9988} & 0.97429 & 0.9932 & \textbf{0.99974} 
 \end{figure}
 \end{center}
 
-Table~\ref{rwcom} summarizes the comparison between the recent related works and the proposed architecture. Proposed architecture outperform these works in many metrics. As their training and testing does not depend on a balanced number of samples, accuracy and specificity are not good metrics for evaluation. 
+Table~\ref{rwcom} summarizes the comparison between the recent related works and the proposed architecture. The proposed architecture outperforms these works in many metrics. As their training and testing do not depend on a balanced number of samples, accuracy, and specificity are not good metrics for evaluation. 
 
 
 \section{Summary}
-% This chapter illustrates the superior performance of the proposed work I and II. Experimental results of proposed work I show the effectiveness of spatial separable kernels and residual connection for detecting COVID-19. The proposed architecture I use batch normalization to maintain the network stability during the training process. During the training process, the hyperparameters (such as batch size and learning rate) are determined dynamically. Proposed architecture I outperformed previous works for binary classification of chest X-Ray images to normal or COVID-19 cases. The proposed architecture has a very low parameter count (150K trainable parameter) compared to previous work. The proposed  architecture I achieved a performance of 100\% for accuracy, sensitivity, precision and F1-score. Proposed work I does not take care of the fact that CNN is scale variant model while proposed work II does. Better quantitative results for CXR COVID-19 classification can be obtained with a multiscale training approaches. Proposed work II internally produces multiscale feature maps using Atrous Spatial pyramid pooling. These multiscales feature maps are fused using an attention module. To learn a compact representation a bottleneck dimension is introduced in both the multiscale feature extractor module and the attention module. Proposed work II outperformed current sate-of-the-art architecture with lower parameter number. Proposed method has recorded a $0.9929$ for $F1-score$.
+% This chapter illustrates the superior performance of the proposed works I and II. Experimental results of proposed work I show the effectiveness of spatial separable kernels and residual connection for detecting COVID-19. The proposed architecture I uses batch normalization to maintain the network stability during the training process. During the training process, the hyperparameters (such as batch size and learning rate) are determined dynamically. Proposed architecture I outperformed previous works for binary classification of chest X-ray images to normal or COVID-19 cases. The proposed architecture has a very low parameter count (150K trainable parameter) compared to previous work. The proposed architecture I achieved a performance of 100\% for accuracy, sensitivity, precision, and F1-score. Proposed work I does not take care of the fact that CNN is a scale variant model while proposed work II does. Better quantitative results for CXR COVID-19 classification can be obtained with multiscale training approaches. Proposed work II internally produces multiscale feature maps using Atrous Spatial pyramid pooling. These multiscale feature maps are fused using an attention module. To learn a compact representation a bottleneck dimension is introduced in both the multiscale feature extractor module and the attention module. Proposed work II outperformed current state-of-the-art architecture with a lower parameter number. The proposed method has recorded a $0.9929$ for $F1-score$.
 
 
-This chapter illustrates the superior performance of the proposed work I and II. In addition to the superior performance of the proposed works I and II, the chapter also provides a detailed analysis of the experimental results. The evaluation of proposed work I demonstrates that the use of spatial separable kernels and residual connection significantly improves the performance of the COVID-19 detection system. The batch normalization technique is found to be effective in maintaining the network stability during the training process. The dynamic selection of hyperparameters such as batch size and learning rate further improves the performance of the proposed architecture I.
+This chapter illustrates the superior performance of the proposed work I and II. In addition to the superior performance of the proposed works I and II, the chapter also provides a detailed analysis of the experimental results. The evaluation of proposed work I demonstrates that the use of spatially separable kernels and residual connection significantly improves the performance of the COVID-19 detection system. The batch normalization technique is found to be effective in maintaining network stability during the training process. The dynamic selection of hyperparameters such as batch size and learning rate further improves the performance of the proposed architecture I.
 
-Furthermore, the proposed architecture I outperforms existing works for binary classification of chest X-Ray images for normal and COVID-19 cases. This is particularly noteworthy as the proposed architecture has a low parameter count of only 150K trainable parameters compared to previous works. The achievement of a performance of $100\%$ for accuracy, sensitivity, precision, and F1-score indicates the high accuracy and reliability of the proposed architecture.
+Furthermore, the proposed architecture I outperforms existing works for binary classification of chest X-ray images for normal and COVID-19 cases. This is particularly noteworthy as the proposed architecture has a low parameter count of only 150K trainable parameters compared to previous works. The achievement of a performance of $100\%$ for accuracy, sensitivity, precision, and F1-score indicates the high accuracy and reliability of the proposed architecture.
 
 Although the proposed architecture I performs exceptionally well, it does not address the scale variant nature of the CNN model. This issue is addressed in the proposed work II, which incorporates multiscale training approaches to obtain better quantitative results for CXR COVID-19 classification. The use of Atrous Spatial pyramid pooling enables the internal production of multiscale feature maps, which are then fused using an attention module. To achieve a compact representation, a bottleneck dimension is introduced in both the multiscale feature extractor module and the attention module.
 
-The proposed work II outperforms the current state-of-the-art architecture with lower parameter numbers. The recorded $0.9929$ for F1-score indicates the high performance of the proposed architecture. The detailed analysis and experimental results presented in this chapter provide valuable insights into the effectiveness of the proposed architectures and their potential for improving the accuracy and reliability of COVID-19 detection systems.
+The proposed work II outperforms the current state-of-the-art architecture with lower parameter numbers. The recorded $0.9929$ for the F1-score indicates the high performance of the proposed architecture. The detailed analysis and experimental results presented in this chapter provide valuable insights into the effectiveness of the proposed architectures and their potential for improving the accuracy and reliability of COVID-19 detection systems.
