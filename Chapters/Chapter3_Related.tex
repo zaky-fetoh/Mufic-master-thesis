@@ -1,8 +1,8 @@
 % Chapter Template
 
-\chapter{Literature Review} % Main chapter title
+% \chapter{Literature Review} % Main chapter title
 
-\label{chp:related} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+% \label{chp:related} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
 CNN outperformed traditional computer vision approaches for medical image classification due to its current advances in architecture design. Typically, CNN architectures are composed of two parts~\cite{krizhevsky2012imagenet}. The first part is called a convolutional part which further consists of convolutional layers interconnected with some connection patterns that are responsible for feature extraction. The second part is the fully connected layers which consist of Dense layers that are responsible for classification. This section discusses previous CNN-based CXR classification systems reporting the modeling mechanisms and the reported results.
 \section{CNN Based Models}
@@ -26,7 +26,7 @@ In \cite{ar}, authors evaluated the performance of different classifiers for cla
 They pretrained two DenseNet121~\cite{huang2017densely} models on Early-QaTa-COV19 and ChestX-ray14 datasets are used to extract 1024-D feature vectors by taking the output after global pooling just before the classification layer. Then, a dimensionality reduction is applied over the calculated features with principal component analysis (PCA) by choosing the first $512$ principal components.
 
 \subsubsection{Representation-based classification}
- Representation-based classification (RC) techniques are used in many different classification tasks such as face recognition in~\cite{wright2010sparse}, hyperspectral image classification~\cite{li2016survey}, and human action recognition~\cite{guha2011learning}. The authors classified the feature vector produced by DenseNet121 using either Sparse RC or Collaborative RC. It is performed as follows:
+ Representation-based classification (RC) techniques are used in many different classification tasks such as face recognition in~\cite{wright2010sparse}, hyperspectral image classification~\cite{li2016survey}, and human action recognition~\cite{guha2011learning}. The authors classified the feature vector produced by DenseNet121 using either Sparse RC or Collaborative RC. It is performed as follows\cite{ar}:
  \begin{equation}
     \begin{split}
         \hat{x} = \arg \min_{x}(\lambda \vert \vert x \vert\vert_{1} + \vert\vert y - Dx \vert\vert_{2})
@@ -111,4 +111,16 @@ binary grey wolf optimization (BGWO)~\cite{mirjalili2014grey} is to select the m
 \input{Tables/relatedlatex.tex}
 
 \section{Summary}
+This chapter provides an introduction to several key concepts and techniques in the field of deep learning, with a focus on convolutional neural networks (CNNs) and their applications in computer vision.
+
+The chapter begins by introducing the basic architecture of a CNN, including convolutional layers and pooling layers. It then discusses the role of activation functions in deep learning, such as sigmoid, tanh, and rectified linear units (ReLU), and their impact on model performance.
+
+The chapter goes on to explore more advanced techniques in CNNs, including spatial pyramid pooling, which enables the network to learn features at multiple scales. It also covers channel attention and spatial attention mechanisms, which allow the network to selectively focus on certain features during training and inference.
+
+The chapter then discusses the importance of normalization techniques in deep learning, including batch normalization and layer normalization, which help to stabilize the network during training and improve its generalization performance.
+
+The chapter concludes with a discussion of various data augmentation techniques, such as image rotation and flipping, as well as dropout, which can help to prevent overfitting in the network. Finally, the chapter introduces the concept of multiscale recognition, which involves training the network to recognize objects at different scales, and its importance in achieving high accuracy in computer vision tasks.
+
+
 CNN is a powerful computer vision model. It is used intensively for COVID-19 detection. Table~\ref{tbl:related} summarizes recent related work for COVID-19 detection. Despite the high accuracy of current CNN-based CXR classification methods, these methods don't address the problem that CNN is a scale variant model. This problem hinders the recognition of large-scale COVID-19 pneumonia. In this thesis, a novel scale-invariant CNN architecture is proposed for the classification of COVID-19 pneumonia. The proposed architecture deploys Atrous convolution method for learning the scale-invariant features. Then, an attention model is utilized to automatically and internally select at which scale  CNN should consider and ignore other scales. The proposed architecture exploits texture augmentation to reduce the overfitting and artificially enlarge the training dataset. The experimental results show that the proposed system outperforms the previous CNN-based CXR classification methods with lower trainable parameter numbers.
+

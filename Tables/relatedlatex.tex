@@ -3,70 +3,55 @@
 \caption{\label{tbl:related}Overview of recent studies for classifying COVID19}
 \begin{center}
 \begin{adjustbox}{angle=90}
-\begin{tabular}{|l|r|r|l|l|l|}%{lrrlll}
+\begin{tabular}{|l|r|r|l|l|}%{lrrlll}
 \hline
-Work &  \#Samples &  Classes &  Model &  Best Performing Model &   Performance \\
+Work &  \#Samples &  Classes &  Best Performing Model &   Performance \\
 \hline
 \hline
-~\cite{35apostolopoulos2020covid} & 1428 &    3 & VGG19, MobileNetV2, &   MobileNetV2 & Acc = 96.78\%  \\
-
-      &      &    & Inception, Xception &    &   \\
+~\cite{35apostolopoulos2020covid} & 1428 &    3 &   MobileNetV2 & Acc = 96.78\%  \\
 \hline
-~\cite{36hall2020finding} &  204 &    2 &   VGG16 + Resnet50 & VGG16 + Resnet50, &    Acc = 89.2\% \\
-
-     &    &      &                        &   custom CNN &      \\
+~\cite{36hall2020finding} &  204 &    2 & VGG16 + Resnet50, &    Acc = 89.2\% \\
 \hline           
-~\cite{37narin2021automatic} &  100 &    2 &   ResNet50, InceptionV3, &  ResNet50 &  Acc = 98\% \\
-
-&    &      &   and InceptionRes-NetV2 &   &    \\
+~\cite{37narin2021automatic} &  100 &    2 &   ResNet50 &  Acc = 98\% \\
 \hline
-~\cite{38tang2020automated} &    21152 &    2 &    CNN &   CNN &   Acc = 94.64\% \\
+~\cite{38tang2020automated} &    21152 &    2 &    CNN &   Acc = 94.64\% \\
 \hline
-~\cite{39minaee2020deep}  & 5184 &    2 &   ResNet18, ResNet50, &    SqueezeNet & Sensitivity = 98\%\\
-
-  &   &      &     SqueezeNet, DenseNet-121 &      &  \\
+~\cite{39minaee2020deep}  & 5184 &    2 &   SqueezeNet & Sensitivity = 98\%\\
 \hline
-~\cite{40afshar2020covid}  &    13975 &    2 & COVID-CAPS &    COVID-CAPS &   Acc = 95.7\%, \\
+~\cite{40afshar2020covid}  &    13975 &    2 &   COVID-CAPS &   Acc = 95.7\%, \\
 \hline
-~\cite{41ahsan2020covid}  &  400 &    2 & VGG16, InceptionResNetV2, &  NasNetMobile &   Acc = 93.94\% \\
-
-  &    &      &  ResNet50, DenseNet201  &    &     \\
+~\cite{41ahsan2020covid}  &  400 &    2 &  NasNetMobile &   Acc = 93.94\% \\
 \hline
-~\cite{42hemdan2020covidx}  &   75 &    2 & VGG19, Xception,  &   VGG19, DenseNet &   F1 scores = 0.91 \\
-
-  &     &      &  ResNetV2, DenseNet201 &     &    \\
+~\cite{42hemdan2020covidx}  &   75 &    2 &   VGG19, DenseNet &   F1 scores = 0.91 \\
 \hline
-~\cite{43ozturk2020automated}  & 1127 &    2 &   Modified Darknet &  Modified Darknet &  Acc = 98\% \\
+~\cite{43ozturk2020automated}  & 1127 &    2 &  Modified Darknet &  Acc = 98\% \\
 \hline
-~\cite{44khan2020coronet}  & 1257 &    3 &   Xception &  Xception &  Acc = 94\% \\
+~\cite{44khan2020coronet}  & 1257 &    3 &  Xception &  Acc = 94\% \\
 \hline
-~\cite{45chandra2021coronavirus} & 2356 &    3 &    ACoS system &  ACoS &   Acc = 91.33\% \\
+~\cite{45chandra2021coronavirus} & 2356 &    3 &  ACoS &   Acc = 91.33\% \\
 \hline
-~\cite{46sekeroglu2020covid19} & 6100 &    3 & SVM, LR, DT, &   Mean result &    Acc = 98.5\% \\
-
-  &   &      &   kNN + VGG16,  &    &    \\
-
-  &   &      &    ResNet50 &    &    \\
+~\cite{46sekeroglu2020covid19} & 6100 &    3 & Mean results of SVM, LR, DT, & Acc = 98.5\% \\
+  &   &      &   kNN + VGG16,ResNet50  &        \\
 \hline
-~\cite{47pandit2021automatic}& 1428 &    2 &  VGG16 & VGG16 &  Acc = 96\% \\
+~\cite{47pandit2021automatic}& 1428 &    2 &  VGG16 &  Acc = 96\% \\
 \hline
-~\cite{48arias2020artificial} &    79500 &    3 &   Grad-CAM &  Grad-CAM &    Acc = 91.5\% \\
+~\cite{48arias2020artificial} &    79500 &    3 &    Grad-CAM &    Acc = 91.5\% \\
 \hline
-~\cite{49yamac2021convolutional} & 6200 &    4 &  CSEN-based classifier & CSEN-based Classifier &    Sensitivity = 98\% \\
+~\cite{49yamac2021convolutional} & 6200 &    4 & CSEN-based Classifier &    Sensitivity = 98\% \\
 \hline
-~\cite{50wang2020covid} &    13975 &   19 &  COVID-Net & COVID-Net &    Acc = 93.3\% \\
+~\cite{50wang2020covid} &    13975 &   19 &  COVID-Net &    Acc = 93.3\% \\
 \hline
-~\cite{51abbas2021classification} &  196 &    3 & DeTrac &    Detrac &    Acc = 93.1\% \\
+~\cite{51abbas2021classification} &  196 &    3 &    Detrac &    Acc = 93.1\% \\
 \hline
-~\cite{52toraman2020convolutional} & 3150 &    3 &    CapsNet &   CapsNet &  Acc = 97\% \\
+~\cite{52toraman2020convolutional} & 3150 &    3 &  CapsNet &  Acc = 97\% \\
 \hline
-~\cite{53das2022automated} & 1127 &    3 &   Xception &  Xception &  Acc = 97\% \\
+~\cite{53das2022automated} & 1127 &    3 &  Xception &  Acc = 97\% \\
 \hline
-~\cite{54hu2020learning} & 7470 &    2 &    MD-Conv &   MD-Conv &    Acc = 93.4\% \\
+~\cite{54hu2020learning} & 7470 &    2 &   MD-Conv &    Acc = 93.4\% \\
 \hline
-~\cite{55ismael2021deep} &  380 &    2 &    Novel CNN Model &   Novel CNN Model &    Acc = 91.6\% \\
+~\cite{55ismael2021deep} &  380 &    2 &  Novel CNN Model &    Acc = 91.6\% \\
 \hline
-~\cite{56shankar2021optimal} &  247 &    2 &   BMO-CRNN &  BMO-CRNN &  Acc = 97.31\% \\
+~\cite{56shankar2021optimal} &  247 &    2 &  BMO-CRNN &  Acc = 97.31\% \\
 \hline
 \end{tabular}
 \end{adjustbox}

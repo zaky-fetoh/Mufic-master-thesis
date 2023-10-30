@@ -16,6 +16,23 @@ All models are Trained using QaTa-Cov-19~\cite{ahishali2021advance} dataset usin
 \end{center}
 QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation from CXR images. All models used for comparison are trained using QaTa-COV19-v1. Qata-COV19-v1 consists of 4603 COVID-19 CXRs and $120,013$ control group CXRs. A balanced number of samples for the two classes is used, namely 4603 CXR images for each class to train the models. Pneumonia Scales of QaTa-COV19-v1 do not exhibit a uniform distribution. The scale of the Pneumonia can be defined as the number, area, of 8-neighbor-connected pixels labeled as COVID-19 pneumonia. QaTa-COV19-v1 provides a binary mask of 2951 COVID-19 CXR images which can be used for approximating the distribution of scales across the dataset. Fig.~\ref{pdist} illustrates the statistical distribution of QaTa-COV19 scales. The non-uniform distribution of the scales allows the CNN models to only recognize the small scales and not the large scales.
 
+\section{Evaluation metrics}
+In evaluating the performance of models for COVID-19 diagnosis, it is essential to employ well-defined comparison metrics to assess their effectiveness. These metrics provide a quantitative measure of a model's ability to correctly classify COVID-19 and non-COVID-19 samples. The key metrics include accuracy, which quantifies the overall correctness of classifications, sensitivity, which measures the model's ability to correctly identify COVID-19 cases among actual positives, precision, which gauges the precision of COVID-19 classifications relative to all samples classified as such, specificity, which evaluates the model's accuracy in correctly classifying non-COVID-19 cases, and the F1-score, which combines sensitivity and precision into a single measure of model performance. Additionally, the parameter count reflects the number of trainable parameters within the model, providing insights into its computational complexity and how it'll consume computational resources. These metrics collectively serve as vital tools in assessing the diagnostic capability of COVID-19 detection models.
+Comparison metrics are:
+\begin{itemize}
+\item \textit{Accuracy}: is the ratio of correctly classified samples to the total number of samples
+\item \textit{Sensitivity}: is the ratio of correctly classified Covid-19 samples to the total number of actual Covid-19 samples 
+\item \textit{Precision}: is the ratio of correctly, according to the ground-truth labels, classified Covid-19 samples to the total number of samples classified as Covid-19.
+\item \textit{Specificity}: is the ratio of correctly, according to the ground-truth labels, classified non-COVID-19 to the total number of non-COVID-19.
+\item \textit{F1-score}: is the harmonic mean of both Sensitivity and Precision.
+\begin{center}  
+ $F_{1}=\frac{2\times\text{Precision} \times \text{Sensitivity}}{\text{Precision} + \text{Sensitivity}}$
+\end{center}
+\item \textit{Param. Count}: is the total number of the trainable parameters.
+\end{itemize}
+
+
+
 \section{Evaluation of the Methodology I}
 
 Experiments are conducted on a Lenovo Z50-70 with Intel CORE i7-4510U CPU 2.00 GHz, 8GB RAM, NVIDIA GeForce 840M GPU; and with Python and PyTorch library.
@@ -238,7 +255,7 @@ Fig.~\ref{saspp} illustrates the training and validation loss of training a SASP
 \end{center}
 
 \subsection{Comparing with the related works}
-To fairly compare with the related works proposed work is further trained. Fig.~\ref{ploss} shows the training and validation loss of the proposed network. Fig.~\ref{pacc} shows the of the training and validation accuracy. 
+To fairly compare with the related works proposed work is further trained to 200 epoch. Fig.~\ref{ploss} shows the training and validation loss of the proposed network where the solid line refer to the mean loss and shadow refer to the standard deviation of loss. Fig.~\ref{pacc} shows the of the training and validation accuracy where the solid line refer to the mean of accuracy and shadow refer to the standard deviation of accuracy. 
 \begin{center}
 \begin{figure}[htbp]
 \centerline{\includegraphics[height=55mm,width=8cm]{PLOSS.PNG}}
@@ -254,18 +271,18 @@ To fairly compare with the related works proposed work is further trained. Fig.~
 \end{figure}
 \end{center}
 The proposed Network has a sensitivity, recall, and precision of $0.994$ and $0.991$ respectively on the validation set. Precision can be improved by investigating the precision-recall trade-off. Fig.~\ref{prt} shows the trade-off between precision and recall for different thresholds. A threshold of $0.618$ is used to improve the precision resulting in a sensitivity, recall, of $0.9903$ and precision of $0.9956$.
-Comparison metrics are defined as follows:
-\begin{itemize}
-\item \textit{Accuracy}: is the ratio of correctly classified samples to the total number of samples
-\item \textit{Sensitivity}: is the ratio of correctly classified Covid-19 samples to the total number of actual Covid-19 samples 
-\item \textit{Precision}: is the ratio of correctly, according to the ground-truth labels, classified Covid-19 samples to the total number of samples classified as Covid-19.
-\item \textit{Specificity}: is the ratio of correctly, according to the ground-truth labels, classified non-COVID-19 to the total number of non-COVID-19.
-\item \textit{F1-score}: is the harmonic mean of both Sensitivity and Precision.
-\begin{center}  
- $F_{1}=\frac{2\times\text{Precision} \times \text{Sensitivity}}{\text{Precision} + \text{Sensitivity}}$
-\end{center}
-\item \textit{Param. Count}: is the total number of the trainable parameters.
-\end{itemize}
+% Comparison metrics are defined as follows:
+% \begin{itemize}
+% \item \textit{Accuracy}: is the ratio of correctly classified samples to the total number of samples
+% \item \textit{Sensitivity}: is the ratio of correctly classified Covid-19 samples to the total number of actual Covid-19 samples 
+% \item \textit{Precision}: is the ratio of correctly, according to the ground-truth labels, classified Covid-19 samples to the total number of samples classified as Covid-19.
+% \item \textit{Specificity}: is the ratio of correctly, according to the ground-truth labels, classified non-COVID-19 to the total number of non-COVID-19.
+% \item \textit{F1-score}: is the harmonic mean of both Sensitivity and Precision.
+% \begin{center}  
+%  $F_{1}=\frac{2\times\text{Precision} \times \text{Sensitivity}}{\text{Precision} + \text{Sensitivity}}$
+% \end{center}
+% \item \textit{Param. Count}: is the total number of the trainable parameters.
+% \end{itemize}
 
 
 \begin{table*}[!p!t]
