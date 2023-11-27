@@ -14,7 +14,7 @@ All models are Trained using QaTa-Cov-19~\cite{ahishali2021advance} dataset usin
 \label{pdist}
 \end{figure}
 \end{center}
-QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation from CXR images. All models used for comparison are trained using QaTa-COV19-v1. Qata-COV19-v1 consists of 4603 COVID-19 CXRs and $120,013$ control group CXRs. A balanced number of samples for the two classes is used, namely 4603 CXR images for each class to train the models. Pneumonia Scales of QaTa-COV19-v1 do not exhibit a uniform distribution. The scale of the Pneumonia can be defined as the number, area, of 8-neighbor-connected pixels labeled as COVID-19 pneumonia. QaTa-COV19-v1 provides a binary mask of 2951 COVID-19 CXR images which can be used for approximating the distribution of scales across the dataset. Fig.~\ref{pdist} illustrates the statistical distribution of QaTa-COV19 scales. The non-uniform distribution of the scales allows the CNN models to only recognize the small scales and not the large scales.
+QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation from CXR images. All models used for comparison are trained using QaTa-COV19-v1. Qata-COV19-v1 consists of 4603 COVID-19 CXRs and $120,013$ control group CXRs. A balanced number of samples for the two classes is used, namely 4603 CXR images for each class to train the models. Pneumonia Scales of QaTa-COV19-v1 do not exhibit a uniform distribution. The scale of the Pneumonia can be defined as the number, area, of 8-neighbor-connected pixels labeled as COVID-19 pneumonia. QaTa-COV19-v1 provides a binary mask of 2951 COVID-19 CXR images which can be used for approximating the distribution of scales across the dataset. Figure.~\ref{pdist} illustrates the statistical distribution of QaTa-COV19 scales. The non-uniform distribution of the scales allows the CNN models to only recognize the small scales and not the large scales.
 
 \section{Evaluation metrics}
 In evaluating the performance of models for COVID-19 diagnosis, it is essential to employ well-defined comparison metrics to assess their effectiveness. These metrics provide a quantitative measure of a model's ability to correctly classify COVID-19 and non-COVID-19 samples. The key metrics include accuracy, which quantifies the overall correctness of classifications, sensitivity, which measures the model's ability to correctly identify COVID-19 cases among actual positives, precision, which gauges the precision of COVID-19 classifications relative to all samples classified as such, specificity, which evaluates the model's accuracy in correctly classifying non-COVID-19 cases, and the F1-score, which combines sensitivity and precision into a single measure of model performance. Additionally, the parameter count reflects the number of trainable parameters within the model, providing insights into its computational complexity and how it'll consume computational resources. These metrics collectively serve as vital tools in assessing the diagnostic capability of COVID-19 detection models.
@@ -80,7 +80,7 @@ LinearLayer3 & 2 & Softmax\\
 \end{table}
 
 \subsection{Network Training}
-The proposed CNN model is trained for 22 epochs. Adaptive Moment Estimation (Adam) optimizer~\cite{kingma2014adam} is a popular optimization technique for training deep networks. Adam optimizer is used during the training phase of the proposed CNN model. Both batch size and Adam optimizer learning rate are changed during the training phase if the training loss stops decreasing. Table~\ref{tabTrparam} summarizes the parameter values used in the training phase of the proposed CNN model. Fig.~\ref{fig5}(a) shows the progress for training and validation loss across each epoch. The difference between the training loss and validation loss through epochs shows that we did not memorize the dataset.
+The proposed CNN model is trained for 22 epochs. Adaptive Moment Estimation (Adam) optimizer~\cite{kingma2014adam} is a popular optimization technique for training deep networks. Adam optimizer is used during the training phase of the proposed CNN model. Both batch size and Adam optimizer learning rate are changed during the training phase if the training loss stops decreasing. Table~\ref{tabTrparam} summarizes the parameter values used in the training phase of the proposed CNN model where the epoch is full training cycle using the entire dataset and batch size is the total number of samples feed to the model. Figure.~\ref{fig5}(a) shows the progress for training and validation loss across each epoch. The difference between the training loss and validation loss through epochs shows that we did not memorize the dataset.
 \begin{table}[htbp]
 \caption{The change of batch size and learning rate through the Training process}
 \begin{center}
@@ -221,7 +221,7 @@ During training no overfitting effects are observed.
 \subsection{Comparison with baselines}
 The proposed network is compared with the vanilla SPP-based Architecture and ASPP architecture.
 \subsubsection{Comparing with SPP-nets}
-Fig.~\ref{SPP-train} illustrates both training loss and training and validation accuracies and losses. Table~\ref{blaccom} illustrates the testing accuracy for comparison between the SPP-nets baseline and the proposed architecture.
+Figure.~\ref{SPP-train} illustrates both training loss and training and validation accuracies and losses. Table~\ref{blaccom} illustrates the testing accuracy for comparison between the SPP-nets baseline and the proposed architecture.
 \begin{table}[htbp]
 \caption{Comparison between Proposed network and baseline SPP architectures }
 \begin{center}
@@ -245,7 +245,7 @@ Proposed Network & $0.987$\\
 \end{center}
 \end{table}
 \subsubsection{Comparing with SASPP}
-Fig.~\ref{saspp} illustrates the training and validation loss of training a SASPP baseline architecture. As shown in Fig.~\ref{saspp} SASPP is unable to generalize and start overfitting the training set. This comparison empirically shows the importance of the bottleneck introduced in the proposed architecture.
+Figure.~\ref{saspp} illustrates the training and validation loss of training a SASPP baseline architecture. As shown in Fig.~\ref{saspp} SASPP is unable to generalize and start overfitting the training set. This comparison empirically shows the importance of the bottleneck introduced in the proposed architecture.
 
 \begin{center}
 \begin{figure}[htbp]
@@ -256,7 +256,7 @@ Fig.~\ref{saspp} illustrates the training and validation loss of training a SASP
 \end{center}
 
 \subsection{Comparing with the related works}
-To fairly compare with the related works proposed work is further trained to 200 epoch. Fig.~\ref{ploss} shows the training and validation loss of the proposed network where the solid line refer to the mean loss and shadow refer to the standard deviation of loss. Fig.~\ref{pacc} shows the of the training and validation accuracy where the solid line refer to the mean of accuracy and shadow refer to the standard deviation of accuracy. 
+To fairly compare with the related works proposed work is further trained to 200 epoch. Figure.~\ref{ploss} shows the training and validation loss of the proposed network where the solid line refer to the mean loss and shadow refer to the standard deviation of loss. Figure.~\ref{pacc} shows the of the training and validation accuracy where the solid line refer to the mean of accuracy and shadow refer to the standard deviation of accuracy. 
 \begin{center}
 \begin{figure}[htbp]
 \centerline{\includegraphics[height=55mm,width=8cm]{PLOSS.PNG}}
@@ -271,7 +271,7 @@ To fairly compare with the related works proposed work is further trained to 200
 \label{pacc}
 \end{figure}
 \end{center}
-The proposed Network has a sensitivity, recall, and precision of $0.994$ and $0.991$ respectively on the validation set. Precision can be improved by investigating the precision-recall trade-off. Fig.~\ref{prt} shows the trade-off between precision and recall for different thresholds. A threshold of $0.618$ is used to improve the precision resulting in a sensitivity, recall, of $0.9903$ and precision of $0.9956$.
+The proposed Network has a sensitivity, recall, and precision of $0.994$ and $0.991$ respectively on the validation set. Precision can be improved by investigating the precision-recall trade-off. Figure.~\ref{prt} shows the trade-off between precision and recall for different thresholds. A threshold of $0.618$ is used to improve the precision resulting in a sensitivity, recall, of $0.9903$ and precision of $0.9956$.
 % Comparison metrics are defined as follows:
 % \begin{itemize}
 % \item \textit{Accuracy}: is the ratio of correctly classified samples to the total number of samples
