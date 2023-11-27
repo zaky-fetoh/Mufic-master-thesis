@@ -1,0 +1,84 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Abstract}{i}{}%
+\contentsline {chapter}{Acknowledgements}{iii}{}%
+\contentsline {chapter}{Contents}{v}{}%
+\contentsline {chapter}{List of Figures}{ix}{}%
+\contentsline {chapter}{List of Tables}{xiii}{}%
+\contentsline {chapter}{List of Abbreviations}{xv}{}%
+\contentsline {chapter}{List of Symbols}{xvii}{}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{}%
+\contentsline {section}{\numberline {1.1}Coronavirus Disease}{1}{}%
+\contentsline {section}{\numberline {1.2}Research Problem Statement}{2}{}%
+\contentsline {section}{\numberline {1.3}Motivation}{3}{}%
+\contentsline {section}{\numberline {1.4}Detection Challenges}{3}{}%
+\contentsline {section}{\numberline {1.5}Thesis Objective and Contributions}{4}{}%
+\contentsline {section}{\numberline {1.6}Thesis Organization}{5}{}%
+\contentsline {chapter}{\numberline {2}Literature Review}{7}{}%
+\contentsline {section}{\numberline {2.1}Convolutional Neural Networks (CNN)}{7}{}%
+\contentsline {subsection}{\numberline {2.1.1}Convolutional Layer}{8}{}%
+\contentsline {section}{\numberline {2.2}Activation functions}{9}{}%
+\contentsline {subsection}{\numberline {2.2.1}Sigmoid}{9}{}%
+\contentsline {subsection}{\numberline {2.2.2}Hyperbolic tangent (tanh)}{11}{}%
+\contentsline {subsection}{\numberline {2.2.3}Rectified Linear Unit (ReLU)}{11}{}%
+\contentsline {subsection}{\numberline {2.2.4}Leaky Rectified Linear Unit (Leaky ReLU)}{12}{}%
+\contentsline {subsection}{\numberline {2.2.5}Softmax}{12}{}%
+\contentsline {section}{\numberline {2.3}Pooling}{13}{}%
+\contentsline {subsection}{\numberline {2.3.1}Average Pooling}{14}{}%
+\contentsline {subsection}{\numberline {2.3.2}Max pooling}{14}{}%
+\contentsline {section}{\numberline {2.4}Spatial Pyramid Pooling}{15}{}%
+\contentsline {section}{\numberline {2.5}Neural Network Attention}{16}{}%
+\contentsline {subsection}{\numberline {2.5.1}Channel Attention}{16}{}%
+\contentsline {subsection}{\numberline {2.5.2}Spatial Attention}{17}{}%
+\contentsline {section}{\numberline {2.6}Normalization}{18}{}%
+\contentsline {subsection}{\numberline {2.6.1}Batch Normalization}{18}{}%
+\contentsline {subsection}{\numberline {2.6.2}Layer Normalization}{18}{}%
+\contentsline {section}{\numberline {2.7}Augmentation}{19}{}%
+\contentsline {section}{\numberline {2.8}Dropout}{19}{}%
+\contentsline {section}{\numberline {2.9}Multiscale Recognition}{21}{}%
+\contentsline {section}{\numberline {2.10}CNN Based Models}{23}{}%
+\contentsline {subsection}{\numberline {2.10.1}Reliable COVID-19 Detection Using Chest X-ray Images}{23}{}%
+\contentsline {subsection}{\numberline {2.10.2}Advance Warning Methodologies for COVID-19 Using Chest X-Ray Images}{24}{}%
+\contentsline {subsubsection}{Feature Extraction using DensNet121}{24}{}%
+\contentsline {subsubsection}{Representation-based classification}{24}{}%
+\contentsline {subsection}{\numberline {2.10.3}COVID-19 Detection Using DL Algorithm on CXR Images}{25}{}%
+\contentsline {section}{\numberline {2.11}Traditional Computer Vision Models}{26}{}%
+\contentsline {subsection}{\numberline {2.11.1} COVID-19 detection in CXR images using majority voting based classifier ensemble}{26}{}%
+\contentsline {section}{\numberline {2.12}Summary}{27}{}%
+\contentsline {chapter}{\numberline {3}Proposed Methodologies}{31}{}%
+\contentsline {section}{\numberline {3.1}Methodology I}{31}{}%
+\contentsline {subsection}{\numberline {3.1.1}Preprocessing Phase}{32}{}%
+\contentsline {subsection}{\numberline {3.1.2}Feature Extraction and Classification}{32}{}%
+\contentsline {subsubsection}{Separable CNN kernels}{33}{}%
+\contentsline {subsubsection}{ Batch Normalization and Activation function}{34}{}%
+\contentsline {subsubsection}{ Deep and larger receptive field Network design}{34}{}%
+\contentsline {section}{\numberline {3.2}Methodology II}{37}{}%
+\contentsline {subsection}{\numberline {3.2.1}Data augmentation}{37}{}%
+\contentsline {subsection}{\numberline {3.2.2}Spatially Weighted Atrous Spatial Pyramid Pooling}{38}{}%
+\contentsline {subsection}{\numberline {3.2.3}Proposed CNN Architecture}{40}{}%
+\contentsline {section}{\numberline {3.3}Summary}{41}{}%
+\contentsline {chapter}{\numberline {4}Experimental Results}{45}{}%
+\contentsline {section}{\numberline {4.1}QaTa-COV19 Dataset}{45}{}%
+\contentsline {section}{\numberline {4.2}Evaluation metrics}{46}{}%
+\contentsline {section}{\numberline {4.3}Evaluation of the Methodology I}{47}{}%
+\contentsline {subsection}{\numberline {4.3.1}Details of the Proposed Architecture}{47}{}%
+\contentsline {subsection}{\numberline {4.3.2}Hyperparameter Specification}{47}{}%
+\contentsline {subsection}{\numberline {4.3.3}Network Training}{47}{}%
+\contentsline {subsection}{\numberline {4.3.4}Model Evaluation}{49}{}%
+\contentsline {section}{\numberline {4.4}Evaluation of the Methodology II}{49}{}%
+\contentsline {subsection}{\numberline {4.4.1}Baseline Networks}{50}{}%
+\contentsline {subsubsection}{Spatial Pyramid Pooling (SPP-net) Based model}{50}{}%
+\contentsline {subsubsection}{Switchable Atrous Spatial Pyramid Pooling (SASPP-net) Based models}{51}{}%
+\contentsline {subsection}{\numberline {4.4.2}Models Training}{52}{}%
+\contentsline {subsection}{\numberline {4.4.3}Reducing the overfitting}{52}{}%
+\contentsline {subsection}{\numberline {4.4.4}Comparison with baselines}{53}{}%
+\contentsline {subsubsection}{Comparing with SPP-nets}{53}{}%
+\contentsline {subsubsection}{Comparing with SASPP}{53}{}%
+\contentsline {subsection}{\numberline {4.4.5}Comparing with the related works}{53}{}%
+\contentsline {section}{\numberline {4.5}Summary}{56}{}%
+\contentsline {chapter}{\numberline {5}Conclusion And Future Work}{57}{}%
+\contentsline {section}{\numberline {5.1}Conclusion}{57}{}%
+\contentsline {section}{\numberline {5.2}Suggestion for Future Work}{58}{}%
+\contentsline {chapter}{Bibliography}{59}{}%
+\contentsline {chapter}{\bgroup \catcode `^=11\relax \catcode `_=11\relax \text@arab [utf]{موجز الرسالة}}{71}{}%
+\contentsline {chapter}{\bgroup \catcode `^=11\relax \catcode `_=11\relax \text@arab [utf]{نبذة الرسالة}}{73}{}%
+\contentsline {chapter}{\bgroup \catcode `^=11\relax \catcode `_=11\relax \text@arab [utf]{السيرة الذاتية لمقدم الرسالة}}{75}{}%

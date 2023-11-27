@@ -1,0 +1,11 @@
+# Fdb version 3
+["xdvipdfmx"] 0 "main.xdv" "main.pdf" "main" 0
+  "main.xdv" 0 -1 0 "xelatex"
+  (generated)
+  "main.pdf"
+["xelatex"] 0 "/media/zaky/FCS/MASTER/Thesis/main.tex" "main.xdv" "main" 0
+  "/media/zaky/FCS/MASTER/Thesis/main.tex" 0 -1 0 ""
+  "main.aux" 1701069115 32 3985256e7290058c681f74d7a3565a19 ""
+  (generated)
+  "main.log"
+  "main.xdv"
