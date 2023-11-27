@@ -20,15 +20,16 @@ QaTa-COV19 is a benchmark dataset for COVID-19 detection and Segmentation from C
 In evaluating the performance of models for COVID-19 diagnosis, it is essential to employ well-defined comparison metrics to assess their effectiveness. These metrics provide a quantitative measure of a model's ability to correctly classify COVID-19 and non-COVID-19 samples. The key metrics include accuracy, which quantifies the overall correctness of classifications, sensitivity, which measures the model's ability to correctly identify COVID-19 cases among actual positives, precision, which gauges the precision of COVID-19 classifications relative to all samples classified as such, specificity, which evaluates the model's accuracy in correctly classifying non-COVID-19 cases, and the F1-score, which combines sensitivity and precision into a single measure of model performance. Additionally, the parameter count reflects the number of trainable parameters within the model, providing insights into its computational complexity and how it'll consume computational resources. These metrics collectively serve as vital tools in assessing the diagnostic capability of COVID-19 detection models.
 Comparison metrics are:
 \begin{itemize}
-\item \textit{Accuracy}: is the ratio of correctly classified samples to the total number of samples
-\item \textit{Sensitivity}: is the ratio of correctly classified Covid-19 samples to the total number of actual Covid-19 samples 
-\item \textit{Precision}: is the ratio of correctly, according to the ground-truth labels, classified Covid-19 samples to the total number of samples classified as Covid-19.
-\item \textit{Specificity}: is the ratio of correctly, according to the ground-truth labels, classified non-COVID-19 to the total number of non-COVID-19.
-\item \textit{F1-score}: is the harmonic mean of both Sensitivity and Precision.
+\item \textit{Accuracy(A)}: is the ratio of correctly classified samples to the total number of samples
+\item \textit{Sensitivity(S)}: is the ratio of correctly classified Covid-19 samples to the total number of actual Covid-19 samples 
+\item \textit{Precision(P)}: is the ratio of correctly, according to the ground-truth labels, classified Covid-19 samples to the total number of samples classified as Covid-19.
+\item \textit{Specificity(SP)}: is the ratio of correctly, according to the ground-truth labels, classified non-COVID-19 to the total number of non-COVID-19.
+\item \textit{F1-score(F1)}: is the harmonic mean of both Sensitivity and Precision.
 \begin{center}  
  $F_{1}=\frac{2\times\text{Precision} \times \text{Sensitivity}}{\text{Precision} + \text{Sensitivity}}$
 \end{center}
 \item \textit{Param. Count}: is the total number of the trainable parameters.
+\item \textit{Cross Entropy Loss}:$H(p,q) = -\sum_{\forall x} p(x) \log(q(x))$
 \end{itemize}
 
 
