@@ -13,7 +13,7 @@ can be thought of as parallel planes or channels. In a convolutional layer, the 
 \begin{figure}
     \begin{center}
         \includegraphics[width=\textwidth]{Figures/LeNetCNN.jpeg}
-        \caption{Typical CNN architecture}
+        \caption{Typical CNN architecture \cite{lecun1989handwritten}}
         \label{lenet}
     \end{center}
 \end{figure}
@@ -28,13 +28,13 @@ To fully determine the behavior of a convolutional layer, we still need to speci
     \begin{equation}\label{eq:logistic}
         y[i]=\sum_{k}^{K} x[i+r\times k] w[k]
     \end{equation}
-     where $x$ is the input signal, $w$ is the convolutional filter with a size of $K$, $y$ is the resultant signal, and $r$ is the dilation rate.
+     where $x$ is the input signal, $w$ is the convolutional filter with a size of $K$, $y$ is the resultant signal, and $r$ is the dilation rate~\cite{chen2017deeplab}.
 \end{itemize}
 
 \begin{figure}
     \begin{center}
         \includegraphics[width=\textwidth]{Figures/2DConvKernels.png}
-        \caption{Convolutional layer with single input feature map and four convolutional kernels}
+        \caption{Convolutional layer with single input feature map and four convolutional kernels~\cite{chen2017deeplab}}
         \label{conv2Dlayer}
     \end{center}
 \end{figure}
@@ -46,7 +46,7 @@ Generally, each convolutional layer computes some activation based on its input 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{Figures/Actfuncs.png}
-\caption{Some of the most common activation functions: sigmoid, tanh, ReLU, and Leaky ReLU. ReLU and Leaky ReLU are overlapping for $z \geq 0$.}
+\caption{Some of the most common activation functions: sigmoid, tanh, ReLU, and Leaky ReLU. ReLU and Leaky ReLU are overlapping for $z \geq 0$ \cite{krizhevsky2012imagenet} \cite{lecun1989handwritten}\cite{he2016deep}.}
 \label{fig:activations}
 \end{figure}
 
@@ -61,7 +61,7 @@ The sigmoid \cite{lecun1989handwritten}, often called \emph{logistic}, is a diff
 increasing function that takes any real-valued number and maps it to $[0, 1]$.
 As illustrated in its representation in Fig.~\ref{fig:activations}, for large
 negative numbers it approaches $0$. However, for large positive numbers, it
-approaches $1$. It is defined as
+approaches $1$. It is defined~\cite{lecun1989handwritten} as
 
 \begin{equation}\label{eq:logistic}
     logistic(\mathbf{z}) = \frac{1}{1+\exp(-\mathbf{z})}.
@@ -107,7 +107,7 @@ The hyperbolic tangent,~\emph{tanh}, is a differentiable monotonically increasin
 
 
 \subsection{Rectified Linear Unit (ReLU)}\label{sec:relu}
-Rectified Linear Unit (ReLU) is introduced in~\cite{krizhevsky2012imagenet}. It has become the nonlinearity of choice in many applications~\cite{he2016deep}\cite{krizhevsky2012imagenet}. It is defined as
+Rectified Linear Unit (ReLU) is introduced in~\cite{krizhevsky2012imagenet}. It has become the nonlinearity of choice in many applications~\cite{he2016deep}\cite{krizhevsky2012imagenet}. It is defined as \cite{krizhevsky2012imagenet}
 
 \begin{equation}\label{eq:relu}
     relu(\mathbf{z}) = max(0, \mathbf{z}).
@@ -122,7 +122,7 @@ Although very simple, it has some very interesting properties\cite{he2015delving
             \nabla (relu(\mathbf{z}^{(l)})) =
                 \begin{cases}
                     \mathbf{a}^{(l-1)},  & \text{if } \mathbf{z}^{(l)} > 0 ,\\
-                    0,          & \text{if } \mathbf{z}^{(l)} < 0 ,\\
+                    0, & \text{if } \mathbf{z}^{(l)} < 0 ,\\
                     undefined,  & \text{if } \mathbf{z}^{(l)} = 0.
                 \end{cases}
         \end{equation}
@@ -133,7 +133,7 @@ Although very simple, it has some very interesting properties\cite{he2015delving
 \end{itemize}
 
 \subsection{Leaky Rectified Linear Unit (Leaky ReLU)}\label{sec:lrelu}
-Leaky ReLUs \cite{krizhevsky2012imagenet} have been proposed as a way to mitigate the saturated units of ReLUs caused by extreme updates, by preventing the unit from having zero gradient thus allowing a  gradient to flow through the unit, potentially recovering extreme values of the weights. Leaky ReLUs are widely adapted and defined as follows:
+Leaky ReLUs \cite{krizhevsky2012imagenet} have been proposed as a way to mitigate the saturated units of ReLUs caused by extreme updates, by preventing the unit from having zero gradient thus allowing a  gradient to flow through the unit, potentially recovering extreme values of the weights. Leaky ReLUs are widely adapted and defined as follows\cite{krizhevsky2012imagenet}:
 
 \begin{equation}\label{eq:lrelu}
     leaky\_relu(\mathbf{z}) = max(\beta*\mathbf{z}, \mathbf{z}),
@@ -142,7 +142,7 @@ Leaky ReLUs \cite{krizhevsky2012imagenet} have been proposed as a way to mitigat
 \noindent where $\beta$ is a small constant.
 
 \subsection{Softmax}\label{sec:softmax}
- Unlike previously mentioned functions softmax \cite{lecun1989handwritten} differs in that it does depend on all the values of the dimensions altogether to produce the categorical distribution of the over $N$ classes. It is defined as follows:
+ Unlike previously mentioned functions softmax \cite{lecun1989handwritten} differs in that it does depend on all the values of the dimensions altogether to produce the categorical distribution of the over $N$ classes. It is defined as follows\cite{simonyan2014very}:
 
 \begin{equation}\label{eq:softmax}
     softmax(z_i) = \frac{\exp(z_i)}{\sum_{k=0}^K{\exp(z_k)}},
@@ -150,7 +150,7 @@ Leaky ReLUs \cite{krizhevsky2012imagenet} have been proposed as a way to mitigat
 
 \noindent where $K$ is the number of classes, i.e., of dimensions (or neurons).
 
-Temperature parameter $T$ \cite{hinton2015distilling} can be used with the softmax which controls its steepness (see Fig.~\ref{fig:softmax}), i.e., to manage the randomness of predictions. High temperature, case of $T = \inf$, produces a uniform categorical distribution. While a small temperature produces a peaked probability distribution for the larger value.
+Temperature parameter $T$ \cite{hinton2015distilling} can be used with the softmax which controls its steepness (see Fig.~\ref{fig:softmax}), i.e., to manage the randomness of predictions. High temperature, case of $T = \inf$, produces a uniform categorical distribution. While a small temperature produces a peaked probability distribution for the larger value\cite{hinton2015distilling}.
 
 
 \begin{equation}\label{eq:softmax_tmp}
@@ -184,13 +184,13 @@ provides an example of average pooling.
     \centering
     \includegraphics[width=\textwidth]{Figures/Max-pooling-and-average-pooling.png}
     \caption{\label{fig:numerical_avg_max_pooling} Computing the output values
-        of a $3 \times 3$ average pooling and Max Pooling operation on a $5 \times 5$ input using $1 \times 1$ strides.}
+        of a $2 \times 2$ average pooling and Max Pooling operation on a $2 \times 2$ input using $1 \times 1$ strides.}
 \end{figure}
 
 
 
 \subsection{Max pooling}
-Max pooling \cite{krizhevsky2012imagenet} is performed the same way as average pooling, but instead of performing the averaging as an aggregation function, it performs a max function. Figure~\ref{fig:numerical_avg_max_pooling} provides an example of average pooling.
+Max pooling \cite{krizhevsky2012imagenet} is performed the same way as average pooling, but instead of performing the averaging as an aggregation function, it performs a max function. Figure~\ref{fig:numerical_avg_max_pooling} provides an example of max pooling.
 
 
 CNN is used for feature extraction from images followed by fully connected layers for classification. As convolution operation is applied in a sliding window fashion it can accept input of varied size, resulting in a varied size output. CNN is followed by fully connected layers which can accept input of fixed size. This makes CNN incapable of accepting varied-size inputs. Thus images are first reshaped into some specific dimension before feeding into CNN. This creates another issue of image warping and reduced resolution. Spatial Pyramid pooling comes as a counter to this problem.
@@ -203,14 +203,14 @@ Figure~\ref{originalSpp} illustrates our method. In each spatial bin, we pool th
     \begin{center}
         \includegraphics[width=\textwidth]{Figures/SPP.png}
         \caption{\label{originalSpp} spatial pyramid
-        pooling layer. Input feature map is divided into pins for each pin an aggregation function is performed}
+        pooling layer. Input feature map is divided into pins for each pin an aggregation function is performed\cite{he2015spatial}}
     \end{center}
 \end{figure}
 
 \section{Neural Network Attention}
 In a vision system, an attention mechanism can be defined as a dynamic selection process that is realized by weighting features according to the importance of the input in an adaptive manner. Attention attempts to selectively concentrate on relevant information or features while ignoring other irrelevant ones.  Currently, attention-based models have shown great success in natural language processing \cite{vaswani2017attention} and computer vision tasks \cite{guo2022attention}. Attention modules guide the network to focus on the most relevant features only \cite{guo2022attention}. Attention has many categories such as channel attention and spatial attention. Stated as follows 
 \subsection{Channel Attention}
-Internal CNN feature maps have different channels in different usually each channel represents different objects~\cite{chen2017sca}. Channel attention recalibrates the weight of each channel, and can be viewed as an object selection process, thus determining what to pay attention to.~\cite{hu2018squeeze} is a pioneering channel attention mechanism that is formulated as follows
+Internal CNN feature maps have different channels in different usually each channel represents different objects~\cite{chen2017sca}. Channel attention recalibrates the weight of each channel, and can be viewed as an object selection process, thus determining what to pay attention to.~\cite{hu2018squeeze} is a pioneering channel attention mechanism that is formulated as follows \cite{hu2018squeeze}
  \begin{equation}
     \begin{split}
         &Att(X) = \sigma(W_2ReLU(W_1GAP(X)))\\
