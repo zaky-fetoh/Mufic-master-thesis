@@ -259,7 +259,7 @@ BN is applied to each layer for a minibatch $\mathcal{B}$ as follows\cite{ioffe2
     &  y_{i} = \gamma\hat{x}_{i} + \beta = \text{BN}_{\gamma, \beta}\left(x_{i}\right) \\
 \end{split}
 \end{equation}
-BN has many benefits which are summarized as follows:
+where $\mu_{\mathcal{B}}$ , $\sigma^{2}_{\mathcal{B}}$, $\gamma$,and $\beta$ are the mean of feature maps, standerd diviation of feature maps, multiplicative scaling factor, and additive scaling factor. BN has many benefits which are summarized as follows:
 \begin{itemize}
     \item \textbf{Accelerate network training.} BN allows a larger learning rate.
     \item \textbf{Regularization effect.} BN has a regularization effect due to batch construction being done stochastically.

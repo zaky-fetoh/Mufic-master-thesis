@@ -14,7 +14,7 @@ In this section, CNN-based models for COVID-19 detection are reviewed.
         \caption{\label{rlt:dag} ReCovNet model proposed by~\cite{dag}. It uses a pre-trained encoder for the classification of COVID-19 CXR image}
     \end{center}
 \end{figure}
-In \cite{dag}, authors have adapted transfer learning techniques to train CNN models. Training is performed through two phases. Fig.~\ref{rlt:dag} represents the proposed system by \cite{dag}. In phase I, u-shaped architecture is excluded by removing the skip connections, which perform the concatenation operation. The reason for constructing an encoder-decoder network without skip connections is that the contributions from the initial layers are avoided; therefore, the network can make decisions from the high-level features that are closer to the segmentation mapping of the input image.  In phase II, the decoder network is discarded, and the encoder network is fine-tuned for the binary classification task. Adam optimizer is used to train their network. The model is trained with the QaTa-COV19 dataset. The method achieved a performance of 98.57\% for sensitivity and 99.77\%  for specificity.
+In \cite{dag}, authors have adapted transfer learning techniques to train CNN models. Training is performed through two phases. figure.~\ref{rlt:dag} represents the proposed system by \cite{dag}. In phase I, u-shaped architecture is excluded by removing the skip connections, which perform the concatenation operation. The reason for constructing an encoder-decoder network without skip connections is that the contributions from the initial layers are avoided; therefore, the network can make decisions from the high-level features that are closer to the segmentation mapping of the input image.  In phase II, the decoder network is discarded, and the encoder network is fine-tuned for the binary classification task. Adam optimizer is used to train their network. The model is trained with the QaTa-COV19 dataset. The method achieved a performance of 98.57\% for sensitivity and 99.77\%  for specificity.
 
 \subsection{Advance Warning Methodologies for
 COVID-19 Using Chest X-Ray Images}
@@ -51,7 +51,7 @@ Then assign a class of the lower construction error as follows:
     \end{split}
 \end{equation}
 
-Fig.~\ref{fig:RC} represents the classification pipeline presented in~\cite{ar}. They achieved a $.98$ and $.97$ accuracy for Sparse Representation-based classification and Collaborative Representation-based classification, respectively. 
+Figure.~\ref{fig:RC} represents the classification pipeline presented in~\cite{ar}. They achieved a $.98$ and $.97$ accuracy for Sparse Representation-based classification and Collaborative Representation-based classification, respectively. 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{Figures/RCpipline.png}
@@ -75,7 +75,7 @@ Authors of~\cite{ar} also evaluated SVM for classifying features produced by Den
   
 \subsection{COVID-19 Detection Using DL Algorithm on CXR Images}
 
-In~\cite{akt}, authors proposed a modified MobileNetV2 CNN model where the stander convolution is replaced by a depth-wise convolution. Their model is trained with $3616$ COVID-19 CXR images and 10,192 normal CXR images. The dataset is initially preprocessed by reshaping input images to $299\times299$ and an image enhancement technique is applied. The model achieved an accuracy of 98\% for the binary classification task. Fig.~\ref{fig:akterPipeline} illustrates general pipeline proposed by~\cite{akt} which is detailed as follows:
+In~\cite{akt}, authors proposed a modified MobileNetV2 CNN model where the stander convolution is replaced by a depth-wise convolution. Their model is trained with $3616$ COVID-19 CXR images and 10,192 normal CXR images. The dataset is initially preprocessed by reshaping input images to $299\times299$ and an image enhancement technique is applied. The model achieved an accuracy of 98\% for the binary classification task. Figure.~\ref{fig:akterPipeline} illustrates general pipeline proposed by~\cite{akt} which is detailed as follows:
 
 \begin{figure}
     \begin{center}
